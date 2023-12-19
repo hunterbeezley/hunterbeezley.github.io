@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+header {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  font-size: 64px;
+  display: inline-block;
+}
+
+header.draw-trail {
+  position: relative;
+  z-index: 1;
+  animation: pulseOpacity 2s ease-in-out infinite;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  animation: drawTrail 2s ease-in-out infinite;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  box-sizing: border-box;
+  border: 2px solid #fff;
+}
+
+header span {
+  display: inline-block;
+  animation: floatAnimation 2s infinite alternate ease-in-out;
+}
+
+@keyframes floatAnimation {
+  0% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes drawTrail {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.8);
+  }
+}
+
+@keyframes pulseOpacity {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+nav {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 2;
+  text-align: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 24px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+nav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: width 0.3s ease-out;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
