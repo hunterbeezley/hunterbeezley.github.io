@@ -40,7 +40,7 @@ function createBox(label, link) {
     y: random(height - boxSize),
     xSpeed: random(1, 3),
     ySpeed: random(1, 3),
-    rotationAngle: 0, // Set rotation angle to 0
+    rotationAngle: 0,
     rotationSpeed: 0.1,
     color: color(random(255), random(255), random(255), 255),
     label: label,
@@ -51,15 +51,14 @@ function createBox(label, link) {
       rotate(this.rotationAngle);
       fill(this.color);
       rect(-boxSize / 2, -boxSize / 2, boxSize, boxSize);
-      
+
       fill(0);
       textSize(16);
       textAlign(CENTER, CENTER);
-      
-      // Rotate the text in the opposite direction of the box rotation
+
       rotate(-this.rotationAngle);
       text(this.label, 0, 0);
-      
+
       pop();
     },
     move: function () {
@@ -78,7 +77,6 @@ function createBox(label, link) {
       } else {
         this.rotationAngle += this.rotationSpeed;
         if (this.rotationAngle > PI * 2) {
-          // Once it completes one full rotation, reset the rotation angle
           this.rotationAngle = 0;
         }
       }
@@ -101,15 +99,15 @@ function mousePressed() {
       setTimeout(() => {
         openHyperlink(currentBox.link);
         setTimeout(() => {
-          isBoxMoving = true; // Reactivate box movement after 5 seconds
+          isBoxMoving = true;
         }, 5000);
-      }, 1000); // Adjust the delay as needed
+      }, 1000);
     }
   }
 }
 
 function openHyperlink(link) {
-  window.open(link, "_blank");
+  window.location.href = link;
 }
 
 function windowResized() {
