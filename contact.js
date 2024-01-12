@@ -1,60 +1,52 @@
-let boxes = [];
-let boxLifespan = 200;
-
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  for (let i = 0; i < 50; i++) {
-    createRandomBox();
-  }
-}
-
-function draw() {
-  background(0, 10);
-
-  let mousePos = createVector(mouseX, mouseY);
-
-  for (let i = boxes.length - 1; i >= 0; i--) {
-    let box = boxes[i];
-
-    let direction = p5.Vector.sub(mousePos, box.pos);
-    direction.normalize();
-
-    box.boxSpeed = direction.mult(random(1, 3));
-    box.pos.add(box.boxSpeed);
-
-    if (box.pos.x < 0 || box.pos.x > width || box.pos.y < 0 || box.pos.y > height) {
-      createRandomBox();
-      boxes.splice(i, 1);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
     }
-
-    fill(box.col);
-    noStroke();
-    rect(box.pos.x, box.pos.y, box.boxSize, box.boxSize);
-
-    box.lifespan--;
-    if (box.lifespan <= 0) {
-      createRandomBox();
-      boxes.splice(i, 1);
+    canvas {
+      display: block;
     }
-  }
-}
-
-function createRandomBox() {
-  let col = color(random(255), random(255), random(255));
-  let pos;
-  let boxSize = random(10, 30);
-  let boxSpeed = p5.Vector.random2D().mult(random(1, 3));
-  let lifespan = boxLifespan;
-
-  if (random() < 0.25) {
-    pos = createVector(random(width), 0);
-  } else if (random() < 0.5) {
-    pos = createVector(random(width), height);
-  } else if (random() < 0.75) {
-    pos = createVector(0, random(height));
-  } else {
-    pos = createVector(width, random(height));
-  }
-
-  boxes.push({ pos, boxSize, col, boxSpeed, lifespan });
-}
+    div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 2em;
+    }
+    p {
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/hydra-synth@1.1.0/builds/hydra.js"></script>
+  <script>
+    // Hydra code for background animation
+    bpm = [144];
+    voronoi(2, 0.5)
+      .modulate(src(o0))
+      .modulate(src(o0).luma(2).rotate(2, 0.20))
+      .luma(0.5)
+      .colorama(2, 3, 0)
+      .diff(src(o0))
+      .diff(src(o0))
+      .mask(shape([6, 3, 4]).scale(1.5).modulate(voronoi([8, 1.5], fast = 2)).rotate([6, 0.5, -3]).scrollY([-0.01, 0.01]).scrollX([-0.01, 0.1]).rotate(-0.2, -0.2))
+      .out(o0);
+  </script>
+  <div>
+    <h1>Contact Me</h1>
+    <p>Your contact form and other content go here...</p>
+  </div>
+</body>
+</html>
