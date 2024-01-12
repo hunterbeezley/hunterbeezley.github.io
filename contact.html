@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>hydra inside a webpage</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Page</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden; /* Hide scrollbars */
+      background: #000; /* Set body background color to black */
+      color: #fff; /* Set text color to white */
+      font-family: Arial, sans-serif; /* Use Arial or sans-serif font */
+      position: relative; /* Set body position to relative */
+    }
 
-    <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      position: absolute; /* Set header position to absolute */
+      top: 50%; /* Position the header at the vertical center */
+      left: 50%; /* Position the header at the horizontal center */
+      transform: translate(-50%, -50%); /* Center the header using transform */
+    }
 
-    <!-- import the latest version of hydra synth-->
-    <script src="https://unpkg.com/hydra-synth"></script>
-  </head>
-  <body>
-    <h1>hydra inside a webpage</h1>
+    p {
+      text-align: center;
+      font-size: 24px;
+    }
+  </style>
+  <!-- Include p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <!-- Include contact.js script -->
+  <script src="contact.js"></script>
+</head>
+<body>
 
-    <div class="codeblock">
-      <code>osc(20,0.1,2).out()</code>
-      <div class="placeholder"></div>
-    </div>
 
-    <div class="codeblock">
-      <code>voronoi().out()</code>
-      <div class="placeholder"></div>
-    </div>
-
-    <div class="codeblock">
-      <code>noise().out()</code>
-      <div class="placeholder"></div>
-    </div>
-
-    <div class="codeblock">
-      <code>shape(99).out()</code>
-      <div class="placeholder"></div>
-    </div>
-
-    <div class="codeblock">
-      <code>gradient(1).out()</code>
-      <div class="placeholder"></div>
-    </div>
-
-    <script src="./script.js"></script>
-  </body>
+</body>
 </html>
