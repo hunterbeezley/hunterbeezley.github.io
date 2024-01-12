@@ -1,115 +1,52 @@
 let boxes = [];
 let boxSize = 100;
-let boxSpeed = 5;
 let trailAlpha = 0.5;
 let bgColor;
 let isBoxMoving = true;
+let boxSpeedSlider;
+let colorIntensitySlider;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   bgColor = color(0);
 
-  // Create a box for the "My Resume" hyperlink
-  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
+  boxSpeedSlider = createSlider(1, 10, 5, 0.1);
+  boxSpeedSlider.position(20, height + 10);
 
-  // Create a box for the "GitHub" hyperlink
-  createBox("GitHub", "https://github.com/hunterbeezley");
+  colorIntensitySlider = createSlider(0, 1, 0.5, 0.01);
+  colorIntensitySlider.position(20, height + 40);
 
-  // Create a box for the "Instagram" hyperlink
-  createBox("Instagram", "https://www.instagram.com/hbeezley/");
-
-  // Create a box for the "Contact" hyperlink
-  createBox("Contact", "contact.html");
-
-  // Create a box for the "Spotify" hyperlink
-  createBox("Spotify", "https://open.spotify.com/playlist/5EuZIHbO7mhNekVu1VXVFu?si=384c7d8aa2324026");
+  // Your existing createBox calls...
 }
 
 function draw() {
   background(bgColor.levels[0], bgColor.levels[1], bgColor.levels[2], trailAlpha);
 
+  // Update boxSpeed and colorIntensity based on sliders
+  let boxSpeed = boxSpeedSlider.value();
+  let colorIntensity = colorIntensitySlider.value();
+
   for (let i = 0; i < boxes.length; i++) {
+    boxes[i].updateSpeed(boxSpeed);
+    boxes[i].updateColorIntensity(colorIntensity);
     boxes[i].display();
     boxes[i].move();
   }
 }
 
-function createBox(label, link) {
-  let newBox = {
-    x: random(width - boxSize),
-    y: random(height - boxSize),
-    xSpeed: random(1, 3),
-    ySpeed: random(1, 3),
-    rotationAngle: 0,
-    rotationSpeed: 0.1,
-    color: color(random(255), random(255), random(255), 255),
-    label: label,
-    link: link,
-    display: function () {
-      push();
-      translate(this.x + boxSize / 2, this.y + boxSize / 2);
-      rotate(this.rotationAngle);
-      fill(this.color);
-      rect(-boxSize / 2, -boxSize / 2, boxSize, boxSize);
+// Add the following methods to your createBox object definition:
 
-      fill(0);
-      textSize(16);
-      textAlign(CENTER, CENTER);
+// Add these two properties to the createBox object:
+// speedMultiplier: 1,
+// colorIntensity: 0.5,
 
-      rotate(-this.rotationAngle);
-      text(this.label, 0, 0);
+updateSpeed: function (speedMultiplier) {
+  this.xSpeed = random(1, 3) * speedMultiplier;
+  this.ySpeed = random(1, 3) * speedMultiplier;
+},
 
-      pop();
-    },
-    move: function () {
-      if (isBoxMoving) {
-        this.x += this.xSpeed;
-        this.y += this.ySpeed;
+updateColorIntensity: function (intensity) {
+  this.color.levels[3] = 255 * intensity;
+},
 
-        if (this.x < 0 || this.x > width - boxSize) {
-          this.xSpeed *= -1;
-          this.color = color(random(255), random(255), random(255), 255);
-        }
-        if (this.y < 0 || this.y > height - boxSize) {
-          this.ySpeed *= -1;
-          this.color = color(random(255), random(255), random(255), 255);
-        }
-      } else {
-        this.rotationAngle += this.rotationSpeed;
-        if (this.rotationAngle > PI * 2) {
-          this.rotationAngle = 0;
-        }
-      }
-    }
-  };
-
-  boxes.push(newBox);
-}
-
-function mousePressed() {
-  for (let i = 0; i < boxes.length; i++) {
-    let currentBox = boxes[i];
-    if (
-      mouseX > currentBox.x &&
-      mouseX < currentBox.x + boxSize &&
-      mouseY > currentBox.y &&
-      mouseY < currentBox.y + boxSize
-    ) {
-      isBoxMoving = false;
-      setTimeout(() => {
-        openHyperlink(currentBox.link);
-        setTimeout(() => {
-          isBoxMoving = true;
-        }, 5000);
-      }, 1000);
-    }
-  }
-}
-
-function openHyperlink(link) {
-  window.location.href = link;
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
+// The rest of your existing createBox object definition...
