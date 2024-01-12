@@ -1,31 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Your existing head content... -->
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hunter C. Beezley</title>
+  <!-- Include p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <style>
-    /* Your existing styles... */
+    body {
+      margin: 0;
+      overflow: hidden; /* Hide scrollbars */
+      background: #000; /* Set body background color to black */
+    }
+
+    header {
+      position: absolute;
+      top: 50px; /* Adjusted to move header slightly down */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      font-size: 64px; /* Adjusted font size to 64px */
+      display: inline-block;
+    }
+
+    header.draw-trail {
+      position: relative;
+      z-index: 1;
+      animation: pulseOpacity 2s ease-in-out infinite; /* Added pulsating effect to opacity */
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: 2px solid #fff; /* Added initial border for drawing trail */
+      animation: drawTrail 2s ease-in-out infinite; /* Adjusted animation duration */
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: -4px; /* Adjusted position for the second border */
+      left: -4px; /* Adjusted position for the second border */
+      width: calc(100% + 8px); /* Adjusted width for the second border */
+      height: calc(100% + 8px); /* Adjusted height for the second border */
+      box-sizing: border-box;
+      border: 2px solid #fff; /* Added second border */
+    }
+
+    header span {
+      display: inline-block;
+      animation: floatAnimation 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatAnimation {
+      0% {
+        transform: translateX(-4px);
+      }
+      100% {
+        transform: translateX(4px);
+      }
+    }
+
+    @keyframes drawTrail {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(0.8);
+      }
+    }
+
+    @keyframes pulseOpacity {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+
+    nav {
+      position: absolute;
+      top: 150px; /* Adjusted to move hyperlinks up */
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 2;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px; /* Adjusted margin for better visibility */
+      font-size: 24px;
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: #fff;
+      transition: width 0.3s ease-out;
+    }
+
+    nav a:hover::before {
+      width: 100%;
+    }
+
+    canvas {
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   </style>
 </head>
 <body>
 
 <header class="draw-trail">
-  <!-- Your existing header content... -->
+  <span>H</span>
+  <span>u</span>
+  <span>n</span>
+  <span>t</span>
+  <span>e</span>
+  <span>r</span>
+  <span> </span>
+  <span>C</span>
+  <span>.</span>
+  <span> </span>
+  <span>B</span>
+  <span>e</span>
+  <span>e</span>
+  <span>z</span>
+  <span>l</span>
+  <span>e</span>
+  <span>y</span>
 </header>
 
 <nav>
-  <!-- Your existing navigation content... -->
 </nav>
 
-<div id="controls">
-  <label for="speedSlider">Box Speed:</label>
-  <input type="range" id="speedSlider" min="1" max="10" step="0.1" value="5">
-  
-  <label for="colorSlider">Random Color Intensity:</label>
-  <input type="range" id="colorSlider" min="0" max="1" step="0.01" value="0.5">
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 <script src="sketch.js"></script>
+
 </body>
 </html>
