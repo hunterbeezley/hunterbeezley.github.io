@@ -10,7 +10,7 @@ function setup() {
   bgColor = color(0);
 
   // Create a box for the "My Resume" hyperlink
-  createBox("My Resume", "https://your-resume-link.com");
+  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
 
   // Create a box for the "GitHub" hyperlink
   createBox("GitHub", "https://github.com/hunterbeezley");
@@ -109,7 +109,7 @@ function mousePressed() {
 }
 
 function openHyperlink(link) {
-  window.open(link, "_blank");
+  window.location.href = link;
 }
 
 function windowResized() {
