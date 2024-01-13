@@ -1,8 +1,17 @@
 let boxes = [];
 let boxLifespan = 200;
 
+let button;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // Create the "Take me somewhere else" button
+  button = createButton('Take me somewhere else');
+  button.position(width / 2 - button.width / 2, height / 2 - button.height / 2);
+  button.mousePressed(goSomewhereElse);
+
+  // Create initial random boxes
   for (let i = 0; i < 50; i++) {
     createRandomBox();
   }
@@ -11,12 +20,11 @@ function setup() {
 function draw() {
   background(0, 10);
 
-  let mousePos = createVector(mouseX, mouseY);
-
+  // Draw and update random boxes
   for (let i = boxes.length - 1; i >= 0; i--) {
     let box = boxes[i];
 
-    let direction = p5.Vector.sub(mousePos, box.pos);
+    let direction = p5.Vector.sub(createVector(mouseX, mouseY), box.pos);
     direction.normalize();
 
     box.boxSpeed = direction.mult(random(1, 3));
@@ -57,4 +65,8 @@ function createRandomBox() {
   }
 
   boxes.push({ pos, boxSize, col, boxSpeed, lifespan });
+}
+
+function goSomewhereElse() {
+  window.location.href = 'https://somewhere-else.com'; // Replace with the actual URL
 }
