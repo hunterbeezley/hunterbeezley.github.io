@@ -1,6 +1,5 @@
 let boxes = [];
 let boxSize = 100;
-let boxSpeed = 5;
 let trailAlpha = 0.5;
 let bgColor;
 let isBoxMoving = true;
@@ -10,7 +9,7 @@ function setup() {
   bgColor = color(0);
 
   // Create a box for the "My Resume" hyperlink
-  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
+  createBox("My Resume", "https://your-resume-link.com");
 
   // Create a box for the "GitHub" hyperlink
   createBox("GitHub", "https://github.com/hunterbeezley");
@@ -23,6 +22,10 @@ function setup() {
 
   // Create a box for the "Spotify" hyperlink
   createBox("Spotify", "https://open.spotify.com/playlist/5EuZIHbO7mhNekVu1VXVFu?si=384c7d8aa2324026");
+
+  // Add event listener for the "scramble" button
+  let scrambleButton = select("#scrambleButton");
+  scrambleButton.mousePressed(scrambleBoxes);
 }
 
 function draw() {
@@ -40,7 +43,7 @@ function createBox(label, link) {
     y: random(height - boxSize),
     xSpeed: random(1, 3),
     ySpeed: random(1, 3),
-    rotationAngle: 0, // Set rotation angle to 0
+    rotationAngle: 0,
     rotationSpeed: 0.1,
     color: color(random(255), random(255), random(255), 255),
     label: label,
@@ -51,15 +54,14 @@ function createBox(label, link) {
       rotate(this.rotationAngle);
       fill(this.color);
       rect(-boxSize / 2, -boxSize / 2, boxSize, boxSize);
-      
+
       fill(0);
       textSize(16);
       textAlign(CENTER, CENTER);
-      
-      // Rotate the text in the opposite direction of the box rotation
+
       rotate(-this.rotationAngle);
       text(this.label, 0, 0);
-      
+
       pop();
     },
     move: function () {
@@ -78,7 +80,6 @@ function createBox(label, link) {
       } else {
         this.rotationAngle += this.rotationSpeed;
         if (this.rotationAngle > PI * 2) {
-          // Once it completes one full rotation, reset the rotation angle
           this.rotationAngle = 0;
         }
       }
@@ -86,6 +87,20 @@ function createBox(label, link) {
   };
 
   boxes.push(newBox);
+}
+
+function scrambleBoxes() {
+  for (let i = 0; i < boxes.length; i++) {
+    boxes[i].xSpeed *= 5;
+    boxes[i].ySpeed *= 5;
+  }
+
+  setTimeout(() => {
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].xSpeed /= 5;
+      boxes[i].ySpeed /= 5;
+    }
+  }, 3000);
 }
 
 function mousePressed() {
@@ -101,9 +116,9 @@ function mousePressed() {
       setTimeout(() => {
         openHyperlink(currentBox.link);
         setTimeout(() => {
-          isBoxMoving = true; // Reactivate box movement after 5 seconds
+          isBoxMoving = true;
         }, 5000);
-      }, 1000); // Adjust the delay as needed
+      }, 1000);
     }
   }
 }
