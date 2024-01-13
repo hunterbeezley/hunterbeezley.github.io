@@ -10,6 +10,13 @@ function setup() {
   button = createButton('Take me somewhere else');
   button.position(width / 2 - button.width / 2, height / 2 - button.height / 2);
   button.mousePressed(goSomewhereElse);
+  button.style('background-color', 'transparent'); // Set button background to transparent
+  button.style('color', '#fff'); // Set button text color to white
+  button.style('border', '2px solid #fff'); // Set button border style
+  button.style('border-radius', '5px'); // Set button border radius
+  button.style('padding', '8px 16px'); // Set button padding
+  button.style('font-size', '16px'); // Set button font size
+  button.style('cursor', 'pointer'); // Set button cursor style
 
   // Create initial random boxes
   for (let i = 0; i < 50; i++) {
