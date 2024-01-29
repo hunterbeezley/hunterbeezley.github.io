@@ -9,7 +9,7 @@ function setup() {
   bgColor = color(0);
 
   // Create a box for the "My Resume" hyperlink
-  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
+//  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
 
   // Create a box for the "GitHub" hyperlink
   createBox("GitHub", "https://github.com/hunterbeezley");
@@ -18,7 +18,7 @@ function setup() {
   createBox("Instagram", "https://www.instagram.com/hbeezley/");
 
   // Create a box for the "Contact" hyperlink
-  createBox("Visuals", "contact.html");
+//  createBox("Visuals", "contact.html");
 
   // Create a box for the "Spotify" hyperlink
   createBox("Spotify", "https://open.spotify.com/playlist/5EuZIHbO7mhNekVu1VXVFu?si=384c7d8aa2324026");
