@@ -10,46 +10,12 @@
         padding: 0;
         background-color: #000; /* Set background color to black */
     }
-    .next-button {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #fff;
-        color: #000;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
 </style>
 </head>
 <body>
 <div style="padding:58.44% 0 0 0;position:relative;">
-    <iframe id="vimeo-player" src="https://player.vimeo.com/video/940483373?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="particleShrooms"></iframe>
+    <iframe src="https://player.vimeo.com/video/940483373?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="particleShrooms"></iframe>
 </div>
-<button class="next-button" onclick="loadNextVideo()">Next Video</button>
 <script src="https://player.vimeo.com/api/player.js"></script>
-<script>
-    var videos = [
-        "https://player.vimeo.com/video/940483373?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
-        // Add the URL of the next video here
-    ];
-    var currentIndex = 0;
-    var player = new Vimeo.Player('vimeo-player');
-
-    function loadNextVideo() {
-        currentIndex++;
-        if (currentIndex >= videos.length) {
-            currentIndex = 0;
-        }
-        var nextVideoUrl = videos[currentIndex];
-        player.loadVideo(nextVideoUrl).then(function() {
-            console.log('Video loaded');
-        }).catch(function(error) {
-            console.log('Error loading video: ' + error);
-        });
-    }
-</script>
 </body>
 </html>
