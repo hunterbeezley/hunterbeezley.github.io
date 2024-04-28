@@ -18,7 +18,7 @@ function setup() {
   createBox("Instagram", "https://www.instagram.com/hbeezley/");
 
   // Create a box for the "Contact" hyperlink
-  createBox("Visuals", "index.html");
+  createBox("Visuals", "visuals_1/index.html");
 
   // Create a box for the "Spotify" hyperlink
   createBox("Spotify", "https://open.spotify.com/playlist/5EuZIHbO7mhNekVu1VXVFu?si=384c7d8aa2324026");
