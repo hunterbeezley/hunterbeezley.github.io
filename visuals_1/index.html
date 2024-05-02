@@ -11,15 +11,15 @@
         background-color: #000; /* Set background color to black */
         position: relative; /* Position buttons relative to the body */
     }
-    
+
     .nav-button {
         position: fixed;
         bottom: 20px;
         padding: 10px 20px;
-        background-color: #fff;
-        color: #000;
+        background-color: transparent;
+        color: #fff;
         text-decoration: none;
-        border: none;
+        border: 2px solid #fff; /* White border */
         border-radius: 5px;
         cursor: pointer;
     }
@@ -31,11 +31,21 @@
     .nav-button.right {
         right: 20px;
     }
+
+    /* Make the Vimeo video smaller */
+    iframe {
+        width: 80%;
+        height: auto;
+        max-width: 800px; /* Maximum width to maintain aspect ratio */
+        position: relative;
+        display: block;
+        margin: auto;
+    }
 </style>
 </head>
 <body>
 <div style="padding:58.44% 0 0 0;position:relative;">
-    <iframe src="https://player.vimeo.com/video/940483373?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="particleShrooms"></iframe>
+    <iframe src="https://player.vimeo.com/video/940483373?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="particleShrooms"></iframe>
 </div>
 <a href="https://hunterbeezley.github.io" class="nav-button left">Home</a>
 <button class="nav-button right">Portal</button>
