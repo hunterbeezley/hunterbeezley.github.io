@@ -1,22 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const video = document.getElementById("background-video");
+    const videoContainer = document.getElementById("video-container");
+    const loadingScreen = document.getElementById("loading");
 
-    // Ensure the video loops seamlessly
-    video.addEventListener("ended", function() {
-        video.play();
-    });
+    // Hide the video container initially
+    videoContainer.style.display = "none";
 
-    // Optional: If you want to handle resizing of the window
-    window.addEventListener("resize", function() {
-        adjustVideoSize();
-    });
+    // Show the loading screen
+    loadingScreen.style.display = "flex";
 
-    function adjustVideoSize() {
-        const container = document.getElementById("video-container");
-        video.style.width = container.offsetWidth + "px";
-        video.style.height = container.offsetHeight + "px";
-    }
-
-    // Initial adjustment of video size
-    adjustVideoSize();
+    // When the page is loaded
+    window.onload = function() {
+        // Hide the loading screen
+        loadingScreen.style.display = "none";
+        // Show the video container
+        videoContainer.style.display = "block";
+    };
 });
