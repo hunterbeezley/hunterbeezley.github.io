@@ -9,37 +9,58 @@
         margin: 0;
         padding: 0;
         background-color: #000; /* Set background color to black */
-        overflow: hidden; /* Hide overflow to prevent scrolling */
+        position: relative; /* Position buttons relative to the body */
+    }
+    
+    .nav-button {
+        position: absolute;
+        bottom: 20px;
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #000;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
     }
 
-    #loading {
+    .nav-button.left {
+        left: 20px;
+    }
+
+    .nav-button.right {
+        right: 20px;
+    }
+
+    /* Styling for the frosted glass effect */
+    .video-container {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999; /* Ensure loading screen is on top */
+        overflow: hidden;
+        z-index: -1;
+        backdrop-filter: blur(10px); /* Apply frosted glass effect */
+        background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
     }
 
-    #loading p {
-        color: #fff;
-        font-size: 24px;
+    #bgVideo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1;
     }
 </style>
 </head>
 <body>
-<div id="loading">
-    <p>Loading...</p>
-</div>
-<div id="video-container" class="video-container">
+<div class="video-container">
     <iframe src="https://player.vimeo.com/video/940483373?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="particleShrooms"></iframe>
 </div>
+<a href="https://hunterbeezley.github.io" class="nav-button left">Home</a>
+<button class="nav-button right">Portal</button>
 <script src="https://player.vimeo.com/api/player.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-<script src="sketch.js"></script>
 </body>
 </html>
