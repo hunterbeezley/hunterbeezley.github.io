@@ -32,14 +32,15 @@
         right: 20px;
     }
 
-    /* Make the Vimeo video smaller */
+    /* Make the Vimeo video responsive */
     iframe {
-        width: 80%;
-        height: auto;
+        width: 80vw;
+        height: 45vw; /* Maintain 16:9 aspect ratio */
         max-width: 800px; /* Maximum width to maintain aspect ratio */
-        position: relative;
-        display: block;
-        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>
 </head>
