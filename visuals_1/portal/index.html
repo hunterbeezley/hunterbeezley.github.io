@@ -14,9 +14,29 @@
       height: 100%;
       overflow: hidden;
     }
+
+    #portalButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      outline: none;
+      border-radius: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #portalButton:hover {
+      background-color: white;
+      color: black;
+    }
   </style>
 </head>
 <body>
-  <!-- No content inside body as p5.js canvas will cover the entire page -->
+  <button id="portalButton" onclick="window.location.href = 'https://hunterbeezley.github.io';">Portal</button>
 </body>
 </html>
