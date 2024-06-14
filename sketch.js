@@ -15,7 +15,7 @@ function setup() {
   createBox("GitHub", "https://github.com/hunterbeezley");
 
   // Create a box for the "Instagram" hyperlink
-  createBox("Instagram", "https://www.instagram.com/hbeezley/");
+  createBox("Instagram", "https://www.instagram.com/h__nt3r_/");
 
   // Create a box for the "Visuals" hyperlink
   createBox("Visuals", "visuals_1/index.html");
