@@ -85,3 +85,12 @@ function createBox(label, link) {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+function scrambleBoxes() {
+  for (let i = 0; i < boxes.length; i++) {
+    boxes[i].x = random(width - boxSize);
+    boxes[i].y = random(height - boxSize);
+    boxes[i].xSpeed = random(1, 3);
+    boxes[i].ySpeed = random(1, 3);
+  }
+}
