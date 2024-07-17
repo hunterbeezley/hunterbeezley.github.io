@@ -9,7 +9,7 @@ function setup() {
   bgColor = color(0);
 
   // Create a box for the "My Resume" hyperlink
-  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
+//  createBox("My Resume", "https://hunterbeezley.github.io/Hunter%20C._Beezley_Resume.pdf");
 
   // Create a box for the "GitHub" hyperlink
   createBox("GitHub", "https://github.com/hunterbeezley");
@@ -71,26 +71,62 @@ function createBox(label, link) {
 
         if (this.x < 0 || this.x > width - boxSize) {
           this.xSpeed *= -1;
+          this.color = color(random(255), random(255), random(255), 255);
         }
         if (this.y < 0 || this.y > height - boxSize) {
           this.ySpeed *= -1;
+          this.color = color(random(255), random(255), random(255), 255);
+        }
+      } else {
+        this.rotationAngle += this.rotationSpeed;
+        if (this.rotationAngle > PI * 2) {
+          this.rotationAngle = 0;
         }
       }
-      this.rotationAngle += this.rotationSpeed;
     }
   };
-  boxes.push(newBox);
-}
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  boxes.push(newBox);
 }
 
 function scrambleBoxes() {
   for (let i = 0; i < boxes.length; i++) {
-    boxes[i].x = random(width - boxSize);
-    boxes[i].y = random(height - boxSize);
-    boxes[i].xSpeed = random(1, 3);
-    boxes[i].ySpeed = random(1, 3);
+    boxes[i].xSpeed *= 5;
+    boxes[i].ySpeed *= 5;
   }
+
+  setTimeout(() => {
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].xSpeed /= 5;
+      boxes[i].ySpeed /= 5;
+    }
+  }, 3000);
+}
+
+function mousePressed() {
+  for (let i = 0; i < boxes.length; i++) {
+    let currentBox = boxes[i];
+    if (
+      mouseX > currentBox.x &&
+      mouseX < currentBox.x + boxSize &&
+      mouseY > currentBox.y &&
+      mouseY < currentBox.y + boxSize
+    ) {
+      isBoxMoving = false;
+      setTimeout(() => {
+        openHyperlink(currentBox.link);
+        setTimeout(() => {
+          isBoxMoving = true;
+        }, 5000);
+      }, 1000);
+    }
+  }
+}
+
+function openHyperlink(link) {
+  window.location.href = link;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
