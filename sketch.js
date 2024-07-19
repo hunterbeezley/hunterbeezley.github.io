@@ -21,7 +21,7 @@ function setup() {
   createBox("Visuals", "visuals_1/index.html");
 
   // Create a box for the "Spotify" hyperlink
-  createBox("Tik-Tok", "https://www.tiktok.com/@h_nt3r_");
+  createBox("TikTok", "https://www.tiktok.com/@h_nt3r_");
 
   // Add event listener for the "scramble" button
   let scrambleButton = select("#scrambleButton");
