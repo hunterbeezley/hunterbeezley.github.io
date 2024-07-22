@@ -85,26 +85,43 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// YouTube video control
-let players = [];
+// Video control
+let youtubePlayers = [];
+let vimeoPlayer;
+
 function onYouTubeIframeAPIReady() {
-    players = [
-        new YT.Player('youtube-player-1', { events: { 'onReady': onPlayerReady } }),
-        new YT.Player('youtube-player-2', { events: { 'onReady': onPlayerReady } }),
-        new YT.Player('youtube-player-3', { events: { 'onReady': onPlayerReady } })
+    youtubePlayers = [
+        new YT.Player('youtube-player-2', { events: { 'onReady': onYouTubePlayerReady } }),
+        new YT.Player('youtube-player-3', { events: { 'onReady': onYouTubePlayerReady } })
     ];
 }
 
-function onPlayerReady(event) {
+function onYouTubePlayerReady(event) {
     const player = event.target;
     const videoContainer = player.getIframe().parentElement;
+    setupVideoObserver(videoContainer, player, 'youtube');
+}
 
+// Initialize Vimeo player
+const vimeoIframe = document.querySelector('#video-container-1 iframe');
+vimeoPlayer = new Vimeo.Player(vimeoIframe);
+setupVideoObserver(vimeoIframe.parentElement, vimeoPlayer, 'vimeo');
+
+function setupVideoObserver(videoContainer, player, type) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                player.playVideo();
+                if (type === 'youtube') {
+                    player.playVideo();
+                } else if (type === 'vimeo') {
+                    player.play();
+                }
             } else {
-                player.pauseVideo();
+                if (type === 'youtube') {
+                    player.pauseVideo();
+                } else if (type === 'vimeo') {
+                    player.pause();
+                }
             }
         });
     }, { threshold: 0.5 });
@@ -113,10 +130,20 @@ function onPlayerReady(event) {
 
     // Add click event listener to play/pause the video
     videoContainer.addEventListener('click', () => {
-        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-            player.pauseVideo();
-        } else {
-            player.playVideo();
+        if (type === 'youtube') {
+            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        } else if (type === 'vimeo') {
+            player.getPaused().then(paused => {
+                if (paused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            });
         }
     });
 }
@@ -124,11 +151,18 @@ function onPlayerReady(event) {
 // Add keyboard controls for mute/unmute
 document.addEventListener('keydown', (e) => {
     if (e.key === 'm' || e.key === 'M') {
-        players.forEach(player => {
+        youtubePlayers.forEach(player => {
             if (player.isMuted && player.isMuted()) {
                 player.unMute();
             } else if (player.mute) {
                 player.mute();
+            }
+        });
+        vimeoPlayer.getVolume().then(volume => {
+            if (volume === 0) {
+                vimeoPlayer.setVolume(1);
+            } else {
+                vimeoPlayer.setVolume(0);
             }
         });
     }
