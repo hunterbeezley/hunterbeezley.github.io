@@ -116,3 +116,18 @@ function onPlayerReady(event) {
         }
     });
 }
+
+// Scroll arrow functionality
+const scrollArrow = document.getElementById('scroll-arrow');
+
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    if (scrollPosition + windowHeight >= documentHeight - 50) {
+        scrollArrow.style.display = 'none';
+    } else {
+        scrollArrow.style.display = 'block';
+    }
+});
