@@ -67,3 +67,27 @@ window.addEventListener('scroll', () => {
         videoContainer.classList.remove('visible');
     }
 });
+
+// YouTube video control
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                player.playVideo();
+            } else {
+                player.pauseVideo();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    observer.observe(document.querySelector('.video-container'));
+}
