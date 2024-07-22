@@ -14,12 +14,14 @@ function displayFrame() {
 
 setInterval(displayFrame, 2000);
 
-// Pulsing text color
+// Pulsing text color for ASCII art and arrow
 function pulseColor() {
     const r = Math.sin(Date.now() * 0.01) * 127 + 128;
     const g = Math.sin(Date.now() * 0.01 + 2) * 127 + 128;
     const b = Math.sin(Date.now() * 0.01 + 4) * 127 + 128;
-    asciiArt.style.color = `rgb(${r}, ${g}, ${b})`;
+    const color = `rgb(${r}, ${g}, ${b})`;
+    asciiArt.style.color = color;
+    scrollArrow.style.color = color;
     requestAnimationFrame(pulseColor);
 }
 
@@ -60,6 +62,7 @@ const videoContainers = document.querySelectorAll('.video-container');
 window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
 
     videoContainers.forEach(container => {
         if (scrollPosition > container.offsetTop - windowHeight * 0.5) {
@@ -68,6 +71,12 @@ window.addEventListener('scroll', () => {
             container.classList.remove('visible');
         }
     });
+
+    if (scrollPosition + windowHeight >= documentHeight - 50) {
+        scrollArrow.style.display = 'none';
+    } else {
+        scrollArrow.style.display = 'block';
+    }
 });
 
 // YouTube video control
@@ -105,29 +114,4 @@ function onPlayerReady(event) {
         }
     });
 
-    // Add keyboard controls for mute/unmute
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'm' || e.key === 'M') {
-            if (player.isMuted()) {
-                player.unMute();
-            } else {
-                player.mute();
-            }
-        }
-    });
-}
-
-// Scroll arrow functionality
-const scrollArrow = document.getElementById('scroll-arrow');
-
-window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-
-    if (scrollPosition + windowHeight >= documentHeight - 50) {
-        scrollArrow.style.display = 'none';
-    } else {
-        scrollArrow.style.display = 'block';
-    }
-});
+    // Add keyboard controls for
