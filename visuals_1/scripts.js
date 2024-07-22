@@ -55,30 +55,35 @@ function animateStars() {
 animateStars();
 
 // Show video on scroll
-const videoContainer = document.querySelector('.video-container');
+const videoContainers = document.querySelectorAll('.video-container');
 
 window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
 
-    if (scrollPosition > windowHeight * 0.5) {
-        videoContainer.classList.add('visible');
-    } else {
-        videoContainer.classList.remove('visible');
-    }
+    videoContainers.forEach(container => {
+        if (scrollPosition > container.offsetTop - windowHeight * 0.5) {
+            container.classList.add('visible');
+        } else {
+            container.classList.remove('visible');
+        }
+    });
 });
 
 // YouTube video control
-let player;
+let players = [];
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
+    players = [
+        new YT.Player('youtube-player-1', { events: { 'onReady': onPlayerReady } }),
+        new YT.Player('youtube-player-2', { events: { 'onReady': onPlayerReady } }),
+        new YT.Player('youtube-player-3', { events: { 'onReady': onPlayerReady } })
+    ];
 }
 
 function onPlayerReady(event) {
+    const player = event.target;
+    const videoContainer = player.getIframe().parentElement;
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
