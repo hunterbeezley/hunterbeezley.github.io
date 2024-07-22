@@ -46,7 +46,6 @@ body {
     opacity: 0;
     transition: opacity 1s ease-in-out;
     margin-top: 100vh;
-    cursor: pointer;
 }
 
 .video-container.visible {
