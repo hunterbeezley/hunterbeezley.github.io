@@ -63,24 +63,23 @@ body {
     top: 0;
     left: 0;
 }
+
+/* Styles for the pulsing scroll arrow */
 #scroll-arrow {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 24px;
-    color: white;
-    animation: pulse 1s infinite alternate;
     z-index: 1000;
+    animation: arrowBounce 2s infinite;
 }
 
-@keyframes pulse {
-    0% {
-        opacity: 0.5;
+@keyframes arrowBounce {
+    0%, 100% {
         transform: translateX(-50%) translateY(0);
     }
-    100% {
-        opacity: 1;
+    50% {
         transform: translateX(-50%) translateY(10px);
     }
 }
