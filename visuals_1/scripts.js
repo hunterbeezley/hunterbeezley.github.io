@@ -53,3 +53,17 @@ function animateStars() {
 }
 
 animateStars();
+
+// Show video on scroll
+const videoContainer = document.querySelector('.video-container');
+
+window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+
+    if (scrollPosition > windowHeight * 0.5) {
+        videoContainer.classList.add('visible');
+    } else {
+        videoContainer.classList.remove('visible');
+    }
+});
