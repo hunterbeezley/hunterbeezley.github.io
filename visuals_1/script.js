@@ -1,22 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const video = document.getElementById("background-video");
+const asciiArt = document.getElementById('asciiArt');
+const artFrames = [
+    `▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█ 
+▒█▀▀█ ▒█░▒█ ▒█▒█▒█ ░▒█░░ ▒█▀▀▀ ▒█▄▄▀ 
+▒█░▒█ ░▀▄▄▀ ▒█░░▀█ ░▒█░░ ▒█▄▄▄ ▒█░▒█`,
+    // You can add more frames here for a more dynamic effect
+];
 
-    // Ensure the video loops seamlessly
-    video.addEventListener("ended", function() {
-        video.play();
-    });
+let currentFrame = 0;
 
-    // Optional: If you want to handle resizing of the window
-    window.addEventListener("resize", function() {
-        adjustVideoSize();
-    });
+function displayFrame() {
+    asciiArt.textContent = artFrames[currentFrame];
+    currentFrame = (currentFrame + 1) % artFrames.length;
+}
 
-    function adjustVideoSize() {
-        const container = document.getElementById("video-container");
-        video.style.width = container.offsetWidth + "px";
-        video.style.height = container.offsetHeight + "px";
-    }
-
-    // Initial adjustment of video size
-    adjustVideoSize();
-});
+setInterval(displayFrame, 2000); // Change frame every 2 seconds
