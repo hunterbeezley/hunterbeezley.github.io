@@ -67,23 +67,3 @@ window.addEventListener('scroll', () => {
         videoContainer.classList.remove('visible');
     }
 });
-
-// YouTube video control
-let player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('youtube-player', {
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    videoContainer.addEventListener('click', () => {
-        if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
-            player.playVideo();
-        } else {
-            player.pauseVideo();
-        }
-    });
-}
