@@ -14,6 +14,7 @@ function displayFrame() {
 
 setInterval(displayFrame, 2000);
 
+// Pulsing text color
 function pulseColor() {
     const r = Math.sin(Date.now() * 0.01) * 127 + 128;
     const g = Math.sin(Date.now() * 0.01 + 2) * 127 + 128;
@@ -24,6 +25,7 @@ function pulseColor() {
 
 pulseColor();
 
+// Background stars
 const starfield = document.createElement('div');
 starfield.id = 'starfield';
 document.body.appendChild(starfield);
@@ -52,6 +54,7 @@ function animateStars() {
 
 animateStars();
 
+// Show video on scroll
 const videoContainers = document.querySelectorAll('.video-container');
 
 window.addEventListener('scroll', () => {
@@ -67,6 +70,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// YouTube video control
 let players = [];
 function onYouTubeIframeAPIReady() {
     players = [
@@ -82,4 +86,33 @@ function onPlayerReady(event) {
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isInters
+            if (entry.isIntersecting) {
+                player.playVideo();
+            } else {
+                player.pauseVideo();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    observer.observe(videoContainer);
+
+    // Add click event listener to play/pause the video
+    videoContainer.addEventListener('click', () => {
+        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
+    });
+
+    // Add keyboard controls for mute/unmute
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'm' || e.key === 'M') {
+            if (player.isMuted()) {
+                player.unMute();
+            } else {
+                player.mute();
+            }
+        }
+    });
+}
