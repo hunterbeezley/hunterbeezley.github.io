@@ -114,4 +114,14 @@ function onPlayerReady(event) {
         }
     });
 
-    // Add keyboard controls for
+    // Add keyboard controls for mute/unmute
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'm' || e.key === 'M') {
+            if (player.isMuted()) {
+                player.unMute();
+            } else {
+                player.mute();
+            }
+        }
+    });
+}
