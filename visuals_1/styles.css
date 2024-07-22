@@ -47,51 +47,19 @@ body {
     transition: opacity 1s ease-in-out;
     margin-top: 100vh;
     position: relative;
-    z-index: 2;
-    background-color: black;
+    z-index: 2; /* Ensure video is above starfield */
+    background-color: black; /* Add black background */
 }
 
 .video-container.visible {
     opacity: 1;
 }
 
+/* Ensure iframe takes up full space of container */
 .video-container iframe {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-}
-
-.scroll-text {
-    position: fixed;
-    bottom: 40px;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    font-family: 'Courier New', Courier, monospace;
-    color: white;
-    z-index: 3;
-    animation: pulse 1s infinite alternate;
-}
-
-.scroll-arrow {
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-    color: white;
-    z-index: 3;
-    animation: bounce 1s infinite alternate;
-}
-
-@keyframes pulse {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; }
-}
-
-@keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-5px); }
 }
