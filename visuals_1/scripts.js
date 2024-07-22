@@ -1,4 +1,8 @@
+// Select elements
 const asciiArt = document.getElementById('asciiArt');
+const scrollArrow = document.getElementById('scroll-arrow');
+const videoContainers = document.querySelectorAll('.video-container');
+
 const artFrames = [
     `▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█ 
 ▒█▀▀█ ▒█░▒█ ▒█▒█▒█ ░▒█░░ ▒█▀▀▀ ▒█▄▄▀ 
@@ -21,7 +25,9 @@ function pulseColor() {
     const b = Math.sin(Date.now() * 0.01 + 4) * 127 + 128;
     const color = `rgb(${r}, ${g}, ${b})`;
     asciiArt.style.color = color;
-    scrollArrow.style.color = color;
+    if (scrollArrow) {
+        scrollArrow.style.color = color;
+    }
     requestAnimationFrame(pulseColor);
 }
 
@@ -57,8 +63,6 @@ function animateStars() {
 animateStars();
 
 // Show video on scroll
-const videoContainers = document.querySelectorAll('.video-container');
-
 window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
@@ -72,10 +76,12 @@ window.addEventListener('scroll', () => {
         }
     });
 
-    if (scrollPosition + windowHeight >= documentHeight - 50) {
-        scrollArrow.style.display = 'none';
-    } else {
-        scrollArrow.style.display = 'block';
+    if (scrollArrow) {
+        if (scrollPosition + windowHeight >= documentHeight - 50) {
+            scrollArrow.style.display = 'none';
+        } else {
+            scrollArrow.style.display = 'block';
+        }
     }
 });
 
@@ -113,15 +119,17 @@ function onPlayerReady(event) {
             player.playVideo();
         }
     });
+}
 
-    // Add keyboard controls for mute/unmute
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'm' || e.key === 'M') {
-            if (player.isMuted()) {
+// Add keyboard controls for mute/unmute
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'm' || e.key === 'M') {
+        players.forEach(player => {
+            if (player.isMuted && player.isMuted()) {
                 player.unMute();
-            } else {
+            } else if (player.mute) {
                 player.mute();
             }
-        }
-    });
-}
+        });
+    }
+});
