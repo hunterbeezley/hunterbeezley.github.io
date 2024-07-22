@@ -45,7 +45,7 @@ body {
     height: 100vh;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    margin-top: 100vh; /* Ensure the video is below the fold */
+    margin-top: 100vh;
 }
 
 .video-container.visible {
