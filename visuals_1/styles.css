@@ -19,6 +19,9 @@ body {
 .ascii-art {
     white-space: pre;
     font-size: 20px;
+    text-align: center;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 #starfield {
@@ -47,24 +50,24 @@ body {
     transition: opacity 1s ease-in-out;
     margin-top: 100vh;
     position: relative;
-    z-index: 2; /* Ensure video is above starfield */
-    background-color: black; /* Add black background */
+    z-index: 2;
+    background-color: black;
 }
 
 .video-container.visible {
     opacity: 1;
 }
 
-/* Ensure iframe takes up full space of container */
 .video-container iframe {
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
 }
 
-/* Styles for the pulsing scroll arrow */
 #scroll-arrow {
     position: fixed;
     bottom: 20px;
@@ -81,5 +84,26 @@ body {
     }
     50% {
         transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ascii-art {
+        font-size: 16px;
+    }
+
+    #scroll-arrow {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ascii-art {
+        font-size: 14px;
+    }
+
+    #scroll-arrow {
+        font-size: 18px;
     }
 }
