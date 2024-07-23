@@ -167,3 +167,30 @@ document.addEventListener('keydown', (e) => {
         });
     }
 });
+
+// Add this at the end of your existing JavaScript file
+
+// Handle resize and orientation change
+window.addEventListener('resize', handleResize);
+window.addEventListener('orientationchange', handleResize);
+
+function handleResize() {
+    // Adjust ASCII art size
+    const asciiArt = document.getElementById('asciiArt');
+    if (window.innerWidth <= 480) {
+        asciiArt.style.fontSize = '14px';
+    } else if (window.innerWidth <= 768) {
+        asciiArt.style.fontSize = '16px';
+    } else {
+        asciiArt.style.fontSize = '20px';
+    }
+
+    // Recalculate video container heights
+    const videoContainers = document.querySelectorAll('.video-container');
+    videoContainers.forEach(container => {
+        container.style.height = `${window.innerHeight}px`;
+    });
+}
+
+// Initial call to set up sizes
+handleResize();
