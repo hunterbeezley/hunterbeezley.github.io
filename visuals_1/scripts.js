@@ -2,6 +2,8 @@
 const asciiArt = document.getElementById('asciiArt');
 const scrollArrow = document.getElementById('scroll-arrow');
 const videoContainers = document.querySelectorAll('.video-container');
+const portalButton = document.getElementById('portal-button');
+const homeButton = document.getElementById('home-button');
 
 const artFrames = [
     `▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█ 
@@ -18,7 +20,7 @@ function displayFrame() {
 
 setInterval(displayFrame, 2000);
 
-// Pulsing text color for ASCII art and arrow
+// Pulsing text color for ASCII art, arrow, and buttons
 function pulseColor() {
     const r = Math.sin(Date.now() * 0.01) * 127 + 128;
     const g = Math.sin(Date.now() * 0.01 + 2) * 127 + 128;
@@ -28,6 +30,10 @@ function pulseColor() {
     if (scrollArrow) {
         scrollArrow.style.color = color;
     }
+    portalButton.style.color = color;
+    portalButton.style.borderColor = color;
+    homeButton.style.color = color;
+    homeButton.style.borderColor = color;
     requestAnimationFrame(pulseColor);
 }
 
@@ -82,64 +88,6 @@ window.addEventListener('scroll', () => {
         } else {
             scrollArrow.style.display = 'block';
         }
-    }
-});
-
-// Video control
-let vimeoPlayers = [];
-
-// Initialize Vimeo players
-document.querySelectorAll('.video-container iframe').forEach((iframe, index) => {
-    const player = new Vimeo.Player(iframe);
-    vimeoPlayers.push(player);
-    setupVideoObserver(iframe.parentElement, player, index);
-});
-
-function setupVideoObserver(videoContainer, player, index) {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                player.play().catch(error => {
-                    console.error("Error playing video:", error);
-                });
-            } else {
-                player.pause().catch(error => {
-                    console.error("Error pausing video:", error);
-                });
-            }
-        });
-    }, { threshold: 0.5 });
-
-    observer.observe(videoContainer);
-
-    // Add click event listener to play/pause the video
-    videoContainer.addEventListener('click', () => {
-        player.getPaused().then(paused => {
-            if (paused) {
-                player.play().catch(error => {
-                    console.error("Error playing video:", error);
-                });
-            } else {
-                player.pause().catch(error => {
-                    console.error("Error pausing video:", error);
-                });
-            }
-        });
-    });
-}
-
-// Add keyboard controls for mute/unmute
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'm' || e.key === 'M') {
-        vimeoPlayers.forEach(player => {
-            player.getVolume().then(volume => {
-                if (volume === 0) {
-                    player.setVolume(1);
-                } else {
-                    player.setVolume(0);
-                }
-            });
-        });
     }
 });
 
