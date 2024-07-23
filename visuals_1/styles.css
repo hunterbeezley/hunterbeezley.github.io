@@ -87,6 +87,27 @@ body {
     }
 }
 
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+#portal-button {
+    right: 20px;
+}
+
+#home-button {
+    left: 20px;
+}
+
 @media (max-width: 768px) {
     .ascii-art {
         font-size: 16px;
@@ -94,6 +115,11 @@ body {
 
     #scroll-arrow {
         font-size: 20px;
+    }
+
+    .floating-button {
+        font-size: 14px;
+        padding: 8px 16px;
     }
 }
 
@@ -104,5 +130,10 @@ body {
 
     #scroll-arrow {
         font-size: 18px;
+    }
+
+    .floating-button {
+        font-size: 12px;
+        padding: 6px 12px;
     }
 }
