@@ -99,9 +99,13 @@ function setupVideoObserver(videoContainer, player, index) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                player.play();
+                player.play().catch(error => {
+                    console.error("Error playing video:", error);
+                });
             } else {
-                player.pause();
+                player.pause().catch(error => {
+                    console.error("Error pausing video:", error);
+                });
             }
         });
     }, { threshold: 0.5 });
@@ -112,9 +116,13 @@ function setupVideoObserver(videoContainer, player, index) {
     videoContainer.addEventListener('click', () => {
         player.getPaused().then(paused => {
             if (paused) {
-                player.play();
+                player.play().catch(error => {
+                    console.error("Error playing video:", error);
+                });
             } else {
-                player.pause();
+                player.pause().catch(error => {
+                    console.error("Error pausing video:", error);
+                });
             }
         });
     });
