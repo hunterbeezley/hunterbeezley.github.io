@@ -86,42 +86,22 @@ window.addEventListener('scroll', () => {
 });
 
 // Video control
-let youtubePlayers = [];
-let vimeoPlayer;
+let vimeoPlayers = [];
 
-function onYouTubeIframeAPIReady() {
-    youtubePlayers = [
-        new YT.Player('youtube-player-2', { events: { 'onReady': onYouTubePlayerReady } }),
-        new YT.Player('youtube-player-3', { events: { 'onReady': onYouTubePlayerReady } })
-    ];
-}
+// Initialize Vimeo players
+document.querySelectorAll('.video-container iframe').forEach((iframe, index) => {
+    const player = new Vimeo.Player(iframe);
+    vimeoPlayers.push(player);
+    setupVideoObserver(iframe.parentElement, player, index);
+});
 
-function onYouTubePlayerReady(event) {
-    const player = event.target;
-    const videoContainer = player.getIframe().parentElement;
-    setupVideoObserver(videoContainer, player, 'youtube');
-}
-
-// Initialize Vimeo player
-const vimeoIframe = document.querySelector('#video-container-1 iframe');
-vimeoPlayer = new Vimeo.Player(vimeoIframe);
-setupVideoObserver(vimeoIframe.parentElement, vimeoPlayer, 'vimeo');
-
-function setupVideoObserver(videoContainer, player, type) {
+function setupVideoObserver(videoContainer, player, index) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if (type === 'youtube') {
-                    player.playVideo();
-                } else if (type === 'vimeo') {
-                    player.play();
-                }
+                player.play();
             } else {
-                if (type === 'youtube') {
-                    player.pauseVideo();
-                } else if (type === 'vimeo') {
-                    player.pause();
-                }
+                player.pause();
             }
         });
     }, { threshold: 0.5 });
@@ -130,45 +110,30 @@ function setupVideoObserver(videoContainer, player, type) {
 
     // Add click event listener to play/pause the video
     videoContainer.addEventListener('click', () => {
-        if (type === 'youtube') {
-            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-                player.pauseVideo();
+        player.getPaused().then(paused => {
+            if (paused) {
+                player.play();
             } else {
-                player.playVideo();
+                player.pause();
             }
-        } else if (type === 'vimeo') {
-            player.getPaused().then(paused => {
-                if (paused) {
-                    player.play();
-                } else {
-                    player.pause();
-                }
-            });
-        }
+        });
     });
 }
 
 // Add keyboard controls for mute/unmute
 document.addEventListener('keydown', (e) => {
     if (e.key === 'm' || e.key === 'M') {
-        youtubePlayers.forEach(player => {
-            if (player.isMuted && player.isMuted()) {
-                player.unMute();
-            } else if (player.mute) {
-                player.mute();
-            }
-        });
-        vimeoPlayer.getVolume().then(volume => {
-            if (volume === 0) {
-                vimeoPlayer.setVolume(1);
-            } else {
-                vimeoPlayer.setVolume(0);
-            }
+        vimeoPlayers.forEach(player => {
+            player.getVolume().then(volume => {
+                if (volume === 0) {
+                    player.setVolume(1);
+                } else {
+                    player.setVolume(0);
+                }
+            });
         });
     }
 });
-
-// Add this at the end of your existing JavaScript file
 
 // Handle resize and orientation change
 window.addEventListener('resize', handleResize);
@@ -176,7 +141,6 @@ window.addEventListener('orientationchange', handleResize);
 
 function handleResize() {
     // Adjust ASCII art size
-    const asciiArt = document.getElementById('asciiArt');
     if (window.innerWidth <= 480) {
         asciiArt.style.fontSize = '14px';
     } else if (window.innerWidth <= 768) {
@@ -186,7 +150,6 @@ function handleResize() {
     }
 
     // Recalculate video container heights
-    const videoContainers = document.querySelectorAll('.video-container');
     videoContainers.forEach(container => {
         container.style.height = `${window.innerHeight}px`;
     });
