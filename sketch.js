@@ -20,7 +20,7 @@ function setup() {
   // Create a box for the "Visuals" hyperlink
   createBox("Visuals", "visuals_1/index.html");
 
-  // Create a box for the "Spotify" hyperlink
+  // Create a box for the "tiktok" hyperlink
   createBox("TikTok", "https://www.tiktok.com/@h_nt3r_");
 
   // Add event listener for the "scramble" button
