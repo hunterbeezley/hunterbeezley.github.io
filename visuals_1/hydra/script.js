@@ -33,6 +33,11 @@ function initializeHydra() {
         const recordButton = document.getElementById('record-button');
         recordButton.addEventListener('click', toggleRecording);
 
+        const remixButton = document.getElementById('remix-button');
+        remixButton.addEventListener('click', () => {
+            window.location.reload();
+        });
+
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
