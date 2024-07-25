@@ -25,7 +25,10 @@ function initializeHydra() {
 
         console.log("Hydra instance created successfully");
 
-        initHydraAnimation();
+        // Randomly select and run an animation
+        const animations = [initFirstAnimation, initSecondAnimation];
+        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+        randomAnimation();
 
         const recordButton = document.getElementById('record-button');
         recordButton.addEventListener('click', toggleRecording);
@@ -41,8 +44,8 @@ function initializeHydra() {
     }
 }
 
-function initHydraAnimation() {
-    console.log("Initializing Hydra animation");
+function initFirstAnimation() {
+    console.log("Initializing first Hydra animation");
     try {
         a.setBins(8);
         console.log("Bins set");
@@ -56,9 +59,31 @@ function initHydraAnimation() {
             }))
             .out();
 
-        console.log("Animation code executed");
+        console.log("First animation code executed");
     } catch (error) {
-        console.error("Error in animation code:", error);
+        console.error("Error in first animation code:", error);
+        document.body.innerHTML += `<p style='color: white; text-align: center;'>Animation error: ${error.message}</p>`;
+    }
+}
+
+function initSecondAnimation() {
+    console.log("Initializing second Hydra animation");
+    try {
+        s0.initCam();
+
+        solid(() => Math.sin(time) + 1.393 * 11.573)
+            .diff(noise(2)
+                .add(src(o0))
+                .color(1.223, 0.495, 0.281))
+            .modulate(noise(8.12, 0.505, 0.446))
+            .mask(s0).colorama(0, 0, 0).saturate(() => Math.sin(time) * 2)
+            .out(o0);
+
+        render(o0);
+
+        console.log("Second animation code executed");
+    } catch (error) {
+        console.error("Error in second animation code:", error);
         document.body.innerHTML += `<p style='color: white; text-align: center;'>Animation error: ${error.message}</p>`;
     }
 }
