@@ -23,6 +23,9 @@ function setup() {
   // Create a box for the "tiktok" hyperlink
   createBox("TikTok", "https://www.tiktok.com/@h_nt3r_");
 
+  // Create a box for the "linkedIn" hyperlink
+  createBox("LinkedIn", "https://www.linkedin.com/in/hunterbeezley/");
+
   // Add event listener for the "scramble" button
   let scrambleButton = select("#scrambleButton");
   scrambleButton.mousePressed(scrambleBoxes);
