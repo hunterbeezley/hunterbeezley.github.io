@@ -77,4 +77,46 @@ function toggleRecording() {
 }
 
 function startRecording() {
-    const canvas = document.querySelector
+    const canvas = document.querySelector('canvas');
+    const stream = canvas.captureStream(30); // 30 FPS
+
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(audioStream => {
+            const combinedStream = new MediaStream([
+                ...stream.getTracks(),
+                ...audioStream.getTracks()
+            ]);
+
+            recorder = new RecordRTC(combinedStream, {
+                type: 'video',
+                mimeType: 'video/webm',
+                bitsPerSecond: 128000
+            });
+
+            recorder.startRecording();
+            isRecording = true;
+        })
+        .catch(error => {
+            console.error("Error accessing audio:", error);
+        });
+}
+
+function stopRecording() {
+    recorder.stopRecording(() => {
+        const blob = recorder.getBlob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'hydra-recording.webm';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    });
+    isRecording = false;
+}
+
+document.addEventListener('DOMContentLoaded', initializeHydra);
