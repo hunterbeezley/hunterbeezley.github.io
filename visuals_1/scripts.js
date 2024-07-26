@@ -10,16 +10,7 @@ const typingSpeed = 50; // milliseconds per character
 function setup() {
     noCanvas();
     textBox = select('#textBox');
-    const asciiArt = select('.ascii-art');
-    
-    // Fade in ASCII art immediately
-    asciiArt.style('opacity', '1');
-    
-    // Start text box animation after a short delay
-    setTimeout(() => {
-        textBox.style('opacity', '1');
-        typeWriter();
-    }, 500);
+    typeWriter();
 }
 
 function typeWriter() {
