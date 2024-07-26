@@ -108,6 +108,12 @@ body {
     left: 20px;
 }
 
+#collab-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
 #textBox {
     width: 80%;
     max-width: 600px;
