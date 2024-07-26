@@ -22,6 +22,8 @@ body {
     text-align: center;
     max-width: 100%;
     overflow-x: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 #starfield {
@@ -125,7 +127,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
     position: relative;
     z-index: 1;
     text-align: center;
