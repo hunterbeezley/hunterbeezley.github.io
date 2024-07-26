@@ -1,9 +1,7 @@
 let textBox;
-let message = `Hello and welcome to the Visuals Universe, where you can check out all my audio/visual creations using code.
+let message = `Scroll down to see highlight videos
 
-If you want to see what else I can create, step on over into the <a href="#" id="portal-link">"portal"</a>.
-
-Please be advised that from here on out, all videos and webpages come with a general flash warning.`;
+Step into the portal to see more creations using code`;
 let typewriterText = "";
 let charIndex = 0;
 let lastTypedTime = 0;
@@ -25,14 +23,6 @@ function typeWriter() {
             textBox.html(typewriterText);
             charIndex++;
             lastTypedTime = millis();
-            
-            // Check if we've finished typing and add click event to the portal link
-            if (charIndex === message.length) {
-                document.getElementById('portal-link').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Add your portal link functionality here
-                });
-            }
         }
     }
     requestAnimationFrame(typeWriter);
