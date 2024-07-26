@@ -1,3 +1,31 @@
+let textBox;
+let message = "Hello, welcome to my visual creations using code. Please be advised all videos come with a general flash warning.";
+let typewriterText = "";
+let charIndex = 0;
+let lastTypedTime = 0;
+const typingSpeed = 50; // milliseconds per character
+
+function setup() {
+    noCanvas();
+    textBox = select('#textBox');
+    setTimeout(() => {
+        textBox.style('opacity', '1');
+        typeWriter();
+    }, 1000); // Wait 1 second before starting the animation
+}
+
+function typeWriter() {
+    if (millis() - lastTypedTime > typingSpeed) {
+        if (charIndex < message.length) {
+            typewriterText += message.charAt(charIndex);
+            textBox.html(typewriterText);
+            charIndex++;
+            lastTypedTime = millis();
+        }
+    }
+    requestAnimationFrame(typeWriter);
+}
+
 // Select elements
 const asciiArt = document.getElementById('asciiArt');
 const scrollArrow = document.getElementById('scroll-arrow');
