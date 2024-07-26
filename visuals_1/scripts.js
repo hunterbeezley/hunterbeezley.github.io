@@ -1,5 +1,5 @@
 let textBox;
-let message = "Hello, welcome to my visual creations using code. Please be advised all videos come with a general flash warning.";
+let message = "Hello, welcome to the visuals universe where you can check out all my audio/visual creations using code. Scroll down and check out some of my highlight videos. But don't skip on instagram and TikTok to see more. If you want to see what else I can create, step on over into the \"portal\". Want to collab on a project, drop me a line [here](https://forms.gle/ygRuPd7MWSGzQwRz9)\n\nPlease be advised that from here on out, all videos and webpages come with a general flash warning.";
 let typewriterText = "";
 let charIndex = 0;
 let lastTypedTime = 0;
