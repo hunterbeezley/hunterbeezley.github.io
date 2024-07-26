@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 50vh; /* Adjusted height to make room for the text box */
     position: relative;
     z-index: 1;
 }
@@ -120,6 +120,8 @@ body {
     line-height: 1.5;
     opacity: 0;
     transition: opacity 1s ease-in-out;
+    position: relative;
+    z-index: 1;
 }
 
 @media (max-width: 768px) {
