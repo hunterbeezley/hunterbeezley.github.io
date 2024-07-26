@@ -1,6 +1,7 @@
 let hydra;
 let recorder;
 let isRecording = false;
+let currentAnimation = null;
 
 function initializeHydra() {
     console.log("Initializing Hydra...");
@@ -25,18 +26,18 @@ function initializeHydra() {
 
         console.log("Hydra instance created successfully");
 
-        // Randomly select and run an animation
-        const animations = [initFirstAnimation, initSecondAnimation];
-        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-        randomAnimation();
+        // Check if permissions have been asked this session
+        if (!sessionStorage.getItem('permissionsAsked')) {
+            requestPermissions();
+        } else {
+            runRandomAnimation();
+        }
 
         const recordButton = document.getElementById('record-button');
         recordButton.addEventListener('click', toggleRecording);
 
         const remixButton = document.getElementById('remix-button');
-        remixButton.addEventListener('click', () => {
-            window.location.reload();
-        });
+        remixButton.addEventListener('click', runRandomAnimation);
 
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
@@ -47,6 +48,30 @@ function initializeHydra() {
         console.error("Error initializing Hydra:", error);
         document.body.innerHTML += `<p style='color: white; text-align: center;'>An error occurred: ${error.message}</p>`;
     }
+}
+
+function requestPermissions() {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+        .then(() => {
+            sessionStorage.setItem('permissionsAsked', 'true');
+            runRandomAnimation();
+        })
+        .catch((error) => {
+            console.error("Error accessing media devices:", error);
+            // Run animation anyway, but some features might not work
+            runRandomAnimation();
+        });
+}
+
+function runRandomAnimation() {
+    const animations = [initFirstAnimation, initSecondAnimation, initThirdAnimation];
+    let newAnimation;
+    do {
+        newAnimation = animations[Math.floor(Math.random() * animations.length)];
+    } while (newAnimation === currentAnimation && animations.length > 1);
+    
+    currentAnimation = newAnimation;
+    currentAnimation();
 }
 
 function initFirstAnimation() {
@@ -89,6 +114,29 @@ function initSecondAnimation() {
         console.log("Second animation code executed");
     } catch (error) {
         console.error("Error in second animation code:", error);
+        document.body.innerHTML += `<p style='color: white; text-align: center;'>Animation error: ${error.message}</p>`;
+    }
+}
+
+function initThirdAnimation() {
+    console.log("Initializing third Hydra animation");
+    try {
+        s0.initCam();
+
+        speed = 0.1;
+
+        voronoi(20)
+            .mult(osc(10,0.1,()=>Math.sin(time)-30).color(0,4,0))
+            .modulate(s0,2.5)
+            .diff(s0,0.8)
+            .modulateHue(osc(2))
+            .modulate(gradient(8,1),0.008)
+            .luma(0.3)
+            .out();
+
+        console.log("Third animation code executed");
+    } catch (error) {
+        console.error("Error in third animation code:", error);
         document.body.innerHTML += `<p style='color: white; text-align: center;'>Animation error: ${error.message}</p>`;
     }
 }
