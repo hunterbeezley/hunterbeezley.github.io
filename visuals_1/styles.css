@@ -24,6 +24,8 @@ body {
     max-width: 100%;
     overflow-x: auto;
     margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 #starfield {
@@ -60,14 +62,21 @@ body {
     opacity: 1;
 }
 
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 2px solid;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
 .video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    max-width: 100vw;
-    max-height: 100vh;
 }
 
 #scroll-arrow {
@@ -116,10 +125,18 @@ body {
     right: 20px;
 }
 
-#textBox {
+.text-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.textBox {
     width: 80%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 10px 0;
     padding: 10px;
     border: 2px solid yellow;
     color: yellow;
@@ -130,6 +147,8 @@ body {
     z-index: 1;
     text-align: center;
     white-space: pre-line;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 a {
@@ -151,7 +170,7 @@ a {
         padding: 8px 16px;
     }
 
-    #textBox {
+    .textBox {
         font-size: 14px;
     }
 }
@@ -170,7 +189,7 @@ a {
         padding: 6px 12px;
     }
 
-    #textBox {
+    .textBox {
         font-size: 12px;
     }
 }
