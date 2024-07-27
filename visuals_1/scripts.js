@@ -99,12 +99,6 @@ function pulseColor() {
     homeButton.style.borderColor = color;
     collabButton.style.color = color;
     collabButton.style.borderColor = color;
-    
-    // Add this part to pulse the video wrapper borders
-    const videoWrappers = document.querySelectorAll('.video-wrapper');
-    videoWrappers.forEach(wrapper => {
-        wrapper.style.borderColor = color;
-    });
 
     requestAnimationFrame(pulseColor);
 }
