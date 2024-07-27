@@ -62,21 +62,14 @@ body {
     opacity: 1;
 }
 
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 2px solid;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
 .video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
 }
 
 #scroll-arrow {
