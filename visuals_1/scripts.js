@@ -70,4 +70,62 @@ function pulseColor() {
     collabButton.style.color = color;
     collabButton.style.borderColor = color;
 
-    requestAnimationFrame
+    requestAnimationFrame(pulseColor);
+}
+
+const starfield = document.createElement('div');
+starfield.id = 'starfield';
+document.body.appendChild(starfield);
+
+function createStar() {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.animationDuration = `${Math.random() * 3 + 1}s`;
+    starfield.appendChild(star);
+}
+
+for (let i = 0; i < 100; i++) {
+    createStar();
+}
+
+function animateStars() {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach(star => {
+        const y = parseFloat(star.style.top);
+        star.style.top = y > 100 ? '0%' : `${y + 0.1}%`;
+    });
+    requestAnimationFrame(animateStars);
+}
+
+function handleResize() {
+    if (window.innerWidth <= 480) {
+        asciiArt.style.fontSize = '14px';
+    } else if (window.innerWidth <= 768) {
+        asciiArt.style.fontSize = '16px';
+    } else {
+        asciiArt.style.fontSize = '20px';
+    }
+
+    videoContainers.forEach(container => {
+        container.style.height = `${window.innerHeight}px`;
+    });
+}
+
+handleResize();
+
+// coming soon feature
+const releaseDate = new Date('2024-08-01T00:00:00'); // Set your desired release date here
+const comingSoonOverlay = document.querySelector('.coming-soon-overlay');
+
+function checkReleaseDate() {
+    const now = new Date();
+    if (now >= releaseDate) {
+        comingSoonOverlay.style.display = 'none';
+    }
+}
+
+// Call this function when the page loads and periodically
+checkReleaseDate();
+setInterval(checkReleaseDate, 60000); // Check every minute
