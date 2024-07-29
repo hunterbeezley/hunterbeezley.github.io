@@ -114,3 +114,19 @@ function handleResize() {
 }
 
 handleResize();
+
+
+const releaseDate = new Date('2024-07-30T00:00:00'); // Set your desired release date here
+const comingSoonOverlay = document.querySelector('.coming-soon-overlay');
+
+function checkReleaseDate() {
+    const now = new Date();
+    if (now >= releaseDate) {
+        comingSoonOverlay.style.display = 'none';
+    }
+}
+
+
+checkReleaseDate();
+setInterval(checkReleaseDate, 60000); // Check every minute
+
