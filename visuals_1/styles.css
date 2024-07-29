@@ -24,7 +24,7 @@ body {
     max-width: 100%;
     overflow-x: auto;
     margin-bottom: 20px;
-    opacity: 1; /* Ensure the ASCII art is visible */
+    opacity: 1;
 }
 
 #starfield {
@@ -69,6 +69,27 @@ body {
     height: 100%;
     max-width: 100vw;
     max-height: 100vh;
+}
+
+.coming-soon-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    backdrop-filter: blur(5px);
+}
+
+.coming-soon-overlay span {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 #scroll-arrow {
@@ -121,11 +142,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; /* Add spacing above the TikTok videos */
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .tiktok-embed {
-    margin: 0 10px; /* Add spacing between TikTok embeds */
+    margin: 10px;
 }
 
 a {
