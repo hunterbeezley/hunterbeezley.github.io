@@ -24,8 +24,7 @@ body {
     max-width: 100%;
     overflow-x: auto;
     margin-bottom: 20px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    opacity: 1; /* Ensure the ASCII art is visible */
 }
 
 #starfield {
@@ -118,32 +117,6 @@ body {
     right: 20px;
 }
 
-.text-box-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.textBox {
-    width: 80%;
-    max-width: 600px;
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid yellow;
-    color: yellow;
-    font-family: 'Courier Prime', monospace;
-    font-size: 16px;
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    white-space: pre-line;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
 a {
     color: inherit;
     text-decoration: none;
@@ -162,10 +135,6 @@ a {
         font-size: 14px;
         padding: 8px 16px;
     }
-
-    .textBox {
-        font-size: 14px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -180,9 +149,5 @@ a {
     .floating-button {
         font-size: 12px;
         padding: 6px 12px;
-    }
-
-    .textBox {
-        font-size: 12px;
     }
 }
