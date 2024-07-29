@@ -70,47 +70,4 @@ function pulseColor() {
     collabButton.style.color = color;
     collabButton.style.borderColor = color;
 
-    requestAnimationFrame(pulseColor);
-}
-
-const starfield = document.createElement('div');
-starfield.id = 'starfield';
-document.body.appendChild(starfield);
-
-function createStar() {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.animationDuration = `${Math.random() * 3 + 1}s`;
-    starfield.appendChild(star);
-}
-
-for (let i = 0; i < 100; i++) {
-    createStar();
-}
-
-function animateStars() {
-    const stars = document.querySelectorAll('.star');
-    stars.forEach(star => {
-        const y = parseFloat(star.style.top);
-        star.style.top = y > 100 ? '0%' : `${y + 0.1}%`;
-    });
-    requestAnimationFrame(animateStars);
-}
-
-function handleResize() {
-    if (window.innerWidth <= 480) {
-        asciiArt.style.fontSize = '14px';
-    } else if (window.innerWidth <= 768) {
-        asciiArt.style.fontSize = '16px';
-    } else {
-        asciiArt.style.fontSize = '20px';
-    }
-
-    videoContainers.forEach(container => {
-        container.style.height = `${window.innerHeight}px`;
-    });
-}
-
-handleResize();
+    requestAnimationFrame
