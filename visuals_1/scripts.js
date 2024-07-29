@@ -1,17 +1,8 @@
-let textBox1, textBox2;
-let message1 = "Scroll down to see highlight videos";
-let message2 = "Step into the portal to see more creations using code";
-let typewriterText1 = "";
-let typewriterText2 = "";
-let charIndex1 = 0;
-let charIndex2 = 0;
 let lastTypedTime = 0;
 const typingSpeed = 50; // milliseconds per character
 
 function setup() {
     noCanvas();
-    textBox1 = select('#textBox1');
-    textBox2 = select('#textBox2');
     pulseColor();
     animateStars();
     handleResize();
@@ -20,30 +11,9 @@ function setup() {
     window.addEventListener('scroll', handleScroll);
 }
 
-function typeWriter(textBox, message, typewriterText, charIndex) {
-    if (millis() - lastTypedTime > typingSpeed) {
-        if (charIndex < message.length) {
-            typewriterText += message.charAt(charIndex);
-            textBox.html(typewriterText);
-            charIndex++;
-            lastTypedTime = millis();
-        }
-    }
-    requestAnimationFrame(() => typeWriter(textBox, message, typewriterText, charIndex));
-}
-
 function handleScroll() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
-
-    if (scrollPosition > textBox1.position().y - windowHeight * 0.5) {
-        textBox1.style('opacity', '1');
-        typeWriter(textBox1, message1, typewriterText1, charIndex1);
-    }
-    if (scrollPosition > textBox2.position().y - windowHeight * 0.5) {
-        textBox2.style('opacity', '1');
-        typeWriter(textBox2, message2, typewriterText2, charIndex2);
-    }
 
     videoContainers.forEach(container => {
         if (scrollPosition > container.offsetTop - windowHeight * 0.5) {
