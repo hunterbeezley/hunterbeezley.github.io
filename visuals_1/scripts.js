@@ -116,7 +116,7 @@ function handleResize() {
 handleResize();
 
 // coming soon feature
-const releaseDate = new Date('2024-07-31T00:00:00'); // Set your desired release date here
+const releaseDate = new Date('2024-07-30T00:00:00'); // Set your desired release date here
 const comingSoonOverlay = document.querySelector('.coming-soon-overlay');
 
 function checkReleaseDate() {
