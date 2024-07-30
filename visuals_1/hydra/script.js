@@ -64,7 +64,7 @@ function requestPermissions() {
 }
 
 function runRandomAnimation() {
-    const animations = [initFirstAnimation, initSecondAnimation, initThirdAnimation];
+    const animations = [initFirstAnimation, initSecondAnimation, initThirdAnimation, initFourthAnimation];
     let newAnimation;
     do {
         newAnimation = animations[Math.floor(Math.random() * animations.length)];
@@ -137,6 +137,27 @@ function initThirdAnimation() {
         console.log("Third animation code executed");
     } catch (error) {
         console.error("Error in third animation code:", error);
+        document.body.innerHTML += `<p style='color: white; text-align: center;'>Animation error: ${error.message}</p>`;
+    }
+}
+
+function initFourthAnimation() {
+    console.log("Initializing fourth Hydra animation");
+    try {
+        s0.initCam();
+        
+        src(s0)
+            .diff(src(o0)
+                .diff(shape(3.006, 3.112)
+                    .diff(s0)
+                    .scale(0.803, 1.245)
+                    .modulate(voronoi([7.628, 0.125, 2, 8.719], 1.994))))
+            .modulate(s0, 0)
+            .out(o0);
+
+        console.log("Fourth animation code executed");
+    } catch (error) {
+        console.error("Error in fourth animation code:", error);
         document.body.innerHTML += `<p style='color: white; text-align: center;'>Animation error: ${error.message}</p>`;
     }
 }
