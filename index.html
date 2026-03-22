@@ -71,6 +71,37 @@
             }
         }
 
+        /* Video play overlay for mobile (shown only if autoplay fails) */
+        .video-play-overlay {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            background: rgba(0, 217, 255, 0.2);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .video-play-overlay.show {
+            display: flex;
+        }
+
+        .video-play-overlay:hover {
+            background: rgba(0, 217, 255, 0.4);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
         /* Header */
         header {
             position: fixed;
@@ -351,6 +382,47 @@
             color: var(--text-dim);
             font-size: 0.9rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        /* Discrete admin button */
+        .admin-link {
+            position: fixed;
+            bottom: 1rem;
+            left: 1rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.15);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            z-index: 998;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .admin-link:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: rgba(0, 217, 255, 0.3);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Hide admin button on small screens to avoid overlap with feedback button */
+        @media (max-width: 768px) {
+            .admin-link {
+                bottom: 0.75rem;
+                left: 0.75rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
         }
 
         /* Floating feedback button container for p5.js */
@@ -472,6 +544,22 @@
             box-shadow: 0 8px 20px rgba(0, 217, 255, 0.4);
         }
 
+        .feedback-form .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .feedback-form .btn-copy {
+            background: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .feedback-form .btn-copy:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
         .feedback-form .btn-cancel {
             background: transparent;
             color: var(--text-dim);
@@ -481,6 +569,20 @@
         .feedback-form .btn-cancel:hover {
             color: var(--text);
             border-color: var(--text);
+        }
+
+        .feedback-success {
+            color: var(--primary);
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback-success.show {
+            display: block;
         }
 
         .feedback-info {
@@ -606,9 +708,14 @@
 </head>
 <body>
     <!-- Full-page background video -->
-    <video autoplay loop muted playsinline class="background-video">
+    <video autoplay loop muted playsinline class="background-video" id="background-video">
         <source src="background-animation.mp4" type="video/mp4">
     </video>
+
+    <!-- Video play button overlay (shown only if autoplay fails) -->
+    <div class="video-play-overlay" id="video-play-overlay" aria-label="Play background video" role="button" tabindex="0">
+        ▶️
+    </div>
 
     <header>
         <nav>
@@ -731,11 +838,18 @@
 
                 <div class="feedback-form-actions">
                     <button type="button" class="btn-cancel" id="feedback-cancel">Cancel</button>
-                    <button type="submit" class="btn-submit">Submit Feedback</button>
+                    <button type="button" class="btn-copy" id="feedback-copy">Copy</button>
+                    <button type="submit" class="btn-submit" id="feedback-submit">Create Issue</button>
                 </div>
 
                 <div class="feedback-info">
-                    We'll automatically include technical details (browser, device, page) to help us understand your feedback better.
+                    Clicking "Create Issue" will open GitHub with your feedback pre-filled. Or click "Copy" to copy the feedback text to your clipboard.
+                    <br><br>
+                    We automatically include technical details (browser, device, page, console errors) to help understand your feedback.
+                </div>
+
+                <div class="feedback-success" id="feedback-success">
+                    ✓ Feedback copied to clipboard!
                 </div>
             </form>
         </div>
@@ -744,6 +858,9 @@
     <footer>
         <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
     </footer>
+
+    <!-- Discrete admin button -->
+    <a href="admin.html" class="admin-link" aria-label="Admin" title="Admin">⚙️</a>
 
     <!-- PWA Service Worker Registration -->
     <script src="/pwa-register.js"></script>
@@ -871,10 +988,10 @@
             };
         }
 
-        function submitFeedback(message, contact) {
+        function generateIssueBody(message, contact) {
             const context = collectContextData();
 
-            const issueBody = `**Feedback:**
+            return `**Feedback:**
 ${message}
 
 **Contact Info:**
@@ -898,12 +1015,39 @@ ${contact || 'Not provided'}
 ${context.userAgent}
 \`\`\`
 </details>`;
+        }
 
+        function submitFeedback(message, contact) {
+            const issueBody = generateIssueBody(message, contact);
             const encodedBody = encodeURIComponent(issueBody);
             const githubUrl = `https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback&labels=feedback&body=${encodedBody}`;
 
             window.open(githubUrl, '_blank');
-            closeFeedbackModal();
+
+            // Reset form and close after a delay
+            setTimeout(() => {
+                document.getElementById('feedback-form-element').reset();
+                closeFeedbackModal();
+            }, 500);
+        }
+
+        function copyFeedbackToClipboard(message, contact) {
+            const issueBody = generateIssueBody(message, contact);
+
+            navigator.clipboard.writeText(issueBody).then(() => {
+                // Show success message
+                const successMsg = document.getElementById('feedback-success');
+                successMsg.classList.add('show');
+
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy to clipboard:', err);
+                // Fallback: try to select text
+                alert('Could not copy automatically. Please select and copy the text manually.');
+            });
         }
 
         // Feedback modal event listeners
@@ -936,6 +1080,18 @@ ${context.userAgent}
                 }
             });
 
+            // Copy button
+            document.getElementById('feedback-copy').addEventListener('click', function() {
+                const message = document.getElementById('feedback-message').value;
+                const contact = document.getElementById('feedback-contact').value;
+
+                if (message.trim()) {
+                    copyFeedbackToClipboard(message, contact);
+                } else {
+                    alert('Please enter your feedback first.');
+                }
+            });
+
             // Form submission
             document.getElementById('feedback-form-element').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -944,8 +1100,6 @@ ${context.userAgent}
 
                 if (message.trim()) {
                     submitFeedback(message, contact);
-                    // Reset form
-                    this.reset();
                 }
             });
         });
@@ -968,6 +1122,72 @@ ${context.userAgent}
         if ('connection' in navigator && navigator.connection.saveData) {
             document.querySelector('.background-video').pause();
         }
+
+        // Fix mobile video autoplay (iOS Safari issue)
+        function ensureVideoPlays() {
+            const video = document.getElementById('background-video');
+            const playOverlay = document.getElementById('video-play-overlay');
+
+            if (video && video.paused) {
+                // Try to play the video
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            // Video is playing, hide overlay
+                            if (playOverlay) {
+                                playOverlay.classList.remove('show');
+                            }
+                        })
+                        .catch(error => {
+                            console.log('Video autoplay prevented:', error);
+                            // Show play button overlay for user to tap
+                            if (playOverlay) {
+                                playOverlay.classList.add('show');
+
+                                const playVideo = () => {
+                                    video.play().then(() => {
+                                        playOverlay.classList.remove('show');
+                                    }).catch(err => {
+                                        console.log('Could not play video:', err);
+                                    });
+                                };
+
+                                // Handle clicks and touches on overlay
+                                playOverlay.addEventListener('click', playVideo, { once: true });
+                                playOverlay.addEventListener('touchend', function(e) {
+                                    e.preventDefault();
+                                    playVideo();
+                                }, { once: true });
+
+                                // Handle keyboard interaction
+                                playOverlay.addEventListener('keydown', function(e) {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        playVideo();
+                                    }
+                                }, { once: true });
+                            }
+                        });
+                }
+            }
+        }
+
+        // Try to play video on page load
+        window.addEventListener('load', ensureVideoPlays);
+        // Also try on DOMContentLoaded in case load event already fired
+        if (document.readyState === 'complete') {
+            ensureVideoPlays();
+        } else {
+            document.addEventListener('DOMContentLoaded', ensureVideoPlays);
+        }
+
+        // Ensure video plays when page becomes visible
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                ensureVideoPlays();
+            }
+        });
 
         // Initialize p5 feedback button after page loads
         window.addEventListener('load', function() {
