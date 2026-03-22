@@ -16,6 +16,15 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://hunterbeezley.github.io/visuals_1/">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HB Portfolio">
+    <link rel="apple-touch-icon" href="/icons/icon-152.png">
+
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -103,5 +112,7 @@
     <a href="https://forms.gle/4HJPUjpxcMpHtiTw8" id="collab-button" class="floating-button" target="_blank">Collab</a>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="scripts.js"></script>
+    <!-- PWA Service Worker Registration -->
+    <script src="/pwa-register.js"></script>
 </body>
 </html>

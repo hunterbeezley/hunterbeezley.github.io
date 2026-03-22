@@ -25,6 +25,26 @@
       <!-- Canonical URL -->
       <link rel="canonical" href="https://hunterbeezley.github.io">
 
+      <!-- PWA Manifest -->
+      <link rel="manifest" href="/manifest.json">
+
+      <!-- PWA Theme Colors -->
+      <meta name="theme-color" content="#000000">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <meta name="apple-mobile-web-app-title" content="HB Portfolio">
+
+      <!-- PWA Icons -->
+      <link rel="apple-touch-icon" href="/icons/icon-152.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72.png">
+      <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96.png">
+      <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128.png">
+      <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+      <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+      <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384.png">
+      <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+
       <!-- New Relic Browser snippet -->
       <script type="text/javascript">
     ;window.NREUM||(NREUM={});NREUM.init={session_replay:{enabled:true,block_selector:'',mask_text_selector:'*',sampling_rate:10.0,error_sampling_rate:100.0,mask_all_inputs:true,collect_fonts:true,inline_images:false,inline_stylesheet:true,mask_input_options:{}},distributed_tracing:{enabled:true},privacy:{cookies_enabled:true},ajax:{deny_list:["bam.nr-data.net"]}};
@@ -213,6 +233,8 @@
       <button id="scrambleButton">Scramble</button>
 
       <script src="sketch.js"></script>
+      <!-- PWA Service Worker Registration -->
+      <script src="pwa-register.js"></script>
 
     </body>
     </html>

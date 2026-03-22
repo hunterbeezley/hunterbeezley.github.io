@@ -16,6 +16,15 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://hunterbeezley.github.io/visuals_1/hydra/">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HB Portfolio">
+    <link rel="apple-touch-icon" href="/icons/icon-152.png">
+
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Additional styles for navigation */
@@ -68,5 +77,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.2/RecordRTC.min.js"></script>
     <script src="https://unpkg.com/hydra-synth"></script>
     <script src="script.js"></script>
+    <!-- PWA Service Worker Registration -->
+    <script src="/pwa-register.js"></script>
 </body>
 </html>

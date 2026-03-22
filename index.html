@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Under Maintenance - Hunter Beezley</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HB Portfolio">
+  <link rel="apple-touch-icon" href="/icons/icon-152.png">
+
   <style>
     * {
       margin: 0;
@@ -163,5 +172,8 @@
       starsContainer.appendChild(star);
     }
   </script>
+
+  <!-- PWA Service Worker Registration -->
+  <script src="/pwa-register.js"></script>
 </body>
 </html>
