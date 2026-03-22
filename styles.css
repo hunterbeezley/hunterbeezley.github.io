@@ -130,3 +130,17 @@ button:hover {
   color: #fff;
   border: 2px solid #fff;
 }
+
+/* Accessibility: Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  header span {
+    animation: none !important;
+  }
+}

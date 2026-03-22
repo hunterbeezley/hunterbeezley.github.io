@@ -3,10 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hydra Animation</title>
+    <title>Hydra Animation Studio - Hunter Beezley</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Interactive WebGL animation studio using Hydra Synth - live coding environment for generative art">
+    <meta name="author" content="Hunter Beezley">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Hydra Animation Studio - Hunter Beezley">
+    <meta property="og:description" content="Interactive WebGL animation studio with live coding and video recording">
+    <meta property="og:url" content="https://hunterbeezley.github.io/visuals_1/hydra/">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hunterbeezley.github.io/visuals_1/hydra/">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for navigation */
+        .main-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: opacity 0.3s ease;
+        }
+        .main-nav a:hover {
+            opacity: 0.7;
+        }
+        .main-nav a[aria-current="page"] {
+            border-bottom: 2px solid #fff;
+        }
+    </style>
 </head>
 <body>
+    <nav role="navigation" aria-label="Main navigation" class="main-nav">
+        <a href="../../index.html" aria-label="Go to home page">Home</a>
+        <a href="../index.html" aria-label="View visual projects">Visuals</a>
+        <a href="../../contact.html" aria-label="Contact and social links">Contact</a>
+    </nav>
+
     <div id="hydra-container">
         <canvas id="hydra-canvas"></canvas>
     </div>

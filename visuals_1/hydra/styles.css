@@ -78,3 +78,17 @@ body, html {
         margin-bottom: 10px;
     }
 }
+
+/* Accessibility: Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .button {
+        transition: none !important;
+    }
+}
