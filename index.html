@@ -372,6 +372,125 @@
             display: block;
         }
 
+        /* Feedback modal */
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .feedback-modal.active {
+            display: flex;
+        }
+
+        .feedback-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .feedback-form h2 {
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feedback-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .feedback-form input:focus,
+        .feedback-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .feedback-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .feedback-form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .feedback-form button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .feedback-form .btn-submit {
+            background: var(--primary);
+            color: var(--bg);
+            border-color: var(--primary);
+        }
+
+        .feedback-form .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .feedback-form .btn-cancel {
+            background: transparent;
+            color: var(--text-dim);
+            border-color: var(--text-dim);
+        }
+
+        .feedback-form .btn-cancel:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+
+        .feedback-info {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -447,6 +566,22 @@
             }
 
             .btn {
+                width: 100%;
+            }
+
+            .feedback-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .feedback-form h2 {
+                font-size: 1.5rem;
+            }
+
+            .feedback-form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .feedback-form button {
                 width: 100%;
             }
         }
@@ -583,6 +718,29 @@
     <!-- Floating Feedback Button Container -->
     <div id="feedback-button-container" aria-label="Submit feedback" role="button" tabindex="0"></div>
 
+    <!-- Feedback Modal -->
+    <div class="feedback-modal" id="feedback-modal">
+        <div class="feedback-form">
+            <h2>Send Feedback</h2>
+            <form id="feedback-form-element">
+                <label for="feedback-message">Your feedback *</label>
+                <textarea id="feedback-message" required placeholder="Share your thoughts, report an issue, or suggest an improvement..."></textarea>
+
+                <label for="feedback-contact">Contact info (optional)</label>
+                <input type="text" id="feedback-contact" placeholder="Email or preferred contact method">
+
+                <div class="feedback-form-actions">
+                    <button type="button" class="btn-cancel" id="feedback-cancel">Cancel</button>
+                    <button type="submit" class="btn-submit">Submit Feedback</button>
+                </div>
+
+                <div class="feedback-info">
+                    We'll automatically include technical details (browser, device, page) to help us understand your feedback better.
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
     </footer>
@@ -599,11 +757,18 @@
     </script>
 
     <script>
+        // Capture console errors
+        let consoleErrors = [];
+        const originalConsoleError = console.error;
+        console.error = function(...args) {
+            consoleErrors.push(args.join(' '));
+            originalConsoleError.apply(console, args);
+        };
+
         // p5.js sketch for particle orbit button
         let feedbackSketch = function(p) {
             let particles = [];
             let angle = 0;
-            let feedbackLink = 'https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0A%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you\'d%20like%20a%20response:**%0A';
 
             p.setup = function() {
                 let canvas = p.createCanvas(120, 120);
@@ -670,22 +835,119 @@
             p.mousePressed = function() {
                 let d = p.dist(p.mouseX, p.mouseY, 60, 60);
                 if (d < 30) {
-                    window.open(feedbackLink, '_blank');
+                    openFeedbackModal();
                 }
             };
         };
 
-        // Keyboard support for accessibility
+        // Feedback modal functions
+        function openFeedbackModal() {
+            document.getElementById('feedback-modal').classList.add('active');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedback-modal').classList.remove('active');
+        }
+
+        function collectContextData() {
+            const ua = navigator.userAgent;
+            const browser = (() => {
+                if (ua.includes('Firefox')) return 'Firefox';
+                if (ua.includes('Chrome')) return 'Chrome';
+                if (ua.includes('Safari') && !ua.includes('Chrome')) return 'Safari';
+                if (ua.includes('Edge')) return 'Edge';
+                return 'Unknown';
+            })();
+
+            return {
+                page: window.location.href,
+                browser: browser,
+                platform: navigator.platform,
+                screenSize: `${window.screen.width}x${window.screen.height}`,
+                viewport: `${window.innerWidth}x${window.innerHeight}`,
+                userAgent: ua,
+                timestamp: new Date().toISOString(),
+                consoleErrors: consoleErrors.length > 0 ? consoleErrors.join('\n') : 'None'
+            };
+        }
+
+        function submitFeedback(message, contact) {
+            const context = collectContextData();
+
+            const issueBody = `**Feedback:**
+${message}
+
+**Contact Info:**
+${contact || 'Not provided'}
+
+---
+
+**Technical Context:**
+- **Page:** ${context.page}
+- **Browser:** ${context.browser}
+- **Platform:** ${context.platform}
+- **Screen Size:** ${context.screenSize}
+- **Viewport:** ${context.viewport}
+- **Timestamp:** ${context.timestamp}
+- **Console Errors:** ${context.consoleErrors}
+
+<details>
+<summary>Full User Agent</summary>
+
+\`\`\`
+${context.userAgent}
+\`\`\`
+</details>`;
+
+            const encodedBody = encodeURIComponent(issueBody);
+            const githubUrl = `https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback&labels=feedback&body=${encodedBody}`;
+
+            window.open(githubUrl, '_blank');
+            closeFeedbackModal();
+        }
+
+        // Feedback modal event listeners
         document.addEventListener('DOMContentLoaded', function() {
+            // Button keyboard support
             const container = document.getElementById('feedback-button-container');
             if (container) {
                 container.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        window.open(feedbackSketch.feedbackLink || 'https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0A%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you\'d%20like%20a%20response:**%0A', '_blank');
+                        openFeedbackModal();
                     }
                 });
             }
+
+            // Cancel button
+            document.getElementById('feedback-cancel').addEventListener('click', closeFeedbackModal);
+
+            // Close on background click
+            document.getElementById('feedback-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeFeedbackModal();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeFeedbackModal();
+                }
+            });
+
+            // Form submission
+            document.getElementById('feedback-form-element').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const message = document.getElementById('feedback-message').value;
+                const contact = document.getElementById('feedback-contact').value;
+
+                if (message.trim()) {
+                    submitFeedback(message, contact);
+                    // Reset form
+                    this.reset();
+                }
+            });
         });
 
         // Smooth scroll for anchor links
