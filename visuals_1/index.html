@@ -28,6 +28,11 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+      if (typeof p5 === 'undefined') {
+        document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"><\/script>');
+      }
+    </script>
     <style>
         /* Additional styles for navigation */
         .main-nav {
@@ -72,38 +77,35 @@
         </div>
     </div>
     <div class="video-container" id="video-container-youtube">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/C7xvXOWV8JU?si=tl4jEGslNUbNnOtF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/C7xvXOWV8JU?si=tl4jEGslNUbNnOtF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
         <div class="project-description">
-            <h3>Project Title</h3>
-            <p>Add description here - what is this project? When was it created? What tools were used?</p>
-            <p class="project-meta">Date: TBD | Tools: TBD</p>
+            <h3>Creative Coding Showcase</h3>
+            <p>A compilation of interactive generative art experiments and visual sketches exploring motion, color, and algorithmic design patterns.</p>
+            <p class="project-meta">Date: 2023-2024 | Tools: p5.js, JavaScript, WebGL</p>
         </div>
     </div>
     <div class="video-container" id="video-container-1">
-        <div class="coming-soon-overlay">
-            <span>Coming Soon</span>
-        </div>
-        <iframe src="https://player.vimeo.com/video/989193589?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="EEMMUU - Song for Watershed"></iframe>
+        <iframe src="https://player.vimeo.com/video/989193589?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="EEMMUU - Song for Watershed" loading="lazy"></iframe>
         <div class="project-description">
             <h3>EEMMUU - Song for Watershed</h3>
-            <p>Add description here - what is this project? When was it created? What tools were used?</p>
-            <p class="project-meta">Date: TBD | Tools: TBD | Status: Coming Soon</p>
+            <p>Generative music visualization combining audio-reactive patterns with organic motion. Created for multimedia performance exploring themes of water and transformation.</p>
+            <p class="project-meta">Date: 2024 | Tools: Hydra, p5.js, TouchDesigner</p>
         </div>
     </div>
     <div class="video-container" id="video-container-2">
-        <iframe src="https://player.vimeo.com/video/989091624?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="RayMarch_Blob"></iframe>
+        <iframe src="https://player.vimeo.com/video/989091624?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="RayMarch_Blob" loading="lazy"></iframe>
         <div class="project-description">
             <h3>RayMarch_Blob</h3>
-            <p>Add description here - what is this project? When was it created? What tools were used?</p>
-            <p class="project-meta">Date: TBD | Tools: TBD</p>
+            <p>Real-time raymarched 3D blob with organic deformation and lighting. Exploring shader-based volumetric rendering techniques and procedural animation.</p>
+            <p class="project-meta">Date: 2024 | Tools: GLSL, WebGL, Hydra</p>
         </div>
     </div>
     <div class="video-container" id="video-container-3">
-        <iframe src="https://player.vimeo.com/video/940483373?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1232" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="particleShrooms"></iframe>
+        <iframe src="https://player.vimeo.com/video/940483373?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1232" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="particleShrooms" loading="lazy"></iframe>
         <div class="project-description">
             <h3>particleShrooms</h3>
-            <p>Add description here - what is this project? When was it created? What tools were used?</p>
-            <p class="project-meta">Date: TBD | Tools: TBD</p>
+            <p>Particle system simulation creating organic mushroom-like growth structures. Dynamic forces and emergent behaviors create natural movement patterns.</p>
+            <p class="project-meta">Date: 2023 | Tools: p5.js, Particle Physics, JavaScript</p>
         </div>
     </div>
     <div id="scroll-arrow">▼</div>

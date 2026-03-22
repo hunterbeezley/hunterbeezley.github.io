@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://hunterbeezley.github.io/sitemap.xml
+
+# Disallow admin page (future)
+Disallow: /admin.html
+Disallow: /admin/

@@ -9,6 +9,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   bgColor = color(0);
 
+  // Hide loading indicator
+  const loader = document.getElementById('loading-indicator');
+  if (loader) loader.style.display = 'none';
+
   // Create a box for the "My Resume" hyperlink
   // NOTE: You need to export your resume as a PDF and place it in the root directory
   // File: Hunter_Beezley_Resume.pdf
@@ -37,6 +41,9 @@ function setup() {
 function draw() {
   background(bgColor.levels[0], bgColor.levels[1], bgColor.levels[2], trailAlpha);
 
+  // Reset cursor
+  cursor(ARROW);
+
   for (let i = 0; i < boxes.length; i++) {
     boxes[i].display(i === focusedBoxIndex);
     boxes[i].move();
@@ -59,22 +66,33 @@ function createBox(label, link) {
       translate(this.x + boxSize / 2, this.y + boxSize / 2);
       rotate(this.rotationAngle);
 
-      // Draw focus indicator if this box is focused
-      if (isFocused) {
+      // Check if mouse is over this box
+      const isHovered = mouseX > this.x && mouseX < this.x + boxSize &&
+                       mouseY > this.y && mouseY < this.y + boxSize;
+
+      // Draw focus/hover indicator
+      if (isFocused || isHovered) {
         strokeWeight(4);
-        stroke(255, 255, 0); // Yellow focus indicator
+        stroke(isFocused ? color(255, 255, 0) : color(0, 217, 255)); // Yellow for focus, cyan for hover
         fill(this.color);
         rect(-boxSize / 2, -boxSize / 2, boxSize, boxSize);
         noStroke();
+
+        // Show hint on hover
+        if (isHovered && !isFocused) {
+          cursor(HAND);
+        }
       } else {
         fill(this.color);
         noStroke();
         rect(-boxSize / 2, -boxSize / 2, boxSize, boxSize);
       }
 
+      // Text with better contrast
       fill(0);
       textSize(16);
       textAlign(CENTER, CENTER);
+      textStyle(BOLD);
 
       rotate(-this.rotationAngle);
       text(this.label, 0, 0);

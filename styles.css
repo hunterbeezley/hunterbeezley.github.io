@@ -1,7 +1,32 @@
+:root {
+  --primary-color: #00d9ff;
+  --secondary-color: #ff006e;
+  --accent-color: #ffbe0b;
+  --background: #000;
+  --text: #fff;
+}
+
 body {
   margin: 0;
   overflow: hidden;
-  background: #000;
+  background: var(--background);
+}
+
+/* Skip to Content Link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--background);
+  color: var(--text);
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 1000;
+  border: 2px solid var(--text);
+}
+
+.skip-link:focus {
+  top: 0;
 }
 
 header {
@@ -109,6 +134,7 @@ nav a::before {
 
 nav a:hover::before {
   width: 100%;
+  background-color: var(--primary-color);
 }
 
 button {

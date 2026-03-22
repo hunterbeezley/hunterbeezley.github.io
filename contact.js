@@ -4,6 +4,10 @@ let boxLifespan = 200;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  // Hide loading indicator
+  const loader = document.getElementById('loading-indicator-contact');
+  if (loader) loader.style.display = 'none';
+
   // Create initial random boxes
   for (let i = 0; i < 50; i++) {
     createRandomBox();
