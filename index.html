@@ -353,6 +353,37 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Floating feedback button */
+        .feedback-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: var(--bg);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .feedback-button:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 12px 32px rgba(0, 217, 255, 0.6);
+        }
+
+        .feedback-button:active {
+            transform: scale(0.95);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             header {
@@ -404,6 +435,14 @@
             /* Ensure background video doesn't cause performance issues on mobile */
             .background-video {
                 opacity: 0.4;
+            }
+
+            .feedback-button {
+                width: 50px;
+                height: 50px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+                font-size: 1.3rem;
             }
         }
 
@@ -550,6 +589,15 @@
             </div>
         </section>
     </main>
+
+    <!-- Floating Feedback Button -->
+    <a href="https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0A%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you'd%20like%20a%20response:**%0A"
+       class="feedback-button"
+       target="_blank"
+       rel="noopener"
+       aria-label="Submit feedback">
+        💬
+    </a>
 
     <footer>
         <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
