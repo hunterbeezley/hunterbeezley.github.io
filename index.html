@@ -1,179 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Under Maintenance - Hunter Beezley</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunter Beezley</title>
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#000000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="HB Portfolio">
-  <link rel="apple-touch-icon" href="/icons/icon-152.png">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Hunter Beezley - Creative technologist, software engineer, and visual artist specializing in generative art and interactive experiences">
+    <meta name="author" content="Hunter Beezley">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Hunter Beezley - Creative Technologist">
+    <meta property="og:description" content="Software engineer and visual artist specializing in generative art and interactive experiences">
+    <meta property="og:url" content="https://hunterbeezley.github.io/">
 
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      position: relative;
-    }
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hunterbeezley.github.io/">
 
-    /* Animated starfield background */
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HB Portfolio">
+    <link rel="apple-touch-icon" href="/icons/icon-152.png">
 
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 3s infinite ease-in-out;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
+        :root {
+            --primary: #00d9ff;
+            --secondary: #ff006e;
+            --accent: #ffbe0b;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+        }
 
-    /* Content container */
-    .container {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 40px;
-      max-width: 600px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-      animation: pulse 2s infinite ease-in-out;
-    }
+        /* Full-page background video */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
+        /* Prevent video flicker on mobile */
+        @supports (-webkit-touch-callout: none) {
+            .background-video {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+        }
 
-    .subtitle {
-      font-size: 24px;
-      margin-bottom: 30px;
-      color: #ccc;
-    }
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    .message {
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .links {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
 
-    .links a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 20px;
-      border: 2px solid #fff;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
+        .logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
 
-    .links a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-    }
+        .logo img:hover {
+            transform: scale(1.05);
+        }
 
-    /* Responsive design */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 36px;
-      }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
 
-      .subtitle {
-        font-size: 20px;
-      }
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
 
-      .message {
-        font-size: 16px;
-      }
-    }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
 
-    /* Reduced motion support */
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
+        /* Main sections */
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Improve text readability over video */
+        section:not(.hero) {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        /* Hero section */
+        .hero {
+            flex-direction: column;
+            text-align: center;
+            justify-content: flex-end;
+            padding-bottom: 6rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .hero .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: var(--bg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-secondary {
+            border-color: var(--text-dim);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text);
+            border-color: var(--text);
+        }
+
+        /* About section */
+        .about {
+            flex-direction: column;
+        }
+
+        .about h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        /* Work section */
+        .work h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .work-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .work-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .work-card p {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .work-tag {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        /* Contact section */
+        .contact {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact p {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--bg);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo img {
+                height: 32px;
+                width: 32px;
+            }
+
+            .nav-links {
+                gap: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-links a {
+                padding: 0.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .hero {
+                padding-bottom: 4rem;
+            }
+
+            .btn {
+                padding: 0.65rem 1.5rem;
+                font-size: 0.95rem;
+                min-width: 140px;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            /* Ensure background video doesn't cause performance issues on mobile */
+            .background-video {
+                opacity: 0.4;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .cta-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Touch targets for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .btn, .social-link, .nav-links a, .work-card {
+                min-height: 44px;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Starfield background -->
-  <div class="stars" id="stars"></div>
+    <!-- Full-page background video -->
+    <video autoplay loop muted playsinline class="background-video">
+        <source src="background-animation.mp4" type="video/mp4">
+    </video>
 
-  <!-- Main content -->
-  <div class="container">
-    <h1>🛠️ Under Maintenance</h1>
-    <div class="links">
-      <a href="https://github.com/hunterbeezley" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/hunterbeezley/" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/h__nt3r_/" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@h_nt3r_" target="_blank">TikTok</a>
-    </div>
-  </div>
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Hunter Beezley Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <script>
-    // Create animated starfield
-    const starsContainer = document.getElementById('stars');
-    const starCount = 100;
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="cta-buttons">
+                <a href="#work" class="btn">View My Work</a>
+                <a href="resume.html" class="btn btn-secondary">Resume</a>
+            </div>
+        </section>
 
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
+        <!-- About Section -->
+        <section id="about" class="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Tech worker, creative coder, human [beep boop].
+                    </p>
+                    <p>
+                        Currently working at New Relic, I like to solve complex problems with creative solutions.
+                        Outside of work, I enjoy exploring the intersection of technology and creativity through generative art and interactive audio/visual experiences.
+                    </p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Skills & Tools</h3>
+                    <div class="skills">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">p5.js</span>
+                        <span class="skill-tag">Hydra</span>
+                        <span class="skill-tag">WebGL</span>
+                        <span class="skill-tag">GLSL</span>
+                        <span class="skill-tag">TouchDesigner</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Creative Coding</span>
+                        <span class="skill-tag">Generative Art</span>
+                        <span class="skill-tag">Interactive Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      // Random size between 1-3px
-      const size = Math.random() * 2 + 1;
-      star.style.width = size + 'px';
-      star.style.height = size + 'px';
+        <!-- Work Section -->
+        <section id="work" class="work" style="flex-direction: column;">
+            <h2>Featured Work</h2>
+            <div class="work-grid">
+                <a href="visuals_1/index.html" class="work-card">
+                    <h3>Visual Projects</h3>
+                    <p>
+                        A collection of generative art experiments, audio-reactive visuals,
+                        and interactive sketches exploring motion, color, and algorithmic design.
+                    </p>
+                    <span class="work-tag">p5.js</span>
+                    <span class="work-tag">Hydra</span>
+                    <span class="work-tag">WebGL</span>
+                </a>
 
-      // Random position
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
+                <a href="visuals_1/hydra/index.html" class="work-card">
+                    <h3>Hydra Synth Portal</h3>
+                    <p>
+                        Live coding environment for creating real-time visual synthesizers
+                        and generative video art in the browser.
+                    </p>
+                    <span class="work-tag">Hydra</span>
+                    <span class="work-tag">Live Coding</span>
+                </a>
 
-      // Random animation delay
-      star.style.animationDelay = Math.random() * 3 + 's';
+                <div class="work-card" style="opacity: 0.5; pointer-events: none;">
+                    <h3>More Projects Coming Soon</h3>
+                    <p>
+                        Additional work and experiments will be added here as the portfolio grows.
+                    </p>
+                    <span class="work-tag">TBD</span>
+                </div>
+            </div>
+        </section>
 
-      starsContainer.appendChild(star);
-    }
-  </script>
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <h2>Get In Touch</h2>
+            <p>
+                Interested in collaborating or just want to say hi?
+                Feel free to reach out through any of these channels.
+            </p>
+            <div class="social-links">
+                <a href="mailto:contact@hunterbeezley.com" class="social-link" aria-label="Email">✉️</a>
+                <a href="https://github.com/hunterbeezley" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">💻</a>
+                <a href="https://www.linkedin.com/in/hunterbeezley/" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">💼</a>
+                <a href="https://www.instagram.com/h__nt3r_/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+                <a href="https://www.tiktok.com/@h_nt3r_" class="social-link" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+            </div>
+        </section>
+    </main>
 
-  <!-- PWA Service Worker Registration -->
-  <script src="/pwa-register.js"></script>
+    <footer>
+        <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+    </footer>
+
+    <!-- PWA Service Worker Registration -->
+    <script src="/pwa-register.js"></script>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Pause video on mobile/low-power mode if needed
+        if ('connection' in navigator && navigator.connection.saveData) {
+            document.querySelector('.background-video').pause();
+        }
+    </script>
 </body>
 </html>

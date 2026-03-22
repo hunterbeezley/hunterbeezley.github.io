@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Hunter Beezley</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Resume of Hunter Beezley - Lead Technical Support Engineer specializing in IAM, security, and automation">
+    <meta name="author" content="Hunter Beezley">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HB Portfolio">
+    <link rel="apple-touch-icon" href="/icons/icon-152.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d9ff;
+            --secondary: #ff006e;
+            --accent: #ffbe0b;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Full-page background video */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        /* Glassmorphic card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header section */
+        .resume-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .resume-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .resume-header .title {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: var(--primary);
+            color: var(--bg);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Section headers */
+        .section-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+        }
+
+        /* Summary */
+        .summary {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Job entry */
+        .job {
+            margin-bottom: 2rem;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .job-meta {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .job ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .job li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        .job li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Skills */
+        .skill-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-category-name {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-category-content {
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 1rem;
+        }
+
+        .education-degree {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .education-details {
+            color: var(--text-dim);
+        }
+
+        /* Certifications */
+        .cert-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cert-list li {
+            color: var(--text-dim);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .cert-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo img {
+                height: 32px;
+                width: 32px;
+            }
+
+            .nav-links {
+                gap: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .container {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .glass-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .background-video {
+                opacity: 0.2;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Full-page background video -->
+    <video autoplay loop muted playsinline class="background-video">
+        <source src="background-animation.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Hunter Beezley Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="glass-card">
+            <div class="resume-header">
+                <h1>HUNTER C. BEEZLEY</h1>
+                <p class="title">Lead Technical Support Engineer | IAM & Security Specialist | Automation & Systems Builder</p>
+                <div class="contact-info">
+                    <span>Portland, OR</span>
+                    <span>•</span>
+                    <span>914-319-2467</span>
+                    <span>•</span>
+                    <span>hunterbeezley@gmail.com</span>
+                </div>
+                <a href="Hunter_Beezley_Resume.pdf" class="download-btn" target="_blank">Download PDF</a>
+            </div>
+
+            <h2 class="section-header">PROFESSIONAL SUMMARY</h2>
+            <p class="summary">
+                Lead Technical Support Engineer with 10+ years of experience specializing in identity access management (IAM), security operations, team leadership, and support systems automation. Expert in Okta administration, SSO/SCIM integrations, API security, and incident response. Proven track record leading global teams, contributing to production codebases, building automation tools and internal APIs, and architecting comprehensive knowledge management systems. Combines deep technical expertise with systems thinking, process optimization, compliance documentation, and customer success capabilities.
+            </p>
+
+            <h2 class="section-header">PROFESSIONAL EXPERIENCE</h2>
+
+            <div class="job">
+                <div class="job-title">Lead Technical Support Engineer - Account Security Team Lead</div>
+                <div class="job-meta">New Relic  |  2024 - Present</div>
+                <ul>
+                    <li>Lead support team of 9 engineers across 3 global regions (AMER E/W, EMEA, APJ), specializing in IAM, SSO/SCIM integrations, APIs, data usage, organization management and incident response</li>
+                    <li>Partnered with Support Leadership to spearhead enterprise-wide RBAC system overhaul, consolidating 6 roles into 2 streamlined roles and redesigning permissions architecture, improving security posture and operational efficiency for 200+ support engineers</li>
+                    <li>Designed and implemented production NerdGraph GraphQL API endpoint for authentication domain user migrations, eliminating engineering bottlenecks</li>
+                    <li>Built automation infrastructure including Google Apps Script for Slack workflow integrations, shell scripts for scheduled job execution, and launchd agents for macOS monitoring, reducing manual escalation handling time by 40%</li>
+                    <li>Architected and maintain 70+ internal wiki pages (29% team ownership) including comprehensive SAML/SSO integration guides (1,100+ lines), searchable troubleshooting matrices, and IDP-specific configurations, serving as primary knowledge resource for 200+ global support engineers</li>
+                    <li>Designed and maintained enterprise-grade GDPR/CCPA data privacy compliance workflows and documentation (91 versions), ensuring regulatory compliance across global operations while processing 100+ data deletion/access requests quarterly</li>
+                    <li>Contributed authentication features to New Relic's IAM codebase (TypeScript/Node.js) and authored public-facing IAM technical guides, reducing average time-to-resolution by 35% through structured documentation and diagnostic tools</li>
+                    <li>Contributed to on-call escalation rotations for incident response management and support case escalations, maintaining 95%+ customer satisfaction rating with 10-day average resolution time</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-title">Senior Technical Support Engineer</div>
+                <div class="job-meta">New Relic  |  2022 - 2024</div>
+                <ul>
+                    <li>Resolved complex enterprise customer issues involving IAM architecture, SAML/OAuth authentication flows, API security configurations, and SCIM provisioning integrations</li>
+                    <li>Developed Python automation tools with New Relic's Nerdgraph API to solve tough customer problems and use-cases related to bulk user, account and organization management tasks</li>
+                    <li>Mentored junior engineers on security incident response, troubleshooting methodologies, and customer escalation management</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-title">Technical Support Engineer</div>
+                <div class="job-meta">New Relic  |  2019 - 2022</div>
+                <ul>
+                    <li>Resolved complex technical issues for new and existing enterprise and mid-market customers</li>
+                    <li>Consistently exceeded case resolution targets while handling diverse technical issues across observability platform, earning promotion to Senior TSE within 3 years</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-title">Cellular QA Engineer</div>
+                <div class="job-meta">Apple  |  2019</div>
+                <ul>
+                    <li>Assisted Wireless Technology and Ecosystems team by performing manual and automated testing for Apple Watch and iPhone telephony features</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-title">Genius</div>
+                <div class="job-meta">Apple  |  2011 - 2019</div>
+                <ul>
+                    <li>Diagnosed and repaired hardware and software issues, providing efficient solutions and ensuring high customer satisfaction</li>
+                    <li>Trained and mentored new team members on product knowledge, repair processes, and customer service best practices</li>
+                </ul>
+            </div>
+
+            <h2 class="section-header">TECHNICAL SKILLS</h2>
+
+            <div class="skill-category">
+                <div class="skill-category-name">Security & Identity Access Management:</div>
+                <div class="skill-category-content">IAM Architecture & Implementation • SSO/SCIM (SAML 2.0, OAuth, OpenID Connect) • Okta Administration & Integration (Platform Expert) • API Security (REST & GraphQL) • Security Incident Response & Management • RBAC Design & Implementation • GDPR/CCPA Compliance</div>
+            </div>
+
+            <div class="skill-category">
+                <div class="skill-category-name">Development & Automation:</div>
+                <div class="skill-category-content">Python (Automation, Scripting & API Development) • JavaScript/Node.js/TypeScript • Terraform & Infrastructure as Code • Shell Scripting (Bash) • SQL • GraphQL (NerdGraph API) • REST API Design • Google Apps Script • Slack Workflow Automation • Webhook Integrations • Git/Version Control • CI/CD Concepts</div>
+            </div>
+
+            <div class="skill-category">
+                <div class="skill-category-name">Platform & Tools:</div>
+                <div class="skill-category-content">Full-Stack Observability (New Relic Platform) • Okta • Google Workspace Administration • Google Sheets API • Google Calendar API • NRQL (New Relic Query Language) • SCIM Provisioning • Authentication Protocols • Cloud Security Concepts • macOS Automation (launchd)</div>
+            </div>
+
+            <div class="skill-category">
+                <div class="skill-category-name">Leadership & Operations:</div>
+                <div class="skill-category-content">Global Team Leadership (9 Direct Reports, 3 Regions) • Cross-Functional Project Management • On-Call Incident Response Management • Process Design & Optimization • Knowledge Management & Technical Writing • Compliance Documentation (GDPR/CCPA) • Training & Mentorship • Stakeholder Communication</div>
+            </div>
+
+            <h2 class="section-header">EDUCATION</h2>
+
+            <div class="education-item">
+                <span class="education-degree">Master of Arts</span>
+                <span class="education-details">  |  Union Theological Seminary  |  2015</span>
+            </div>
+
+            <div class="education-item">
+                <span class="education-degree">Bachelor of Arts</span>
+                <span class="education-details">  |  Nyack College  |  2013</span>
+            </div>
+
+            <h2 class="section-header">CERTIFICATIONS & TRAINING</h2>
+
+            <ul class="cert-list">
+                <li>Apple Certified Mac Technician (ACMT)</li>
+                <li>Apple Mac Service Certification</li>
+                <li>Apple Service Fundamentals</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PWA Service Worker Registration -->
+    <script src="/pwa-register.js"></script>
+
+    <script>
+        // Pause video on mobile/low-power mode if needed
+        if ('connection' in navigator && navigator.connection.saveData) {
+            document.querySelector('.background-video').pause();
+        }
+    </script>
+</body>
+</html>
