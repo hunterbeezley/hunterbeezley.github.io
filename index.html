@@ -353,35 +353,23 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Floating feedback button */
-        .feedback-button {
+        /* Floating feedback button container for p5.js */
+        #feedback-button-container {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            color: var(--bg);
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.4);
-            transition: all 0.3s ease;
             z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
+            filter: drop-shadow(0 8px 24px rgba(0, 217, 255, 0.4));
+            transition: transform 0.3s ease;
         }
 
-        .feedback-button:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 12px 32px rgba(0, 217, 255, 0.6);
+        #feedback-button-container:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 12px 32px rgba(0, 217, 255, 0.6));
         }
 
-        .feedback-button:active {
-            transform: scale(0.95);
+        #feedback-button-container canvas {
+            display: block;
         }
 
         /* Responsive */
@@ -437,12 +425,14 @@
                 opacity: 0.4;
             }
 
-            .feedback-button {
-                width: 50px;
-                height: 50px;
+            #feedback-button-container {
                 bottom: 1.5rem;
                 right: 1.5rem;
-                font-size: 1.3rem;
+                transform: scale(0.8);
+            }
+
+            #feedback-button-container:hover {
+                transform: scale(0.85);
             }
         }
 
@@ -590,14 +580,8 @@
         </section>
     </main>
 
-    <!-- Floating Feedback Button -->
-    <a href="https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0A%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you'd%20like%20a%20response:**%0A"
-       class="feedback-button"
-       target="_blank"
-       rel="noopener"
-       aria-label="Submit feedback">
-        💬
-    </a>
+    <!-- Floating Feedback Button Container -->
+    <div id="feedback-button-container" aria-label="Submit feedback" role="button" tabindex="0"></div>
 
     <footer>
         <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
@@ -606,7 +590,104 @@
     <!-- PWA Service Worker Registration -->
     <script src="/pwa-register.js"></script>
 
+    <!-- p5.js for animated feedback button -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
+        if (typeof p5 === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"><\/script>');
+        }
+    </script>
+
+    <script>
+        // p5.js sketch for particle orbit button
+        let feedbackSketch = function(p) {
+            let particles = [];
+            let angle = 0;
+            let feedbackLink = 'https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0A%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you\'d%20like%20a%20response:**%0A';
+
+            p.setup = function() {
+                let canvas = p.createCanvas(120, 120);
+                canvas.parent('feedback-button-container');
+                canvas.style('cursor', 'pointer');
+
+                // Create particles with different orbits
+                let colors = [
+                    p.color(0, 217, 255),    // cyan
+                    p.color(255, 0, 110),    // pink
+                    p.color(255, 190, 11)    // yellow
+                ];
+
+                for (let i = 0; i < 8; i++) {
+                    particles.push({
+                        angle: p.random(p.TWO_PI),
+                        radius: p.random(45, 55),
+                        speed: p.random(0.01, 0.03),
+                        size: p.random(3, 6),
+                        color: colors[i % colors.length]
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.push();
+                p.translate(60, 60);
+
+                // Draw main button circle with gradient
+                let gradient = p.drawingContext.createRadialGradient(0, 0, 0, 0, 0, 30);
+                gradient.addColorStop(0, 'rgba(0, 217, 255, 0.8)');
+                gradient.addColorStop(1, 'rgba(255, 0, 110, 0.8)');
+                p.drawingContext.fillStyle = gradient;
+                p.noStroke();
+                p.circle(0, 0, 60);
+
+                // Draw orbiting particles
+                particles.forEach(particle => {
+                    let x = p.cos(particle.angle) * particle.radius;
+                    let y = p.sin(particle.angle) * particle.radius;
+
+                    // Particle glow
+                    p.fill(particle.color.levels[0], particle.color.levels[1], particle.color.levels[2], 100);
+                    p.circle(x, y, particle.size + 4);
+
+                    // Particle core
+                    p.fill(particle.color);
+                    p.circle(x, y, particle.size);
+
+                    // Update angle
+                    particle.angle += particle.speed;
+                });
+
+                // Draw emoji
+                p.fill(10);
+                p.textAlign(p.CENTER, p.CENTER);
+                p.textSize(24);
+                p.text('💬', 0, 0);
+
+                p.pop();
+            };
+
+            p.mousePressed = function() {
+                let d = p.dist(p.mouseX, p.mouseY, 60, 60);
+                if (d < 30) {
+                    window.open(feedbackLink, '_blank');
+                }
+            };
+        };
+
+        // Keyboard support for accessibility
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('feedback-button-container');
+            if (container) {
+                container.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        window.open(feedbackSketch.feedbackLink || 'https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0A%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you\'d%20like%20a%20response:**%0A', '_blank');
+                    }
+                });
+            }
+        });
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -625,6 +706,11 @@
         if ('connection' in navigator && navigator.connection.saveData) {
             document.querySelector('.background-video').pause();
         }
+
+        // Initialize p5 feedback button after page loads
+        window.addEventListener('load', function() {
+            new p5(feedbackSketch);
+        });
     </script>
 </body>
 </html>
