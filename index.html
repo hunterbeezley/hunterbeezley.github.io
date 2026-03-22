@@ -71,37 +71,6 @@
             }
         }
 
-        /* Video play overlay for mobile (shown only if autoplay fails) */
-        .video-play-overlay {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
-            background: rgba(0, 217, 255, 0.2);
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .video-play-overlay.show {
-            display: flex;
-        }
-
-        .video-play-overlay:hover {
-            background: rgba(0, 217, 255, 0.4);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
         /* Header */
         header {
             position: fixed;
@@ -708,14 +677,9 @@
 </head>
 <body>
     <!-- Full-page background video -->
-    <video autoplay loop muted playsinline class="background-video" id="background-video">
+    <video autoplay loop muted playsinline class="background-video" id="background-video" preload="auto" webkit-playsinline>
         <source src="background-animation.mp4" type="video/mp4">
     </video>
-
-    <!-- Video play button overlay (shown only if autoplay fails) -->
-    <div class="video-play-overlay" id="video-play-overlay" aria-label="Play background video" role="button" tabindex="0">
-        ▶️
-    </div>
 
     <header>
         <nav>
@@ -1118,76 +1082,76 @@ ${context.userAgent}
             });
         });
 
-        // Pause video on mobile/low-power mode if needed
-        if ('connection' in navigator && navigator.connection.saveData) {
-            document.querySelector('.background-video').pause();
-        }
-
-        // Fix mobile video autoplay (iOS Safari issue)
-        function ensureVideoPlays() {
+        // Aggressive video autoplay for mobile
+        (function() {
             const video = document.getElementById('background-video');
-            const playOverlay = document.getElementById('video-play-overlay');
 
-            if (video && video.paused) {
-                // Try to play the video
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise
-                        .then(() => {
-                            // Video is playing, hide overlay
-                            if (playOverlay) {
-                                playOverlay.classList.remove('show');
-                            }
-                        })
-                        .catch(error => {
-                            console.log('Video autoplay prevented:', error);
-                            // Show play button overlay for user to tap
-                            if (playOverlay) {
-                                playOverlay.classList.add('show');
+            if (!video) return;
 
-                                const playVideo = () => {
-                                    video.play().then(() => {
-                                        playOverlay.classList.remove('show');
-                                    }).catch(err => {
-                                        console.log('Could not play video:', err);
-                                    });
-                                };
+            // Pause video on data saver mode
+            if ('connection' in navigator && navigator.connection && navigator.connection.saveData) {
+                video.pause();
+                return;
+            }
 
-                                // Handle clicks and touches on overlay
-                                playOverlay.addEventListener('click', playVideo, { once: true });
-                                playOverlay.addEventListener('touchend', function(e) {
-                                    e.preventDefault();
-                                    playVideo();
-                                }, { once: true });
-
-                                // Handle keyboard interaction
-                                playOverlay.addEventListener('keydown', function(e) {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        playVideo();
-                                    }
-                                }, { once: true });
-                            }
-                        });
+            // Force play on multiple events
+            function forcePlay() {
+                if (video.paused) {
+                    video.play().catch(err => {
+                        console.log('Video play attempt:', err);
+                    });
                 }
             }
-        }
 
-        // Try to play video on page load
-        window.addEventListener('load', ensureVideoPlays);
-        // Also try on DOMContentLoaded in case load event already fired
-        if (document.readyState === 'complete') {
-            ensureVideoPlays();
-        } else {
-            document.addEventListener('DOMContentLoaded', ensureVideoPlays);
-        }
+            // Try to play immediately
+            forcePlay();
 
-        // Ensure video plays when page becomes visible
-        document.addEventListener('visibilitychange', function() {
-            if (!document.hidden) {
-                ensureVideoPlays();
+            // Force play on various events
+            const events = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'];
+            events.forEach(event => {
+                video.addEventListener(event, forcePlay, { once: true });
+            });
+
+            // Try on DOMContentLoaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', forcePlay);
             }
-        });
+
+            // Try on window load
+            window.addEventListener('load', forcePlay);
+
+            // Try when page becomes visible
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    forcePlay();
+                }
+            });
+
+            // Try on any user interaction (for iOS strict autoplay policy)
+            const userInteractionEvents = ['touchstart', 'touchend', 'click', 'scroll'];
+            let interactionTriggered = false;
+
+            userInteractionEvents.forEach(eventType => {
+                document.addEventListener(eventType, function() {
+                    if (!interactionTriggered && video.paused) {
+                        interactionTriggered = true;
+                        forcePlay();
+                    }
+                }, { once: true, passive: true });
+            });
+
+            // Periodic check to ensure video is playing (stops after success)
+            let checkCount = 0;
+            const maxChecks = 20;
+            const checkInterval = setInterval(() => {
+                checkCount++;
+                if (checkCount >= maxChecks || !video.paused) {
+                    clearInterval(checkInterval);
+                    return;
+                }
+                forcePlay();
+            }, 500);
+        })();
 
         // Initialize p5 feedback button after page loads
         window.addEventListener('load', function() {
