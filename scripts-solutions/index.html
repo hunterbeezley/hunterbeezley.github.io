@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts & Solutions - Hunter Beezley</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Automation scripts, API integrations, and technical solutions by Hunter Beezley">
+    <meta name="author" content="Hunter Beezley">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Scripts & Solutions - Hunter Beezley">
+    <meta property="og:description" content="Automation scripts, API integrations, and technical solutions">
+    <meta property="og:url" content="https://hunterbeezley.github.io/scripts-solutions/">
+    <meta property="og:image" content="https://hunterbeezley.github.io/og-image.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d9ff;
+            --secondary: #ff006e;
+            --accent: #ffbe0b;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .logo:hover {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-card h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .project-section {
+            margin-bottom: 2rem;
+        }
+
+        .project-section h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-section h3::before {
+            content: '▸';
+            color: var(--accent);
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .feature-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-dim);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 190, 11, 0.1);
+            border: 1px solid rgba(255, 190, 11, 0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        .code-snippet code {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--primary);
+        }
+
+        .comment {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .project-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-header {
+                flex-direction: column;
+            }
+
+            .code-snippet {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">← Hunter Beezley</a>
+            <ul class="nav-links">
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#work">Work</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>Scripts & Solutions</h1>
+            <p>Automation tools, API integrations, and technical solutions built to solve real-world workflow challenges</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1: Unified Project Sync System -->
+            <article class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h2>Unified Project Sync System</h2>
+                        <span class="project-type">Multi-Service Orchestration</span>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    A sophisticated synchronization system that connects Google Sheets, local SQLite database, and Confluence
+                    to create a seamless project management workflow. Work locally with markdown files while automatically
+                    syncing to Confluence draft articles and maintaining dashboard visibility in Google Sheets.
+                </p>
+
+                <div class="project-section">
+                    <h3>Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Bidirectional sync between Google Sheets and local SQLite database</li>
+                        <li>Automatic Confluence draft article creation from markdown notes</li>
+                        <li>Change detection via content hashing (only syncs when needed)</li>
+                        <li>Folder linking with automatic project discovery</li>
+                        <li>Single source of truth architecture with backward compatibility</li>
+                        <li>Comprehensive logging and error handling</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Tech Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">SQLite</span>
+                        <span class="tech-tag">Google Sheets API</span>
+                        <span class="tech-tag">Confluence API</span>
+                        <span class="tech-tag">Markdown</span>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Architecture Highlights</h3>
+                    <div class="code-snippet">
+                        <code><span class="comment"># Workflow: Slack → Sheets → SQLite → Local Files → Confluence</span>
+<span class="highlight">def</span> sync_all():
+    <span class="comment"># Pull from Google Sheets</span>
+    projects = sheets_sync.pull_from_sheets()
+
+    <span class="comment"># Update local database</span>
+    database.sync_projects(projects)
+
+    <span class="comment"># Link local folders</span>
+    folder_linker.discover_and_link()
+
+    <span class="comment"># Sync notes to Confluence drafts</span>
+    confluence_sync.sync_all_notes()
+
+    <span class="comment"># Push Confluence URLs back to Sheets</span>
+    sheets_sync.update_notes_links()</code>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Impact</h3>
+                    <p class="project-description">
+                        Eliminates manual project tracking overhead. Work seamlessly with Claude Code on local markdown files
+                        while maintaining real-time visibility in Google Sheets for mobile/dashboard viewing and creating
+                        permanent documentation in Confluence.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Project 2: Confluence Zoom Mentions Finder -->
+            <article class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h2>Confluence Zoom Mentions Finder</h2>
+                        <span class="project-type">API Integration</span>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    Team-reusable Python script that finds all Zoom meeting links and mentions across Confluence pages
+                    by fetching data directly from the Confluence API. Built for New Relic's transition away from Zoom,
+                    but designed for cross-team reusability.
+                </p>
+
+                <div class="project-section">
+                    <h3>Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Fetches pages directly from Confluence API (no local export needed)</li>
+                        <li>Recursive child page traversal with hierarchy tracking</li>
+                        <li>Extracts Zoom URLs and surrounding context</li>
+                        <li>Generates both console output and CSV reports</li>
+                        <li>Configurable via environment variables or interactive prompts</li>
+                        <li>Comprehensive error handling and SSL verification options</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Tech Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Confluence REST API</span>
+                        <span class="tech-tag">CSV Reporting</span>
+                        <span class="tech-tag">Environment Variables</span>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Usage Example</h3>
+                    <div class="code-snippet">
+                        <code><span class="comment"># Interactive mode</span>
+python3 find_zoom_mentions.py
+
+<span class="comment"># Or with environment variables</span>
+<span class="highlight">export</span> CONFLUENCE_URL='https://company.atlassian.net/wiki'
+<span class="highlight">export</span> CONFLUENCE_USERNAME='email@company.com'
+<span class="highlight">export</span> CONFLUENCE_API_TOKEN='your-token'
+<span class="highlight">export</span> PARENT_PAGE_ID='123456789'
+
+python3 find_zoom_mentions.py</code>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Impact</h3>
+                    <p class="project-description">
+                        Designed for easy sharing across teams - zero code modification needed. Just provide credentials
+                        and parent page ID. Has been used by multiple teams at New Relic to audit Zoom usage across
+                        hundreds of Confluence pages.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Project 3: OOO Calendar Bot -->
+            <article class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h2>Out of Office Calendar Bot</h2>
+                        <span class="project-type">Automation</span>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    Google Apps Script that automatically detects team members who are out of office by scanning a
+                    shared Google Calendar and sends daily notifications to Slack. Filters by keywords, team members,
+                    and all-day events for accuracy.
+                </p>
+
+                <div class="project-section">
+                    <h3>Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Automated daily scanning via time-based triggers</li>
+                        <li>Keyword detection (OOO, Vacation, PTO, Holiday, etc.)</li>
+                        <li>Team member filtering by email address</li>
+                        <li>All-day event validation (ignores partial-day events)</li>
+                        <li>Individual Slack messages per OOO user via webhooks</li>
+                        <li>Resource/group calendar filtering (excludes meeting rooms)</li>
+                        <li>Test mode for webhook validation</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Tech Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Google Apps Script</span>
+                        <span class="tech-tag">Google Calendar API</span>
+                        <span class="tech-tag">Slack Webhooks</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Core Logic</h3>
+                    <div class="code-snippet">
+                        <code><span class="comment">// Fetch today's calendar events</span>
+<span class="highlight">const</span> events = Calendar.Events.list(CALENDAR_ID, {
+  timeMin: todayStart.toISOString(),
+  timeMax: todayEnd.toISOString(),
+  singleEvents: <span class="highlight">true</span>
+});
+
+<span class="comment">// Filter for OOO keywords and all-day events</span>
+events.items.forEach(event => {
+  <span class="highlight">const</span> isOoo = OOO_KEYWORDS.some(keyword =>
+    event.summary.toLowerCase().includes(keyword)
+  );
+
+  <span class="highlight">const</span> isAllDay = event.start.date && !event.start.dateTime;
+
+  <span class="highlight">if</span> (isOoo && isAllDay) {
+    sendSlackMessage(event.creator.email);
+  }
+});</code>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Impact</h3>
+                    <p class="project-description">
+                        Eliminates manual checking of team calendars. Proactively notifies the team channel each morning
+                        of who's out, improving work distribution and reducing surprise absences.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Project 4: User Deletion Tool -->
+            <article class="project-card">
+                <div class="project-header">
+                    <div>
+                        <h2>User Deletion Tool (One Month Filter)</h2>
+                        <span class="project-type">Enterprise User Management</span>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    A safety-critical two-stage workflow for bulk deletion of New Relic user records. Designed for
+                    extreme edge cases where accidental provisioning creates hundreds of duplicate user records.
+                    Features comprehensive safeguards, staging/production separation, and extensive documentation.
+                </p>
+
+                <div class="project-section">
+                    <h3>Key Features</h3>
+                    <ul class="feature-list">
+                        <li>Two-stage workflow: Filter → Review → Delete</li>
+                        <li>Date-based filtering (e.g., "older than 30 days")</li>
+                        <li>Separate staging and production scripts with different endpoints</li>
+                        <li>Interactive confirmations at every critical step</li>
+                        <li>Comprehensive statistics and preview before deletion</li>
+                        <li>Detailed success/failure tracking and reporting</li>
+                        <li>Virtual environment isolation for dependencies</li>
+                    </ul>
+                </div>
+
+                <div class="project-section">
+                    <h3>Tech Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">New Relic NerdGraph API</span>
+                        <span class="tech-tag">GraphQL</span>
+                        <span class="tech-tag">JSON Processing</span>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Safety Architecture</h3>
+                    <div class="code-snippet">
+                        <code><span class="comment"># Stage 1: Filter users by creation date</span>
+cutoff_date = datetime.now() - timedelta(days=30)
+filtered_users = [
+    user <span class="highlight">for</span> user <span class="highlight">in</span> all_users
+    <span class="highlight">if</span> user['created_at'] < cutoff_date
+]
+
+<span class="comment"># Display statistics for review</span>
+print(<span class="highlight">f</span>"Total users: {len(all_users)}")
+print(<span class="highlight">f</span>"Users to delete: {len(filtered_users)}")
+print(<span class="highlight">f</span>"Users excluded: {len(all_users) - len(filtered_users)}")
+
+<span class="comment"># Stage 2: Final confirmation before deletion</span>
+confirmation = input("Proceed with deletion? (y/n): ")
+<span class="highlight">if</span> confirmation.lower() != 'y':
+    print("Deletion cancelled.")
+    exit()</code>
+                    </div>
+                </div>
+
+                <div class="project-section">
+                    <h3>Impact</h3>
+                    <p class="project-description">
+                        Successfully handles extreme edge cases where hundreds of duplicate user records exist.
+                        Critical documentation prevents misuse - includes multiple warnings, examples, and troubleshooting.
+                        Separate staging/production environments ensure safe testing before production operations.
+                    </p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+        <a href="/" class="back-link">← Back to Portfolio</a>
+    </footer>
+</body>
+</html>
