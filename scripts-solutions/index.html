@@ -331,34 +331,34 @@
     <main>
         <div class="page-header">
             <h1>Scripts & Solutions</h1>
-            <p>Automation tools, API integrations, and technical solutions built to solve real-world workflow challenges</p>
+            <p>Customer-focused automation tools built for New Relic Support operations and workflow optimization</p>
         </div>
 
         <div class="projects-grid">
-            <!-- Project 1: Unified Project Sync System -->
+            <!-- Project 1: Bulk User Email Update -->
             <article class="project-card">
                 <div class="project-header">
                     <div>
-                        <h2>Unified Project Sync System</h2>
-                        <span class="project-type">Multi-Service Orchestration</span>
+                        <h2>Bulk User Email Update</h2>
+                        <span class="project-type">Customer Support Tool</span>
                     </div>
                 </div>
 
                 <p class="project-description">
-                    A sophisticated synchronization system that connects Google Sheets, local SQLite database, and Confluence
-                    to create a seamless project management workflow. Work locally with markdown files while automatically
-                    syncing to Confluence draft articles and maintaining dashboard visibility in Google Sheets.
+                    CSV-driven automation tool for updating email addresses of multiple New Relic users at scale.
+                    The most impactful script built for New Relic Support operations, saving hours of manual work
+                    for customers migrating domains or correcting provisioning errors.
                 </p>
 
                 <div class="project-section">
                     <h3>Key Features</h3>
                     <ul class="feature-list">
-                        <li>Bidirectional sync between Google Sheets and local SQLite database</li>
-                        <li>Automatic Confluence draft article creation from markdown notes</li>
-                        <li>Change detection via content hashing (only syncs when needed)</li>
-                        <li>Folder linking with automatic project discovery</li>
-                        <li>Single source of truth architecture with backward compatibility</li>
-                        <li>Comprehensive logging and error handling</li>
+                        <li>Batch processing from CSV (ID and email columns)</li>
+                        <li>New Relic User Management API via GraphQL mutations</li>
+                        <li>Input validation with error handling</li>
+                        <li>Individual success/failure reporting per user</li>
+                        <li>Simple interactive prompts for API key and CSV path</li>
+                        <li>File existence and format validation</li>
                     </ul>
                 </div>
 
@@ -366,69 +366,81 @@
                     <h3>Tech Stack</h3>
                     <div class="tech-stack">
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">SQLite</span>
-                        <span class="tech-tag">Google Sheets API</span>
-                        <span class="tech-tag">Confluence API</span>
-                        <span class="tech-tag">Markdown</span>
+                        <span class="tech-tag">GraphQL</span>
+                        <span class="tech-tag">New Relic NerdGraph API</span>
+                        <span class="tech-tag">CSV Processing</span>
                     </div>
                 </div>
 
                 <div class="project-section">
-                    <h3>Architecture Highlights</h3>
+                    <h3>Core Implementation</h3>
                     <div class="code-snippet">
-                        <code><span class="comment"># Workflow: Slack → Sheets → SQLite → Local Files → Confluence</span>
-<span class="highlight">def</span> sync_all():
-    <span class="comment"># Pull from Google Sheets</span>
-    projects = sheets_sync.pull_from_sheets()
+                        <code><span class="comment"># Loop through CSV and update each user</span>
+<span class="highlight">with</span> open(csv_path, newline='') <span class="highlight">as</span> csvfile:
+    reader = csv.DictReader(csvfile)
+    <span class="highlight">for</span> row <span class="highlight">in</span> reader:
+        user_id = row['ID']
+        new_email = row['Email']
 
-    <span class="comment"># Update local database</span>
-    database.sync_projects(projects)
+        <span class="comment"># GraphQL mutation</span>
+        payload = {
+            "query": <span class="highlight">"""mutation {
+                userManagementUpdateUser(
+                    updateUserOptions: {
+                        id: "</span>" + user_id + <span class="highlight">",
+                        email: "</span>" + new_email + <span class="highlight">"
+                    }
+                ) {
+                    user { id email }
+                }
+            }"""</span>
+        }
 
-    <span class="comment"># Link local folders</span>
-    folder_linker.discover_and_link()
+        response = requests.post(api_url, headers=headers,
+                                data=json.dumps(payload))
 
-    <span class="comment"># Sync notes to Confluence drafts</span>
-    confluence_sync.sync_all_notes()
-
-    <span class="comment"># Push Confluence URLs back to Sheets</span>
-    sheets_sync.update_notes_links()</code>
+        <span class="highlight">if</span> "errors" <span class="highlight">in</span> response.json():
+            print("Error:", response.json()["errors"])
+        <span class="highlight">else</span>:
+            print(<span class="highlight">f</span>"User {user_id} updated successfully")</code>
                     </div>
                 </div>
 
                 <div class="project-section">
                     <h3>Impact</h3>
                     <p class="project-description">
-                        Eliminates manual project tracking overhead. Work seamlessly with Claude Code on local markdown files
-                        while maintaining real-time visibility in Google Sheets for mobile/dashboard viewing and creating
-                        permanent documentation in Confluence.
+                        <strong>Most impactful script for New Relic Support operations.</strong> Regularly used for
+                        customer migrations (domain changes, company acquisitions) and fixing bulk provisioning errors.
+                        What would take hours of manual UI clicks now completes in minutes. Has been used for customers
+                        with hundreds of users requiring email updates.
                     </p>
                 </div>
             </article>
 
-            <!-- Project 2: Confluence Zoom Mentions Finder -->
+            <!-- Project 2: SCIM User Delete Tool -->
             <article class="project-card">
                 <div class="project-header">
                     <div>
-                        <h2>Confluence Zoom Mentions Finder</h2>
-                        <span class="project-type">API Integration</span>
+                        <h2>SCIM User Delete Tool</h2>
+                        <span class="project-type">Interactive CLI</span>
                     </div>
                 </div>
 
                 <p class="project-description">
-                    Team-reusable Python script that finds all Zoom meeting links and mentions across Confluence pages
-                    by fetching data directly from the Confluence API. Built for New Relic's transition away from Zoom,
-                    but designed for cross-team reusability.
+                    Interactive command-line tool for New Relic SCIM user management. Automates the lookup and deletion
+                    workflow with built-in safety confirmations and user-friendly prompts. Critical for Support operations
+                    dealing with SCIM-provisioned users.
                 </p>
 
                 <div class="project-section">
                     <h3>Key Features</h3>
                     <ul class="feature-list">
-                        <li>Fetches pages directly from Confluence API (no local export needed)</li>
-                        <li>Recursive child page traversal with hierarchy tracking</li>
-                        <li>Extracts Zoom URLs and surrounding context</li>
-                        <li>Generates both console output and CSV reports</li>
-                        <li>Configurable via environment variables or interactive prompts</li>
-                        <li>Comprehensive error handling and SSL verification options</li>
+                        <li>Email-based SCIM user lookup via filtering API</li>
+                        <li>Interactive confirmation before deletion</li>
+                        <li>Continuous workflow (delete multiple users in one session)</li>
+                        <li>Friendly error messages and user guidance</li>
+                        <li>Authentication domain awareness</li>
+                        <li>Invalid input handling with retry prompts</li>
                     </ul>
                 </div>
 
@@ -436,34 +448,50 @@
                     <h3>Tech Stack</h3>
                     <div class="tech-stack">
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Confluence REST API</span>
-                        <span class="tech-tag">CSV Reporting</span>
-                        <span class="tech-tag">Environment Variables</span>
+                        <span class="tech-tag">SCIM API</span>
+                        <span class="tech-tag">REST</span>
+                        <span class="tech-tag">Bearer Token Auth</span>
                     </div>
                 </div>
 
                 <div class="project-section">
-                    <h3>Usage Example</h3>
+                    <h3>Workflow Logic</h3>
                     <div class="code-snippet">
-                        <code><span class="comment"># Interactive mode</span>
-python3 find_zoom_mentions.py
+                        <code><span class="comment"># Step 1: Lookup user by email</span>
+response = requests.get(
+    'https://scim-provisioning.service.newrelic.com/scim/v2/Users',
+    headers={'Authorization': <span class="highlight">f</span>'Bearer {api_key}'},
+    params={'filter': <span class="highlight">f</span>'userName eq "{email}"'}
+)
 
-<span class="comment"># Or with environment variables</span>
-<span class="highlight">export</span> CONFLUENCE_URL='https://company.atlassian.net/wiki'
-<span class="highlight">export</span> CONFLUENCE_USERNAME='email@company.com'
-<span class="highlight">export</span> CONFLUENCE_API_TOKEN='your-token'
-<span class="highlight">export</span> PARENT_PAGE_ID='123456789'
+user_id = response.json()['Resources'][0]['id']
+print(<span class="highlight">f</span>"User ID: {user_id}")
 
-python3 find_zoom_mentions.py</code>
+<span class="comment"># Step 2: Confirm deletion</span>
+choice = input("Delete this user? y/n: ").lower()
+
+<span class="highlight">if</span> choice == 'y':
+    <span class="comment"># Step 3: Execute deletion</span>
+    delete_response = requests.delete(
+        <span class="highlight">f</span>'https://scim-provisioning.service.newrelic.com/scim/v2/Users/{user_id}',
+        headers={'Authorization': <span class="highlight">f</span>'Bearer {api_key}'}
+    )
+
+    <span class="highlight">if</span> delete_response.status_code == 204:
+        print("User deleted successfully!")
+
+<span class="comment"># Step 4: Continue or exit</span>
+choice = input("Delete another user? y/n: ")</code>
                     </div>
                 </div>
 
                 <div class="project-section">
                     <h3>Impact</h3>
                     <p class="project-description">
-                        Designed for easy sharing across teams - zero code modification needed. Just provide credentials
-                        and parent page ID. Has been used by multiple teams at New Relic to audit Zoom usage across
-                        hundreds of Confluence pages.
+                        Simplifies SCIM user deletion which otherwise requires multiple API calls and manual SCIM ID lookup.
+                        Interactive design prevents accidental deletions while maintaining efficiency. Used by Support engineers
+                        for offboarding, troubleshooting auth domains, and cleaning up test users. Friendly prompts
+                        ("Okie dokie! Until next time!!") make technical operations more approachable.
                     </p>
                 </div>
             </article>
@@ -536,77 +564,6 @@ events.items.forEach(event => {
                     <p class="project-description">
                         Eliminates manual checking of team calendars. Proactively notifies the team channel each morning
                         of who's out, improving work distribution and reducing surprise absences.
-                    </p>
-                </div>
-            </article>
-
-            <!-- Project 4: User Deletion Tool -->
-            <article class="project-card">
-                <div class="project-header">
-                    <div>
-                        <h2>User Deletion Tool (One Month Filter)</h2>
-                        <span class="project-type">Enterprise User Management</span>
-                    </div>
-                </div>
-
-                <p class="project-description">
-                    A safety-critical two-stage workflow for bulk deletion of New Relic user records. Designed for
-                    extreme edge cases where accidental provisioning creates hundreds of duplicate user records.
-                    Features comprehensive safeguards, staging/production separation, and extensive documentation.
-                </p>
-
-                <div class="project-section">
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li>Two-stage workflow: Filter → Review → Delete</li>
-                        <li>Date-based filtering (e.g., "older than 30 days")</li>
-                        <li>Separate staging and production scripts with different endpoints</li>
-                        <li>Interactive confirmations at every critical step</li>
-                        <li>Comprehensive statistics and preview before deletion</li>
-                        <li>Detailed success/failure tracking and reporting</li>
-                        <li>Virtual environment isolation for dependencies</li>
-                    </ul>
-                </div>
-
-                <div class="project-section">
-                    <h3>Tech Stack</h3>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">New Relic NerdGraph API</span>
-                        <span class="tech-tag">GraphQL</span>
-                        <span class="tech-tag">JSON Processing</span>
-                    </div>
-                </div>
-
-                <div class="project-section">
-                    <h3>Safety Architecture</h3>
-                    <div class="code-snippet">
-                        <code><span class="comment"># Stage 1: Filter users by creation date</span>
-cutoff_date = datetime.now() - timedelta(days=30)
-filtered_users = [
-    user <span class="highlight">for</span> user <span class="highlight">in</span> all_users
-    <span class="highlight">if</span> user['created_at'] < cutoff_date
-]
-
-<span class="comment"># Display statistics for review</span>
-print(<span class="highlight">f</span>"Total users: {len(all_users)}")
-print(<span class="highlight">f</span>"Users to delete: {len(filtered_users)}")
-print(<span class="highlight">f</span>"Users excluded: {len(all_users) - len(filtered_users)}")
-
-<span class="comment"># Stage 2: Final confirmation before deletion</span>
-confirmation = input("Proceed with deletion? (y/n): ")
-<span class="highlight">if</span> confirmation.lower() != 'y':
-    print("Deletion cancelled.")
-    exit()</code>
-                    </div>
-                </div>
-
-                <div class="project-section">
-                    <h3>Impact</h3>
-                    <p class="project-description">
-                        Successfully handles extreme edge cases where hundreds of duplicate user records exist.
-                        Critical documentation prevents misuse - includes multiple warnings, examples, and troubleshooting.
-                        Separate staging/production environments ensure safe testing before production operations.
                     </p>
                 </div>
             </article>
