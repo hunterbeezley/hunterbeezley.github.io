@@ -69,50 +69,104 @@
         <a href="../contact.html" aria-label="Contact and social links">Contact</a>
     </nav>
 
-    <div class="container">
+    <!-- Landing Section -->
+    <div class="container" id="landing">
         <div class="ascii-art" id="asciiArt">
-            ▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█ 
-            ▒█▀▀█ ▒█░▒█ ▒█▒█▒█ ░▒█░░ ▒█▀▀▀ ▒█▄▄▀ 
-            ▒█░▒█ ░▀▄▄▀ ▒█░░▀█ ░▒█░░ ▒█▄▄▄ ▒█░▒█ 
+            ▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█
+            ▒█▀▀█ ▒█░▒█ ▒█▒█▒█ ░▒█░░ ▒█▀▀▀ ▒█▄▄▀
+            ▒█░▒█ ░▀▄▄▀ ▒█░░▀█ ░▒█░░ ▒█▄▄▄ ▒█░▒█
         </div>
-    </div>
-    <div class="video-container" id="video-container-youtube">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/C7xvXOWV8JU?si=tl4jEGslNUbNnOtF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-        <div class="project-description">
-            <h3>Creative Coding Showcase</h3>
-            <p>A compilation of interactive generative art experiments and visual sketches exploring motion, color, and algorithmic design patterns.</p>
-            <p class="project-meta">Date: 2023-2024 | Tools: p5.js, JavaScript, WebGL</p>
-        </div>
-    </div>
-    <div class="video-container" id="video-container-1">
-        <iframe src="https://player.vimeo.com/video/989193589?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="EEMMUU - Song for Watershed" loading="lazy"></iframe>
-        <div class="project-description">
-            <h3>EEMMUU - Song for Watershed</h3>
-            <p>Generative music visualization combining audio-reactive patterns with organic motion. Created for multimedia performance exploring themes of water and transformation.</p>
-            <p class="project-meta">Date: 2024 | Tools: Hydra, p5.js, TouchDesigner</p>
-        </div>
-    </div>
-    <div class="video-container" id="video-container-2">
-        <iframe src="https://player.vimeo.com/video/989091624?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1280" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="RayMarch_Blob" loading="lazy"></iframe>
-        <div class="project-description">
-            <h3>RayMarch_Blob</h3>
-            <p>Real-time raymarched 3D blob with organic deformation and lighting. Exploring shader-based volumetric rendering techniques and procedural animation.</p>
-            <p class="project-meta">Date: 2024 | Tools: GLSL, WebGL, Hydra</p>
-        </div>
-    </div>
-    <div class="video-container" id="video-container-3">
-        <iframe src="https://player.vimeo.com/video/940483373?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="1232" height="720" frameborder="0" allow="fullscreen; picture-in-picture; clipboard-write" title="particleShrooms" loading="lazy"></iframe>
-        <div class="project-description">
-            <h3>particleShrooms</h3>
-            <p>Particle system simulation creating organic mushroom-like growth structures. Dynamic forces and emergent behaviors create natural movement patterns.</p>
-            <p class="project-meta">Date: 2023 | Tools: p5.js, Particle Physics, JavaScript</p>
-        </div>
+        <div class="subtitle">VISUAL WORKS</div>
     </div>
     <div id="scroll-arrow">▼</div>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-grid">
+
+            <!-- Video Item 1 -->
+            <div class="gallery-item" data-video-id="0">
+                <div class="thumbnail-container">
+                    <video class="thumbnail-video" muted loop playsinline>
+                        <source src="videos/atobin-preview.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3>aTOBIN</h3>
+                    <p class="gallery-meta">2024 | TouchDesigner, Audio Reactive</p>
+                </div>
+            </div>
+
+            <!-- Video Item 2 -->
+            <div class="gallery-item" data-video-id="1">
+                <div class="thumbnail-container">
+                    <video class="thumbnail-video" muted loop playsinline>
+                        <source src="videos/liquidchrome-preview.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3>Liquid Chrome</h3>
+                    <p class="gallery-meta">2024 | TouchDesigner, GLSL Shaders</p>
+                </div>
+            </div>
+
+            <!-- Video Item 3 -->
+            <div class="gallery-item" data-video-id="2">
+                <div class="thumbnail-container">
+                    <video class="thumbnail-video" muted loop playsinline>
+                        <source src="videos/sharpedges-preview.mp4" type="video/mp4">
+                    </video>
+                    <div class="play-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="gallery-info">
+                    <h3>Sharp Edges</h3>
+                    <p class="gallery-meta">2024 | TouchDesigner, Procedural Generation</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Cinematic Player Modal -->
+    <div class="cinematic-player" id="cinematicPlayer">
+        <button class="close-btn" id="closeBtn" aria-label="Close player">✕</button>
+
+        <div class="video-wrapper">
+            <video id="mainVideo" controls playsinline>
+                <source src="" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="player-controls">
+            <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous video">◄</button>
+            <button class="nav-btn next-btn" id="nextBtn" aria-label="Next video">►</button>
+        </div>
+
+        <div class="project-info-card" id="infoCard">
+            <button class="info-toggle" id="infoToggle" aria-label="Toggle info">ⓘ</button>
+            <div class="info-content" id="infoContent">
+                <h2 id="projectTitle"></h2>
+                <p id="projectDescription"></p>
+                <p class="project-meta" id="projectMeta"></p>
+                <div class="technical-hud">
+                    <div class="hud-line"><span class="hud-label">RES:</span> <span id="hudRes">1920x1080</span></div>
+                    <div class="hud-line"><span class="hud-label">FPS:</span> <span id="hudFps">60</span></div>
+                    <div class="hud-line"><span class="hud-label">CODEC:</span> <span id="hudCodec">H.264</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <a href="http://hunterbeezley.github.io/visuals_1/hydra/index.html" id="portal-button" class="floating-button">Portal</a>
     <a href="http://hunterbeezley.github.io" id="home-button" class="floating-button">Home</a>
     <a href="https://forms.gle/4HJPUjpxcMpHtiTw8" id="collab-button" class="floating-button" target="_blank">Collab</a>
-    <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="scripts.js"></script>
     <!-- PWA Service Worker Registration -->
     <script src="/pwa-register.js"></script>
