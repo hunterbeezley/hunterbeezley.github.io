@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps & Tools - Hunter Beezley</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Web applications and interactive tools by Hunter Beezley">
+    <meta name="author" content="Hunter Beezley">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Apps & Tools - Hunter Beezley">
+    <meta property="og:description" content="Web applications and interactive tools">
+    <meta property="og:url" content="https://hunterbeezley.github.io/apps/">
+    <meta property="og:image" content="https://hunterbeezley.github.io/og-image.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Feedback System -->
+    <link rel="stylesheet" href="/feedback.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d9ff;
+            --secondary: #ff006e;
+            --accent: #ffbe0b;
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .logo:hover {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Apps grid */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .app-card.coming-soon {
+            opacity: 0.5;
+            border-style: dashed;
+        }
+
+        .app-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .app-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .app-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .app-card p {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .app-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-features li {
+            color: var(--text-dim);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .app-features li:before {
+            content: "✓ ";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .app-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--text-dim);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+        }
+
+        .placeholder-content {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-dim);
+        }
+
+        .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .app-links {
+                flex-direction: column;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">← Hunter Beezley</a>
+            <ul class="nav-links">
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#work">Work</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>Apps & Tools</h1>
+            <p>
+                Full-stack applications, interactive dashboards, and web tools built to solve real problems and
+                showcase modern development practices.
+            </p>
+        </div>
+
+        <div class="apps-grid">
+            <!-- Placeholder App 1 -->
+            <div class="app-card coming-soon">
+                <div class="app-icon">🚀</div>
+                <h3>Coming Soon</h3>
+                <div class="placeholder-content">
+                    <p>Full-stack web application showcasing modern development practices and API integration.</p>
+                    <div class="placeholder-icon">+</div>
+                    <p style="font-size: 0.9rem;">Project in development</p>
+                </div>
+            </div>
+
+            <!-- Placeholder App 2 -->
+            <div class="app-card coming-soon">
+                <div class="app-icon">📊</div>
+                <h3>Coming Soon</h3>
+                <div class="placeholder-content">
+                    <p>Interactive dashboard with real-time data visualization and analytics.</p>
+                    <div class="placeholder-icon">+</div>
+                    <p style="font-size: 0.9rem;">Project in development</p>
+                </div>
+            </div>
+
+            <!-- Placeholder App 3 -->
+            <div class="app-card coming-soon">
+                <div class="app-icon">🛠️</div>
+                <h3>Coming Soon</h3>
+                <div class="placeholder-content">
+                    <p>Utility tool designed to streamline workflows and boost productivity.</p>
+                    <div class="placeholder-icon">+</div>
+                    <p style="font-size: 0.9rem;">Project in development</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template for adding real apps (commented out for reference) -->
+        <!--
+        <div class="app-card">
+            <div class="app-icon">🎯</div>
+            <h3>Your App Name</h3>
+            <p>
+                Brief description of what the app does and the problem it solves.
+                Keep it concise and engaging.
+            </p>
+            <ul class="app-features">
+                <li>Key feature or capability 1</li>
+                <li>Key feature or capability 2</li>
+                <li>Key feature or capability 3</li>
+            </ul>
+            <div class="tech-tags">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">API</span>
+            </div>
+            <div class="app-links">
+                <a href="#" class="btn btn-primary" target="_blank">View Live</a>
+                <a href="#" class="btn btn-secondary" target="_blank">View Code</a>
+            </div>
+        </div>
+        -->
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+        <a href="/" class="back-link">← Back to Portfolio</a>
+    </footer>
+
+    <!-- p5.js for animated feedback button -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+        if (typeof p5 === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"><\/script>');
+        }
+    </script>
+
+    <!-- Feedback System -->
+    <script src="/feedback.js"></script>
+</body>
+</html>
