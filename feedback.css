@@ -1,0 +1,200 @@
+/* Floating feedback button container for p5.js */
+#feedback-button-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    filter: drop-shadow(0 8px 24px rgba(0, 217, 255, 0.5));
+    transition: transform 0.3s ease;
+}
+
+#feedback-button-container:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 12px 32px rgba(0, 217, 255, 0.6));
+}
+
+#feedback-button-container canvas {
+    display: block;
+}
+
+/* Feedback modal */
+.feedback-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.feedback-modal.active {
+    display: flex;
+}
+
+.feedback-form {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.feedback-form h2 {
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #00d9ff, #7000ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.feedback-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.feedback-form input:focus,
+.feedback-form textarea:focus {
+    outline: none;
+    border-color: #00d9ff;
+}
+
+.feedback-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.feedback-form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.feedback-form button {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid;
+    border-radius: 50px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+}
+
+.feedback-form .btn-submit {
+    background: #00d9ff;
+    color: #000;
+    border-color: #00d9ff;
+}
+
+.feedback-form .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 217, 255, 0.4);
+}
+
+.feedback-form .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.feedback-form .btn-copy {
+    background: transparent;
+    color: #7000ff;
+    border-color: #7000ff;
+}
+
+.feedback-form .btn-copy:hover {
+    background: #7000ff;
+    color: #fff;
+}
+
+.feedback-form .btn-cancel {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.feedback-form .btn-cancel:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+.feedback-success {
+    color: #00d9ff;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+.feedback-success.show {
+    display: block;
+}
+
+.feedback-info {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    #feedback-button-container {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        transform: scale(0.8);
+    }
+
+    #feedback-button-container:hover {
+        transform: scale(0.85);
+    }
+
+    .feedback-modal {
+        padding: 1rem;
+    }
+
+    .feedback-form {
+        padding: 2rem 1.5rem;
+    }
+
+    .feedback-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .feedback-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .feedback-form button {
+        width: 100%;
+    }
+}

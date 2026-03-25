@@ -7,6 +7,9 @@
 
   <meta name="robots" content="noindex">
 
+  <!-- Feedback System -->
+  <link rel="stylesheet" href="/feedback.css">
+
   <style>
     * {
       margin: 0;
@@ -144,5 +147,16 @@
       starsContainer.appendChild(star);
     }
   </script>
+
+  <!-- p5.js for animated feedback button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script>
+    if (typeof p5 === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"><\/script>');
+    }
+  </script>
+
+  <!-- Feedback System -->
+  <script src="/feedback.js"></script>
 </body>
 </html>
