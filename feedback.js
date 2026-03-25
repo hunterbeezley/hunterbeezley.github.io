@@ -124,16 +124,40 @@ ${context.userAgent}
 
 function submitFeedback(message, contact) {
     const issueBody = generateIssueBody(message, contact);
-    const encodedBody = encodeURIComponent(issueBody);
-    const githubUrl = `https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback&labels=feedback&body=${encodedBody}`;
 
-    window.open(githubUrl, '_blank');
+    // Create mailto link
+    const subject = encodeURIComponent('Website Feedback');
+    const body = encodeURIComponent(issueBody);
+    const mailtoLink = `mailto:contact@hunterbeezley.com?subject=${subject}&body=${body}`;
+
+    // Open email client
+    window.location.href = mailtoLink;
+
+    // Also copy to clipboard for convenience
+    navigator.clipboard.writeText(issueBody).then(() => {
+        const successMsg = document.getElementById('feedback-success');
+        successMsg.textContent = '✓ Opening email client and copied to clipboard!';
+        successMsg.classList.add('show');
+
+        setTimeout(() => {
+            successMsg.classList.remove('show');
+        }, 4000);
+    }).catch(() => {
+        // If clipboard fails, just show email opening message
+        const successMsg = document.getElementById('feedback-success');
+        successMsg.textContent = '✓ Opening email client...';
+        successMsg.classList.add('show');
+
+        setTimeout(() => {
+            successMsg.classList.remove('show');
+        }, 3000);
+    });
 
     // Reset form and close after a delay
     setTimeout(() => {
         document.getElementById('feedback-form-element').reset();
         closeFeedbackModal();
-    }, 500);
+    }, 1500);
 }
 
 function copyFeedbackToClipboard(message, contact) {
@@ -176,11 +200,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="feedback-form-actions">
                             <button type="button" class="btn-cancel" id="feedback-cancel">Cancel</button>
                             <button type="button" class="btn-copy" id="feedback-copy">Copy</button>
-                            <button type="submit" class="btn-submit" id="feedback-submit">Create Issue</button>
+                            <button type="submit" class="btn-submit" id="feedback-submit">Send Feedback</button>
                         </div>
 
                         <div class="feedback-info">
-                            Clicking "Create Issue" will open GitHub with your feedback pre-filled. Or click "Copy" to copy the feedback text to your clipboard.
+                            Clicking "Send Feedback" will open your email client with pre-filled content. Or click "Copy" to copy the feedback text to your clipboard.
                             <br><br>
                             We automatically include technical details (browser, device, page, console errors) to help understand your feedback.
                         </div>
