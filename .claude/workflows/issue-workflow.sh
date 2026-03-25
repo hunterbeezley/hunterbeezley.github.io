@@ -155,7 +155,7 @@ case "${1:-}" in
 
     set-mode)
         if [ -z "$2" ]; then
-            echo "Usage: $0 set-mode [managed|automated]"
+            echo "Usage: $0 set-mode [managed|vibe]"
             exit 1
         fi
         set_mode "$2"
@@ -207,8 +207,8 @@ case "${1:-}" in
         echo "Usage: $0 <command>"
         echo ""
         echo "Commands:"
-        echo "  init [mode]      Initialize workflow (managed or automated)"
-        echo "  set-mode <mode>  Set workflow mode (managed or automated)"
+        echo "  init [mode]      Initialize workflow (managed or vibe)"
+        echo "  set-mode <mode>  Set workflow mode (managed or vibe)"
         echo "  fetch            Fetch and display open issues"
         echo "  audit            Run security audit on current changes"
         echo "  increment        Mark issue as completed and check limit"

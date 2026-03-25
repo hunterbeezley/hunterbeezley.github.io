@@ -20,10 +20,10 @@ This directory contains workflows for systematic project management using Claude
 .claude/workflows/issue-workflow.sh init managed
 ```
 
-Or for automated mode:
+Or for vibe mode 🎵:
 
 ```bash
-.claude/workflows/issue-workflow.sh init automated
+.claude/workflows/issue-workflow.sh init vibe
 ```
 
 ### 2. Start Working on Issues
@@ -31,7 +31,7 @@ Or for automated mode:
 Ask Claude:
 
 ```
-Claude, run the GitHub issue workflow in [managed|automated] mode.
+Claude, run the GitHub issue workflow in [managed|vibe] mode.
 ```
 
 ### 3. Claude Will:
@@ -40,7 +40,7 @@ Claude, run the GitHub issue workflow in [managed|automated] mode.
 2. ✅ Analyze and prioritize them
 3. ✅ Work through issues systematically
 4. ✅ Close each issue after fixing (unless it's phased work)
-5. ✅ Run security audits (automated mode)
+5. ✅ Run security audits (vibe mode)
 6. ✅ Prompt you every 5 completed issues
 
 ### 4. Monitor Progress
@@ -78,15 +78,15 @@ Continue with the next batch of issues.
 - **Security Audits**: As needed
 - **Best For**: Regular development, learning, careful review
 
-### Automated Mode (Advanced)
+### Vibe Mode 🎵 (Advanced)
 - **Approval Required**: Reduced (skip workflow decisions, but not tool approvals)
 - **Security Audits**: **MANDATORY before every push**
 - **5-Issue Limit**: **MANDATORY check**
-- **Best For**: Streamlined development with safeguards
+- **Best For**: Just vibing through issues with minimal interruption
 
 ⚠️ **Limitations**:
 - Claude Code's built-in tool approval prompts cannot be bypassed (Write, Edit, Bash operations)
-- Automated mode skips workflow-level questions ("should I proceed?") but not system-level safety prompts
+- Vibe mode skips workflow-level questions ("should I proceed?") but not system-level safety prompts
 - Security checks and 5-issue prompts are never skipped
 
 ## Security Features
@@ -105,10 +105,10 @@ The workflow includes mandatory security audits that check for:
 
 ```bash
 # Initialize workflow
-./issue-workflow.sh init [managed|automated]
+./issue-workflow.sh init [managed|vibe]
 
 # Change mode
-./issue-workflow.sh set-mode automated
+./issue-workflow.sh set-mode vibe
 
 # Fetch issues
 ./issue-workflow.sh fetch
@@ -217,10 +217,10 @@ You: Continue with the next batch.
 Claude: Resets counter and continues...
 ```
 
-### Example Session (Automated Mode)
+### Example Session (Vibe Mode 🎵)
 
 ```
-You: Claude, run the GitHub issue workflow in automated mode.
+You: Claude, run the GitHub issue workflow in vibe mode.
 
 Claude:
 1. Fetches issues

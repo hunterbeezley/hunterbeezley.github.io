@@ -10,9 +10,10 @@ This workflow systematically tackles GitHub issues for the hunterbeezley.github.
 - Standard Claude Code behavior
 - Suitable for regular development
 
-### Automated Mode
+### Vibe Mode 🎵
 - Reduces approval requests for workflow decisions
 - Works through issues systematically without asking "should I proceed?"
+- Just vibes through the work with minimal interruption
 - **IMPORTANT**: Cannot bypass Claude Code's built-in tool approval prompts (Write, Edit, Bash, etc.)
 - **MANDATORY**: Security audit before every push
 - **MANDATORY**: Prompt user after every 5 completed issues
@@ -24,8 +25,8 @@ This workflow systematically tackles GitHub issues for the hunterbeezley.github.
 
 ### 1. Initialize
 ```bash
-# Set mode (managed or automated)
-MODE="managed"  # or "automated"
+# Set mode (managed or vibe)
+MODE="managed"  # or "vibe"
 COMPLETED_COUNT=0
 ```
 
@@ -106,7 +107,7 @@ git commit -m "<type>: <description> (fixes #<issue>)
 - `test:` for testing
 - `chore:` for maintenance
 
-#### E. Security Audit (AUTOMATED MODE ONLY - MANDATORY)
+#### E. Security Audit (VIBE MODE ONLY - MANDATORY)
 
 Before pushing, run security checks:
 
@@ -212,7 +213,7 @@ Return to Step 5 until:
 
 ## Safety Rules
 
-### Automated Mode Requirements
+### Vibe Mode Requirements
 1. ✅ **ALWAYS** run security audit before pushing
 2. ✅ **ALWAYS** prompt after 5 completed issues
 3. ✅ **NEVER** skip security checks
@@ -236,7 +237,7 @@ Return to Step 5 until:
 To start the workflow:
 
 ```
-Claude, run the GitHub issue workflow in [managed|automated] mode.
+Claude, run the GitHub issue workflow in [managed|vibe] mode.
 ```
 
 To resume after 5-issue pause:

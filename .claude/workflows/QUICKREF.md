@@ -6,7 +6,7 @@
 # Tell Claude to start
 "Claude, run the GitHub issue workflow in managed mode"
 # or
-"Claude, run the GitHub issue workflow in automated mode"
+"Claude, run the GitHub issue workflow in vibe mode"
 ```
 
 ## 📊 Check Status
@@ -78,8 +78,8 @@ gh issue list --state open
 
 ## Mode Comparison
 
-| Feature | Managed | Automated |
-|---------|---------|-----------|
+| Feature | Managed | Vibe Mode 🎵 |
+|---------|---------|--------------|
 | Workflow Approvals | ✅ Yes | ❌ No |
 | Tool Approvals (Claude Code) | ✅ Yes | ✅ Yes* |
 | Close Issues After Fix | ✅ **ALWAYS** | ✅ **ALWAYS** |
@@ -107,4 +107,4 @@ gh issue list --state open
 
 ---
 
-**Pro Tip**: Start with managed mode to learn the workflow, then switch to automated for rapid development!
+**Pro Tip**: Start with managed mode to learn the workflow, then switch to vibe mode to just vibe through issues! 🎵
