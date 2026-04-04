@@ -2,9 +2,6 @@
   "name": "hunterbeezley-portfolio",
   "version": "1.0.0",
   "description": "Hunter Beezley's personal portfolio website",
-  "engines": {
-    "node": "18.x"
-  },
   "scripts": {
     "dev": "python3 -m http.server 8000"
   },
