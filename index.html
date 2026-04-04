@@ -392,7 +392,7 @@
             transform: scale(1.05);
         }
 
-        /* Hide admin button on small screens to avoid overlap with feedback button */
+        /* Hide admin button on small screens to avoid overlap with contact button */
         @media (max-width: 768px) {
             .admin-link {
                 bottom: 0.75rem;
@@ -403,7 +403,7 @@
             }
         }
 
-        /* Floating feedback button container for p5.js */
+        /* Floating contact button container for p5.js */
         #feedback-button-container {
             position: fixed;
             bottom: 2rem;
@@ -422,7 +422,7 @@
             display: block;
         }
 
-        /* Feedback modal */
+        /* Contact modal */
         .feedback-modal {
             display: none;
             position: fixed;
@@ -527,17 +527,6 @@
             cursor: not-allowed;
         }
 
-        .feedback-form .btn-copy {
-            background: transparent;
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .feedback-form .btn-copy:hover {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
         .feedback-form .btn-cancel {
             background: transparent;
             color: var(--text-dim);
@@ -560,6 +549,20 @@
         }
 
         .feedback-success.show {
+            display: block;
+        }
+
+        .feedback-error {
+            color: #ff4444;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback-error.show {
             display: block;
         }
 
@@ -698,7 +701,6 @@
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#work">Work</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -784,15 +786,9 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Social Links Section -->
         <section id="contact" class="contact">
-            <h2>Get In Touch</h2>
-            <p>
-                Interested in collaborating or just want to say hi?
-                Feel free to reach out through any of these channels.
-            </p>
             <div class="social-links">
-                <a href="mailto:contact@hunterbeezley.com" class="social-link" aria-label="Email">✉️</a>
                 <a href="https://github.com/hunterbeezley" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">💻</a>
                 <a href="https://www.linkedin.com/in/hunterbeezley/" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">💼</a>
                 <a href="https://www.instagram.com/h__nt3r_/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
@@ -801,34 +797,35 @@
         </section>
     </main>
 
-    <!-- Floating Feedback Button Container -->
-    <div id="feedback-button-container" aria-label="Submit feedback" role="button" tabindex="0"></div>
+    <!-- Floating Contact Button Container -->
+    <div id="feedback-button-container" aria-label="Contact" role="button" tabindex="0"></div>
 
-    <!-- Feedback Modal -->
+    <!-- Contact Modal -->
     <div class="feedback-modal" id="feedback-modal">
         <div class="feedback-form">
-            <h2>Send Feedback</h2>
+            <h2>Get In Touch</h2>
             <form id="feedback-form-element">
-                <label for="feedback-message">Your feedback *</label>
-                <textarea id="feedback-message" required placeholder="Share your thoughts, report an issue, or suggest an improvement..."></textarea>
+                <label for="feedback-message">Your message *</label>
+                <textarea id="feedback-message" required placeholder="Share your thoughts, ask a question, or just say hi..."></textarea>
 
-                <label for="feedback-contact">Contact info (optional)</label>
+                <label for="feedback-contact">Your contact info (optional)</label>
                 <input type="text" id="feedback-contact" placeholder="Email or preferred contact method">
 
                 <div class="feedback-form-actions">
                     <button type="button" class="btn-cancel" id="feedback-cancel">Cancel</button>
-                    <button type="button" class="btn-copy" id="feedback-copy">Copy</button>
-                    <button type="submit" class="btn-submit" id="feedback-submit">Create Issue</button>
+                    <button type="submit" class="btn-submit" id="feedback-submit">Send Message</button>
                 </div>
 
                 <div class="feedback-info">
-                    Clicking "Create Issue" will open GitHub with your feedback pre-filled. Or click "Copy" to copy the feedback text to your clipboard.
-                    <br><br>
-                    We automatically include technical details (browser, device, page, console errors) to help understand your feedback.
+                    Your message will be sent directly to Hunter. Technical details are automatically included to help provide context.
                 </div>
 
                 <div class="feedback-success" id="feedback-success">
-                    ✓ Feedback copied to clipboard!
+                    ✓ Message sent successfully!
+                </div>
+
+                <div class="feedback-error" id="feedback-error">
+                    Failed to send message. Please try again.
                 </div>
             </form>
         </div>
@@ -844,7 +841,7 @@
     <!-- PWA Service Worker Registration -->
     <script src="/pwa-register.js"></script>
 
-    <!-- p5.js for animated feedback button -->
+    <!-- p5.js for animated contact button -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
         if (typeof p5 === 'undefined') {
@@ -936,7 +933,7 @@
             };
         };
 
-        // Feedback modal functions
+        // Contact modal functions
         function openFeedbackModal() {
             document.getElementById('feedback-modal').classList.add('active');
         }
@@ -970,7 +967,7 @@
         function generateIssueBody(message, contact) {
             const context = collectContextData();
 
-            return `**Feedback:**
+            return `**Message:**
 ${message}
 
 **Contact Info:**
@@ -996,40 +993,73 @@ ${context.userAgent}
 </details>`;
         }
 
-        function submitFeedback(message, contact) {
-            const issueBody = generateIssueBody(message, contact);
-            const encodedBody = encodeURIComponent(issueBody);
-            const githubUrl = `https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback&labels=feedback&body=${encodedBody}`;
+        async function submitFeedback(message, contact) {
+            const submitButton = document.getElementById('feedback-submit');
+            const successMsg = document.getElementById('feedback-success');
+            const errorMsg = document.getElementById('feedback-error');
 
-            window.open(githubUrl, '_blank');
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
 
-            // Reset form and close after a delay
-            setTimeout(() => {
-                document.getElementById('feedback-form-element').reset();
-                closeFeedbackModal();
-            }, 500);
+            // Hide any previous messages
+            successMsg.classList.remove('show');
+            errorMsg.classList.remove('show');
+
+            try {
+                // Collect metadata
+                const context = collectContextData();
+
+                // Send to API
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message,
+                        contact,
+                        metadata: {
+                            pageUrl: context.pageUrl,
+                            timestamp: context.timestamp,
+                            userAgent: context.userAgent,
+                            screenResolution: context.screenResolution,
+                            viewport: context.viewport,
+                            recentErrors: context.recentErrors,
+                        },
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Show success message
+                    successMsg.textContent = '✓ Message sent successfully!';
+                    successMsg.classList.add('show');
+
+                    // Reset form and close after delay
+                    setTimeout(() => {
+                        document.getElementById('feedback-form-element').reset();
+                        closeFeedbackModal();
+                        successMsg.classList.remove('show');
+                    }, 2000);
+                } else {
+                    // Show error message
+                    errorMsg.textContent = data.error || 'Failed to send message. Please try again.';
+                    errorMsg.classList.add('show');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send Message';
+                }
+            } catch (error) {
+                console.error('Error submitting message:', error);
+                errorMsg.textContent = 'Network error. Please check your connection and try again.';
+                errorMsg.classList.add('show');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+            }
         }
 
-        function copyFeedbackToClipboard(message, contact) {
-            const issueBody = generateIssueBody(message, contact);
-
-            navigator.clipboard.writeText(issueBody).then(() => {
-                // Show success message
-                const successMsg = document.getElementById('feedback-success');
-                successMsg.classList.add('show');
-
-                // Hide after 3 seconds
-                setTimeout(() => {
-                    successMsg.classList.remove('show');
-                }, 3000);
-            }).catch(err => {
-                console.error('Failed to copy to clipboard:', err);
-                // Fallback: try to select text
-                alert('Could not copy automatically. Please select and copy the text manually.');
-            });
-        }
-
-        // Feedback modal event listeners
+        // Contact modal event listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Button keyboard support
             const container = document.getElementById('feedback-button-container');
@@ -1056,18 +1086,6 @@ ${context.userAgent}
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeFeedbackModal();
-                }
-            });
-
-            // Copy button
-            document.getElementById('feedback-copy').addEventListener('click', function() {
-                const message = document.getElementById('feedback-message').value;
-                const contact = document.getElementById('feedback-contact').value;
-
-                if (message.trim()) {
-                    copyFeedbackToClipboard(message, contact);
-                } else {
-                    alert('Please enter your feedback first.');
                 }
             });
 
@@ -1168,7 +1186,7 @@ ${context.userAgent}
             }, 500);
         })();
 
-        // Initialize p5 feedback button after page loads
+        // Initialize p5 contact button after page loads
         window.addEventListener('load', function() {
             new p5(feedbackSketch);
         });

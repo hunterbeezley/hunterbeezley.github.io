@@ -1,0 +1,12 @@
+{
+  "name": "hunterbeezley-portfolio",
+  "version": "1.0.0",
+  "description": "Hunter Beezley's personal portfolio website",
+  "scripts": {
+    "dev": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,2 +1,12 @@
 *.mov
 *-original.mp4
+
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel
