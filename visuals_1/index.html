@@ -38,48 +38,100 @@
       }
     </script>
     <style>
-        /* Additional styles for navigation */
-        .main-nav {
+        /* Header and Navigation Consistency */
+        header {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.9);
             z-index: 1000;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 25px;
-            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .main-nav a {
-            color: #fff;
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-            transition: opacity 0.3s ease;
+            transition: color 0.3s;
+            font-weight: 500;
         }
-        .main-nav a:hover {
-            opacity: 0.7;
+
+        .nav-links a:hover {
+            color: #00d9ff;
         }
-        .main-nav a[aria-current="page"] {
-            border-bottom: 2px solid #fff;
+
+        .nav-links a[aria-current="page"] {
+            color: #00d9ff;
+            border-bottom: 2px solid #00d9ff;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+            .logo img {
+                height: 32px;
+                width: 32px;
+            }
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
-    <nav role="navigation" aria-label="Main navigation" class="main-nav">
-        <a href="../index.html" aria-label="Go to home page">Home</a>
-        <a href="index.html" aria-label="View visual projects" aria-current="page">Visuals</a>
-        <a href="../contact.html" aria-label="Contact and social links">Contact</a>
-    </nav>
+    <header>
+        <nav>
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="Hunter Beezley Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#work">Work</a></li>
+                <li><a href="index.html" aria-current="page">Visuals</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <!-- Landing Section -->
     <div class="container" id="landing">
-        <div class="ascii-art" id="asciiArt">
-            ▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█
-            ▒█▀▀█ ▒█░▒█ ▒█▒█▒█ ░▒█░░ ▒█▀▀▀ ▒█▄▄▀
-            ▒█░▒█ ░▀▄▄▀ ▒█░░▀█ ░▒█░░ ▒█▄▄▄ ▒█░▒█
-        </div>
+        <div class="ascii-art" id="asciiArt">▒█░▒█ ▒█░▒█ ▒█▄░▒█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀█
+▒█▀▀█ ▒█░▒█ ▒█▒█▒█ ░▒█░░ ▒█▀▀▀ ▒█▄▄▀
+▒█░▒█ ░▀▄▄▀ ▒█░░▀█ ░▒█░░ ▒█▄▄▄ ▒█░▒█</div>
         <div class="subtitle">VISUAL WORKS</div>
         <p style="max-width: 600px; margin: 2rem auto 0; text-align: center; color: rgba(255,255,255,0.7); font-size: 1.1rem; line-height: 1.6;">
             Generative art, audio-reactive visualizations, and interactive experiences exploring motion, color, and algorithmic design.
@@ -97,7 +149,7 @@
             <!-- Video Item 1 -->
             <div class="gallery-item" data-video-id="0">
                 <div class="thumbnail-container">
-                    <video class="thumbnail-video" muted loop playsinline>
+                    <video class="thumbnail-video" autoplay muted loop playsinline>
                         <source src="videos/atobin-preview.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">
@@ -113,7 +165,7 @@
             <!-- Video Item 2 -->
             <div class="gallery-item" data-video-id="1">
                 <div class="thumbnail-container">
-                    <video class="thumbnail-video" muted loop playsinline>
+                    <video class="thumbnail-video" autoplay muted loop playsinline>
                         <source src="videos/liquidchrome-preview.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">
@@ -129,7 +181,7 @@
             <!-- Video Item 3 -->
             <div class="gallery-item" data-video-id="2">
                 <div class="thumbnail-container">
-                    <video class="thumbnail-video" muted loop playsinline>
+                    <video class="thumbnail-video" autoplay muted loop playsinline>
                         <source src="videos/sharpedges-preview.mp4" type="video/mp4">
                     </video>
                     <div class="play-overlay">
@@ -150,17 +202,7 @@
             <p style="text-align: center; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">Live-coded visuals and real-time generative systems</p>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
-                <!-- Hydra Synth Portal -->
-                <a href="hydra/index.html" style="text-decoration: none; color: inherit; background: rgba(112, 0, 255, 0.1); padding: 2rem; border-radius: 15px; border: 2px solid rgba(112, 0, 255, 0.3); transition: all 0.3s; display: block;">
-                    <h4 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #7000ff;">🌀 Hydra Synth Portal</h4>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem; line-height: 1.6;">Real-time video synthesis and live coding environment. Create mesmerizing visuals with code.</p>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <span style="background: rgba(112, 0, 255, 0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">Hydra</span>
-                        <span style="background: rgba(112, 0, 255, 0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">Live Coding</span>
-                        <span style="background: rgba(112, 0, 255, 0.2); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">WebGL</span>
-                    </div>
-                </a>
-
+                
                 <!-- Placeholder for future project -->
                 <div style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 15px; border: 2px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; min-height: 200px;">
                     <div style="text-align: center; color: rgba(255,255,255,0.4);">
@@ -201,9 +243,6 @@
             </div>
         </div>
     </div>
-    <a href="http://hunterbeezley.github.io/visuals_1/hydra/index.html" id="portal-button" class="floating-button">Portal</a>
-    <a href="http://hunterbeezley.github.io" id="home-button" class="floating-button">Home</a>
-    <a href="https://forms.gle/4HJPUjpxcMpHtiTw8" id="collab-button" class="floating-button" target="_blank">Collab</a>
     <script src="scripts.js"></script>
     <!-- PWA Service Worker Registration -->
     <script src="/pwa-register.js"></script>

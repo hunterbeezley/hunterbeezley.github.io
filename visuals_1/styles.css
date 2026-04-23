@@ -374,34 +374,6 @@ body {
     margin-right: 10px;
 }
 
-/* Floating Buttons */
-.floating-button {
-    position: fixed;
-    padding: 10px 20px;
-    font-size: 16px;
-    text-decoration: none;
-    background: transparent;
-    border: 2px solid;
-    border-radius: 5px;
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-#portal-button {
-    right: 20px;
-    bottom: 20px;
-}
-
-#home-button {
-    left: 20px;
-    bottom: 20px;
-}
-
-#collab-button {
-    top: 20px;
-    right: 20px;
-}
-
 a {
     color: inherit;
     text-decoration: none;
