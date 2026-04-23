@@ -95,18 +95,21 @@ function initGallery() {
         const videoId = parseInt(item.getAttribute('data-video-id'));
         const thumbnailVideo = item.querySelector('.thumbnail-video');
 
-        // Hover to play preview
-        item.addEventListener('mouseenter', () => {
-            if (thumbnailVideo) {
-                thumbnailVideo.play().catch(e => console.log('Preview play attempt:', e));
-            }
-        });
+        if (thumbnailVideo) {
+            // Seek to 1 second mark so we don't see a black frame
+            thumbnailVideo.addEventListener('loadeddata', () => {
+                thumbnailVideo.currentTime = 1;
+            });
 
-        item.addEventListener('mouseleave', () => {
-            if (thumbnailVideo) {
+            // Hover to play preview
+            item.addEventListener('mouseenter', () => {
+                thumbnailVideo.play().catch(e => console.log('Preview play attempt:', e));
+            });
+
+            item.addEventListener('mouseleave', () => {
                 thumbnailVideo.pause();
-            }
-        });
+            });
+        }
 
         // Click to open cinematic player
         item.addEventListener('click', () => {
