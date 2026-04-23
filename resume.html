@@ -335,35 +335,23 @@
             }
         }
 
-        /* Floating feedback button */
-        .feedback-button {
+        /* LinkedIn Button Container */
+        #feedback-button-container {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            color: var(--bg);
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.4);
-            transition: all 0.3s ease;
             z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
+            filter: drop-shadow(0 8px 24px rgba(0, 217, 255, 0.4));
+            transition: transform 0.3s ease;
         }
 
-        .feedback-button:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 12px 32px rgba(0, 217, 255, 0.6);
+        #feedback-button-container:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 12px 32px rgba(0, 217, 255, 0.6));
         }
 
-        .feedback-button:active {
-            transform: scale(0.95);
+        #feedback-button-container canvas {
+            display: block;
         }
 
         /* Reduced motion */
@@ -376,14 +364,12 @@
             }
         }
 
-        /* Mobile feedback button */
+        /* Mobile LinkedIn Button */
         @media (max-width: 768px) {
-            .feedback-button {
-                width: 50px;
-                height: 50px;
+            #feedback-button-container {
                 bottom: 1.5rem;
                 right: 1.5rem;
-                font-size: 1.3rem;
+                transform: scale(0.8);
             }
         }
     </style>
@@ -402,7 +388,7 @@
             <ul class="nav-links">
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#work">Work</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="visuals_1/index.html">Visuals</a></li>
                 <li><a href="resume.html" aria-current="page">Resume</a></li>
             </ul>
         </nav>
@@ -416,7 +402,7 @@
                 <div class="contact-info">
                     <span>Portland, OR</span>
                     <span>•</span>
-                    <a href="index.html#contact" style="color: var(--primary); text-decoration: none;">Get In Touch</a>
+                    <a href="https://www.linkedin.com/in/hunterbeezley/" target="_blank" rel="noopener" style="color: var(--primary); text-decoration: none;">Contact via LinkedIn</a>
                 </div>
                 <div style="margin-top: 2rem;">
                     <a href="Hunter_Beezley_Resume.pdf" class="download-btn" target="_blank" style="background: var(--primary); color: var(--bg); font-size: 1.1rem; padding: 1rem 3rem; box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);">Download Resume (PDF)</a>
@@ -525,21 +511,26 @@
         </div>
     </div>
 
-    <!-- Floating Feedback Button -->
-    <a href="https://github.com/hunterbeezley/hunterbeezley.github.io/issues/new?title=Feedback:&labels=feedback&body=**What%20page%20were%20you%20on?**%0Aresume.html%0A%0A**Your%20feedback:**%0A%0A%0A**Optional%20-%20Contact%20info%20if%20you'd%20like%20a%20response:**%0A"
-       class="feedback-button"
-       target="_blank"
-       rel="noopener"
-       aria-label="Submit feedback">
-        💬
-    </a>
+    <!-- Floating Contact Button Container -->
+    <div id="feedback-button-container" aria-label="LinkedIn" role="button" tabindex="0"></div>
+
+    <!-- p5.js for animated contact button -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+        if (typeof p5 === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"><\/script>');
+        }
+    </script>
+
+    <!-- LinkedIn Button System -->
+    <script src="feedback.js"></script>
 
     <!-- PWA Service Worker Registration -->
     <script src="/pwa-register.js"></script>
 
     <script>
         // Pause video on mobile/low-power mode if needed
-        if ('connection' in navigator && navigator.connection.saveData) {
+        if ('connection' in navigator && navigator.connection && navigator.connection.saveData) {
             document.querySelector('.background-video').pause();
         }
     </script>
