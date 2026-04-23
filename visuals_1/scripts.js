@@ -96,9 +96,9 @@ function initGallery() {
         const thumbnailVideo = item.querySelector('.thumbnail-video');
 
         if (thumbnailVideo) {
-            // Seek to 1 second mark so we don't see a black frame
+            // Seek to 10 second mark so we don't see a black frame
             thumbnailVideo.addEventListener('loadeddata', () => {
-                thumbnailVideo.currentTime = 1;
+                thumbnailVideo.currentTime = 10;
             });
 
             // Hover to play preview
