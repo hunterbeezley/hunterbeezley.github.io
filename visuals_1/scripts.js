@@ -96,18 +96,15 @@ function initGallery() {
         const thumbnailVideo = item.querySelector('.thumbnail-video');
 
         if (thumbnailVideo) {
-            // Seek to 10 second mark so we don't see a black frame
-            thumbnailVideo.addEventListener('loadeddata', () => {
-                thumbnailVideo.currentTime = 10;
-            });
-
             // Hover to play preview
             item.addEventListener('mouseenter', () => {
+                // If we're using media fragments (#t=...), we want to play from there or from start
                 thumbnailVideo.play().catch(e => console.log('Preview play attempt:', e));
             });
 
             item.addEventListener('mouseleave', () => {
                 thumbnailVideo.pause();
+                // When we pause, the browser should naturally show the frame it's on
             });
         }
 
