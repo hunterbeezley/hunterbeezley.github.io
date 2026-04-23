@@ -110,6 +110,11 @@
             color: var(--primary);
         }
 
+        .nav-links a[aria-current="page"] {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
         /* Main container */
         .container {
             max-width: 900px;
@@ -398,6 +403,7 @@
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#work">Work</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="resume.html" aria-current="page">Resume</a></li>
             </ul>
         </nav>
     </header>
@@ -414,7 +420,9 @@
                     <span>•</span>
                     <span>hunterbeezley@gmail.com</span>
                 </div>
-                <a href="Hunter_Beezley_Resume.pdf" class="download-btn" target="_blank">Download PDF</a>
+                <div style="margin-top: 2rem;">
+                    <a href="Hunter_Beezley_Resume.pdf" class="download-btn" target="_blank" style="background: var(--primary); color: var(--bg); font-size: 1.1rem; padding: 1rem 3rem; box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);">Download Resume (PDF)</a>
+                </div>
             </div>
 
             <h2 class="section-header">PROFESSIONAL SUMMARY</h2>

@@ -47,7 +47,7 @@
             overflow-x: hidden;
         }
 
-        /* Header */
+        /* Header and Navigation Consistency */
         header {
             position: fixed;
             top: 0;
@@ -71,14 +71,18 @@
         .logo {
             display: flex;
             align-items: center;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 1.1rem;
         }
 
-        .logo:hover {
-            color: var(--primary);
+        .logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -88,14 +92,19 @@
         }
 
         .nav-links a {
-            color: var(--text);
+            color: #ffffff;
             text-decoration: none;
             transition: color 0.3s;
             font-weight: 500;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: #00d9ff;
+        }
+
+        .nav-links a[aria-current="page"] {
+            color: #00d9ff;
+            border-bottom: 2px solid #00d9ff;
         }
 
         /* Main Content */
@@ -322,11 +331,13 @@
 <body>
     <header>
         <nav>
-            <a href="/" class="logo">← Hunter Beezley</a>
+            <a href="../index.html" class="logo">
+                <img src="../logo.png" alt="Hunter Beezley Logo">
+            </a>
             <ul class="nav-links">
-                <li><a href="/#about">About</a></li>
-                <li><a href="/#work">Work</a></li>
-                <li><a href="/#contact">Contact</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#work">Work</a></li>
+                <li><a href="index.html" aria-current="page">Scripts</a></li>
             </ul>
         </nav>
     </header>
@@ -575,7 +586,7 @@ events.items.forEach(event => {
 
     <footer>
         <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
-        <a href="/" class="back-link">← Back to Portfolio</a>
+        <a href="../index.html" class="back-link">← Back to Portfolio</a>
     </footer>
 
     <!-- p5.js for animated feedback button -->
