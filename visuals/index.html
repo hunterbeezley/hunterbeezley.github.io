@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visuals - Hunter Beezley</title>
+
+    <meta name="description" content="Generative art, audio-reactive visuals, and interactive sketches exploring motion and color">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+    <style>
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(23, 133, 145, 0.15);
+        }
+
+        .project-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: var(--sidebar-bg);
+            overflow: hidden;
+        }
+
+        .project-thumbnail video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            margin: 0;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .project-meta {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-desc {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <h1>Visuals</h1>
+            <p style="color: var(--text-dim); font-size: 1.05rem;">A collection of generative art experiments, audio-reactive visuals, and interactive sketches exploring motion, color, and algorithmic design.</p>
+
+            <div class="projects-grid">
+                <!-- aTOBIN -->
+                <a href="/visuals/atobin/" class="project-card">
+                    <div class="project-thumbnail">
+                        <video src="/visuals/videos/atobin-preview.mp4" muted loop autoplay playsinline></video>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">aTOBIN</h3>
+                        <p class="project-meta">2024 | TouchDesigner, Audio Reactive</p>
+                        <p class="project-desc">Audio-reactive visualization exploring algorithmic motion and color transformations.</p>
+                    </div>
+                </a>
+
+                <!-- Liquid Chrome -->
+                <a href="/visuals/liquidchrome/" class="project-card">
+                    <div class="project-thumbnail">
+                        <video src="/visuals/videos/liquidchrome-preview.mp4" muted loop autoplay playsinline></video>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Liquid Chrome</h3>
+                        <p class="project-meta">2024 | TouchDesigner</p>
+                        <p class="project-desc">Metallic fluid simulation with reflective surface dynamics.</p>
+                    </div>
+                </a>
+
+                <!-- Sharp Edges -->
+                <a href="/visuals/sharpedges/" class="project-card">
+                    <div class="project-thumbnail">
+                        <video src="/visuals/videos/sharpedges-preview.mp4" muted loop autoplay playsinline></video>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Sharp Edges</h3>
+                        <p class="project-meta">2024 | TouchDesigner, Procedural Generation</p>
+                        <p class="project-desc">Geometric abstraction featuring angular forms and crystalline structures.</p>
+                    </div>
+                </a>
+
+                <!-- Hydra -->
+                <a href="/visuals/hydra/" class="project-card">
+                    <div class="project-thumbnail" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--accent), var(--accent-hover));">
+                        <div style="font-size: 3rem;">◇</div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Hydra</h3>
+                        <p class="project-meta">Interactive | Live Coding, WebGL</p>
+                        <p class="project-desc">Real-time live-coded visuals using Hydra and generative synthesis.</p>
+                    </div>
+                </a>
+            </div>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

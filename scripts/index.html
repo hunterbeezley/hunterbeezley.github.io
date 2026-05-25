@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts & Solutions - Hunter Beezley</title>
+
+    <meta name="description" content="Automation scripts, API integrations, and technical solutions">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+    <style>
+        .script-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .script-card:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(23, 133, 145, 0.15);
+        }
+
+        .script-title {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .script-desc {
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .script-impact {
+            padding: 1rem;
+            background: rgba(23, 133, 145, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <h1>Scripts & Solutions</h1>
+            <p style="color: var(--text-dim); font-size: 1.05rem;">Things I've built for automation, technical troubleshooting and daily workflow management.</p>
+
+            <!-- Bulk Email Update -->
+            <a href="/scripts/bulk-email/" class="script-card">
+                <h3 class="script-title">Bulk User Email Update</h3>
+                <span class="script-badge">Customer Support Tool</span>
+                <p class="script-desc">CSV-driven automation tool for updating email addresses of multiple New Relic users at scale. The most impactful script built for New Relic Support operations, saving hours of manual work for customers migrating domains or correcting provisioning errors.</p>
+                <div class="script-impact">Most impactful script for New Relic Support operations, used for domain migrations and acquisitions affecting hundreds of users.</div>
+            </a>
+
+            <!-- SCIM Delete Tool -->
+            <a href="/scripts/scim-delete/" class="script-card">
+                <h3 class="script-title">SCIM User Delete Tool</h3>
+                <span class="script-badge">Interactive CLI</span>
+                <p class="script-desc">Interactive command-line tool for New Relic SCIM user management. Automates the lookup and deletion workflow with built-in safety confirmations and user-friendly prompts. Critical for Support operations dealing with SCIM-provisioned users.</p>
+                <div class="script-impact">Simplifies SCIM user deletion and prevents accidental deletions while maintaining efficiency.</div>
+            </a>
+
+            <!-- OOO Bot -->
+            <a href="/scripts/ooo-bot/" class="script-card">
+                <h3 class="script-title">Out of Office Calendar Bot</h3>
+                <span class="script-badge">Automation</span>
+                <p class="script-desc">Google Apps Script that automatically detects team members who are out of office by scanning a shared Google Calendar and sends daily notifications to Slack. Filters by keywords, team members, and all-day events for accuracy.</p>
+                <div class="script-impact">Eliminates manual calendar checking and proactively notifies the team of who's out.</div>
+            </a>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

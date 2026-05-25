@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk User Email Update - Hunter Beezley</title>
+
+    <meta name="description" content="Bulk User Email Update - CSV-driven automation tool for New Relic">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list li {
+            margin-left: 0;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .impact-box {
+            padding: 1.5rem;
+            background: rgba(23, 133, 145, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            margin: 2rem 0;
+        }
+
+        .impact-box strong {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <a href="/scripts/" class="back-link">Back to Scripts</a>
+
+            <h1>Bulk User Email Update</h1>
+            <span class="badge">Customer Support Tool</span>
+
+            <p style="font-size: 1.05rem; color: var(--text); margin-top: 1rem; margin-bottom: 2rem;">CSV-driven automation tool for updating email addresses of multiple New Relic users at scale. The most impactful script built for New Relic Support operations, saving hours of manual work for customers migrating domains or correcting provisioning errors.</p>
+
+            <h2>Key Features</h2>
+            <ul class="feature-list">
+                <li>Batch processing from CSV (ID and email columns)</li>
+                <li>New Relic User Management API via GraphQL mutations</li>
+                <li>Input validation with error handling</li>
+                <li>Individual success/failure reporting per user</li>
+                <li>Simple interactive prompts for API key and CSV path</li>
+                <li>File existence and format validation</li>
+            </ul>
+
+            <h2>Tech Stack</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">GraphQL</span>
+                <span class="tech-tag">New Relic NerdGraph API</span>
+                <span class="tech-tag">CSV Processing</span>
+            </div>
+
+            <h2>Core Implementation</h2>
+            <div class="code-block"><pre><code><span style="color: var(--text-dim);"># Loop through CSV and update each user</span>
+<span style="color: var(--accent);">with</span> open(csv_path, newline='') <span style="color: var(--accent);">as</span> csvfile:
+    reader = csv.DictReader(csvfile)
+    <span style="color: var(--accent);">for</span> row <span style="color: var(--accent);">in</span> reader:
+        user_id = row['ID']
+        new_email = row['Email']
+
+        <span style="color: var(--text-dim);"># GraphQL mutation</span>
+        payload = {
+            <span style="color: var(--accent);">"query"</span>: <span style="color: var(--accent);">"""mutation {
+                userManagementUpdateUser(
+                    updateUserOptions: {
+                        id: "</span>" + user_id + <span style="color: var(--accent);">",
+                        email: "</span>" + new_email + <span style="color: var(--accent);">"
+                    }
+                ) {
+                    user { id email }
+                }
+            }"""</span>
+        }
+
+        response = requests.post(api_url, headers=headers,
+                                data=json.dumps(payload))
+
+        <span style="color: var(--accent);">if</span> <span style="color: var(--accent);">"errors"</span> <span style="color: var(--accent);">in</span> response.json():
+            print(<span style="color: var(--accent);">"Error:"</span>, response.json()[<span style="color: var(--accent);">"errors"</span>])
+        <span style="color: var(--accent);">else</span>:
+            print(<span style="color: var(--accent);">f</span><span style="color: var(--accent);">"User {user_id} updated successfully"</span>)</code></pre></div>
+
+            <div class="impact-box">
+                <h3 style="margin-top: 0;">Impact</h3>
+                <p><strong>Most impactful script for New Relic Support operations.</strong> Regularly used for customer migrations (domain changes, company acquisitions) and fixing bulk provisioning errors. What would take hours of manual UI clicks now completes in minutes. Has been used for customers with hundreds of users requiring email updates.</p>
+            </div>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

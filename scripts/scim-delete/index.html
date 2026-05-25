@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIM User Delete Tool - Hunter Beezley</title>
+
+    <meta name="description" content="SCIM User Delete Tool - Interactive CLI for New Relic SCIM management">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list li {
+            margin-left: 0;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .impact-box {
+            padding: 1.5rem;
+            background: rgba(23, 133, 145, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            margin: 2rem 0;
+        }
+
+        .impact-box strong {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <a href="/scripts/" class="back-link">Back to Scripts</a>
+
+            <h1>SCIM User Delete Tool</h1>
+            <span class="badge">Interactive CLI</span>
+
+            <p style="font-size: 1.05rem; color: var(--text); margin-top: 1rem; margin-bottom: 2rem;">Interactive command-line tool for New Relic SCIM user management. Automates the lookup and deletion workflow with built-in safety confirmations and user-friendly prompts. Critical for Support operations dealing with SCIM-provisioned users.</p>
+
+            <h2>Key Features</h2>
+            <ul class="feature-list">
+                <li>Email-based SCIM user lookup via filtering API</li>
+                <li>Interactive confirmation before deletion</li>
+                <li>Continuous workflow (delete multiple users in one session)</li>
+                <li>Friendly error messages and user guidance</li>
+                <li>Authentication domain awareness</li>
+                <li>Invalid input handling with retry prompts</li>
+            </ul>
+
+            <h2>Tech Stack</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">SCIM API</span>
+                <span class="tech-tag">REST</span>
+                <span class="tech-tag">Bearer Token Auth</span>
+            </div>
+
+            <h2>Workflow Logic</h2>
+            <div class="code-block"><pre><code><span style="color: var(--text-dim);"># Step 1: Lookup user by email</span>
+response = requests.get(
+    'https://scim-provisioning.service.newrelic.com/scim/v2/Users',
+    headers={<span style="color: var(--accent);">'Authorization'</span>: <span style="color: var(--accent);">f</span><span style="color: var(--accent);">'Bearer {api_key}'</span>},
+    params={<span style="color: var(--accent);">'filter'</span>: <span style="color: var(--accent);">f</span><span style="color: var(--accent);">'userName eq "{email}"'</span>}
+)
+
+user_id = response.json()[<span style="color: var(--accent);">'Resources'</span>][0][<span style="color: var(--accent);">'id'</span>]
+print(<span style="color: var(--accent);">f</span><span style="color: var(--accent);">"User ID: {user_id}"</span>)
+
+<span style="color: var(--text-dim);"># Step 2: Confirm deletion</span>
+choice = input(<span style="color: var(--accent);">"Delete this user? y/n: "</span>).lower()
+
+<span style="color: var(--accent);">if</span> choice == <span style="color: var(--accent);">'y'</span>:
+    <span style="color: var(--text-dim);"># Step 3: Execute deletion</span>
+    delete_response = requests.delete(
+        <span style="color: var(--accent);">f</span><span style="color: var(--accent);">'https://scim-provisioning.service.newrelic.com/scim/v2/Users/{user_id}'</span>,
+        headers={<span style="color: var(--accent);">'Authorization'</span>: <span style="color: var(--accent);">f</span><span style="color: var(--accent);">'Bearer {api_key}'</span>}
+    )
+
+    <span style="color: var(--accent);">if</span> delete_response.status_code == 204:
+        print(<span style="color: var(--accent);">"User deleted successfully!"</span>)
+
+<span style="color: var(--text-dim);"># Step 4: Continue or exit</span>
+choice = input(<span style="color: var(--accent);">"Delete another user? y/n: "</span>)</code></pre></div>
+
+            <div class="impact-box">
+                <h3 style="margin-top: 0;">Impact</h3>
+                <p>Simplifies SCIM user deletion which otherwise requires multiple API calls and manual SCIM ID lookup. Interactive design prevents accidental deletions while maintaining efficiency. Used by Support engineers for offboarding, troubleshooting auth domains, and cleaning up test users. Friendly prompts make technical operations more approachable.</p>
+            </div>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

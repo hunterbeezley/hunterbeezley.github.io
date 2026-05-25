@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Out of Office Calendar Bot - Hunter Beezley</title>
+
+    <meta name="description" content="Out of Office Calendar Bot - Google Apps Script automation">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list li {
+            margin-left: 0;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .impact-box {
+            padding: 1.5rem;
+            background: rgba(23, 133, 145, 0.05);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            margin: 2rem 0;
+        }
+
+        .impact-box strong {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <a href="/scripts/" class="back-link">Back to Scripts</a>
+
+            <h1>Out of Office Calendar Bot</h1>
+            <span class="badge">Automation</span>
+
+            <p style="font-size: 1.05rem; color: var(--text); margin-top: 1rem; margin-bottom: 2rem;">Google Apps Script that automatically detects team members who are out of office by scanning a shared Google Calendar and sends daily notifications to Slack. Filters by keywords, team members, and all-day events for accuracy.</p>
+
+            <h2>Key Features</h2>
+            <ul class="feature-list">
+                <li>Automated daily scanning via time-based triggers</li>
+                <li>Keyword detection (OOO, Vacation, PTO, Holiday, etc.)</li>
+                <li>Team member filtering by email address</li>
+                <li>All-day event validation (ignores partial-day events)</li>
+                <li>Individual Slack messages per OOO user via webhooks</li>
+                <li>Resource/group calendar filtering (excludes meeting rooms)</li>
+                <li>Test mode for webhook validation</li>
+            </ul>
+
+            <h2>Tech Stack</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Google Apps Script</span>
+                <span class="tech-tag">Google Calendar API</span>
+                <span class="tech-tag">Slack Webhooks</span>
+                <span class="tech-tag">JavaScript</span>
+            </div>
+
+            <h2>Core Logic</h2>
+            <div class="code-block"><pre><code><span style="color: var(--text-dim);">// Fetch today's calendar events</span>
+<span style="color: var(--accent);">const</span> events = Calendar.Events.list(CALENDAR_ID, {
+  timeMin: todayStart.toISOString(),
+  timeMax: todayEnd.toISOString(),
+  singleEvents: <span style="color: var(--accent);">true</span>
+});
+
+<span style="color: var(--text-dim);">// Filter for OOO keywords and all-day events</span>
+events.items.forEach(event => {
+  <span style="color: var(--accent);">const</span> isOoo = OOO_KEYWORDS.some(keyword =>
+    event.summary.toLowerCase().includes(keyword)
+  );
+
+  <span style="color: var(--accent);">const</span> isAllDay = event.start.date && !event.start.dateTime;
+
+  <span style="color: var(--accent);">if</span> (isOoo && isAllDay) {
+    sendSlackMessage(event.creator.email);
+  }
+});</code></pre></div>
+
+            <div class="impact-box">
+                <h3 style="margin-top: 0;">Impact</h3>
+                <p>Eliminates manual checking of team calendars. Proactively notifies the team channel each morning of who's out, improving work distribution and reducing surprise absences. Improves team coordination and ensures no critical availability gaps are missed.</p>
+            </div>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aTOBIN - Hunter Beezley</title>
+
+    <meta name="description" content="aTOBIN - Audio-reactive visualization exploring algorithmic motion and color transformations">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <a href="/visuals/" class="back-link">Back to Visuals</a>
+
+            <h1>aTOBIN</h1>
+
+            <div class="project-meta">
+                <span class="meta-item"> 2024</span>
+                <span class="meta-item"> TouchDesigner, Audio Reactive</span>
+            </div>
+
+            <video style="width: 100%; border-radius: 8px; margin: 2rem 0;" controls playsinline>
+                <source src="/visuals/videos/atobin.mp4" type="video/mp4">
+            </video>
+
+            <section>
+                <h2 class="section-title">About This Project</h2>
+                <p>aTOBIN is an audio-reactive visualization that explores the intersection of algorithmic motion and dynamic color transformation. The piece responds in real-time to audio input, translating sonic frequencies into visual motion and chromatic shifts. Each musical moment generates unique geometric patterns and color palettes, creating an immersive dialogue between sound and sight.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Technical Approach</h2>
+                <p>Built in TouchDesigner, aTOBIN utilizes audio analysis operators to extract frequency data across multiple bands. This data drives particle systems, geometric deformations, and shader-based color shifting. The system maintains algorithmic complexity while remaining responsive to subtle audio nuances, creating smooth transitions between visual states.</p>
+                <p>Real-time GPU processing enables high-resolution output suitable for live performance or installation contexts.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Tools & Techniques</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0;">
+                    <span class="project-tag">TouchDesigner</span>
+                    <span class="project-tag">Audio Analysis</span>
+                    <span class="project-tag">GLSL Shaders</span>
+                    <span class="project-tag">Particle Systems</span>
+                    <span class="project-tag">Real-Time Graphics</span>
+                    <span class="project-tag">Procedural Animation</span>
+                </div>
+            </section>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

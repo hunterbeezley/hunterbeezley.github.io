@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Chrome - Hunter Beezley</title>
+
+    <meta name="description" content="Liquid Chrome - Metallic fluid simulation with reflective surface dynamics">
+    <meta name="author" content="Hunter Beezley">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="stylesheet" href="/vault.css">
+
+</head>
+<body>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
+
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+
+            <a href="/visuals/" class="back-link">Back to Visuals</a>
+
+            <h1>Liquid Chrome</h1>
+
+            <div class="project-meta">
+                <span class="meta-item"> 2024</span>
+                <span class="meta-item"> TouchDesigner</span>
+            </div>
+
+            <video style="width: 100%; border-radius: 8px; margin: 2rem 0;" controls playsinline>
+                <source src="/visuals/videos/liquidchrome.mp4" type="video/mp4">
+            </video>
+
+            <section>
+                <h2 class="section-title">About This Project</h2>
+                <p>Liquid Chrome is an exploration of fluid dynamics and reflection. The piece simulates metallic liquid surfaces with physically-inspired fluid motion, creating a mesmerizing interaction between form and light. The work focuses on how reflections and refractions transform simple geometric surfaces into complex, organic-feeling forms.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Technical Approach</h2>
+                <p>This project leverages TouchDesigner's GPU-accelerated fluid solver to simulate liquid behavior in real-time. Custom shaders handle reflections, refractions, and metallic surface properties. The result is a smooth, continuous animation that suggests liquid movement while maintaining visual clarity.</p>
+                <p>The work demonstrates advanced shader techniques and optimization strategies for rendering complex materials in real-time contexts.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Tools & Techniques</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0;">
+                    <span class="project-tag">TouchDesigner</span>
+                    <span class="project-tag">Fluid Simulation</span>
+                    <span class="project-tag">GLSL Shaders</span>
+                    <span class="project-tag">Reflections & Refractions</span>
+                    <span class="project-tag">Material Simulation</span>
+                    <span class="project-tag">GPU Computing</span>
+                </div>
+            </section>
+
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
+
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
+
+    <script src="/pwa-register.js"></script>
+    <script src="/vault-sidebar.js"></script>
+</body>
+</html>

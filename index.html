@@ -3,812 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunter Beezley</title>
+    <title>Hunter Beezley - Portfolio</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Hunter Beezley - Creative technologist, software engineer, and visual artist specializing in generative art and interactive experiences">
+    <meta name="description" content="Hunter Beezley - Creative technologist and software engineer specializing in generative art, automation, and identity management">
     <meta name="author" content="Hunter Beezley">
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Hunter Beezley - Creative Technologist">
-    <meta property="og:description" content="Software engineer and visual artist specializing in generative art and interactive experiences">
+    <meta property="og:title" content="Hunter Beezley - Portfolio">
+    <meta property="og:description" content="Creative technologist and software engineer">
     <meta property="og:url" content="https://hunterbeezley.github.io/">
     <meta property="og:image" content="https://hunterbeezley.github.io/og-image.jpg">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://hunterbeezley.github.io/og-image.jpg">
 
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://hunterbeezley.github.io/">
-
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
-
-    <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0d1117">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="HB Portfolio">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+    <link rel="stylesheet" href="/vault.css">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #00d9ff;
-            --secondary: #ff006e;
-            --accent: #ffbe0b;
-            --bg: #0a0a0a;
-            --text: #ffffff;
-            --text-dim: #a0a0a0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Full-page background video */
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        /* Prevent video flicker on mobile */
-        @supports (-webkit-touch-callout: none) {
-            .background-video {
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
-            }
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background: rgba(10, 10, 10, 0.9);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .logo img:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Main sections */
-        section {
-            min-height: 100vh;
-            padding: 6rem 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Improve text readability over video */
-        section:not(.hero) {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        /* Hero section */
-        .hero {
-            flex-direction: column;
+        /* Home-specific styles */
+        .vault-hero-section {
             text-align: center;
-            justify-content: flex-end;
-            padding-bottom: 6rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            line-height: 1.1;
-        }
-
-        .hero .gradient-text {
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            color: var(--text-dim);
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 10;
-        }
-
-        .btn {
-            padding: 0.75rem 2rem;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--text);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: var(--primary);
-            color: var(--bg);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
-        }
-
-        .btn-secondary {
-            border-color: var(--text-dim);
-        }
-
-        .btn-secondary:hover {
-            background: var(--text);
-            border-color: var(--text);
-        }
-
-        /* About section */
-        .about {
-            flex-direction: column;
-        }
-
-        .about h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 2rem;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .about-text p {
-            color: var(--text-dim);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-
-        .skill-tag {
-            padding: 0.5rem 1rem;
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--primary);
-        }
-
-        /* Work section */
-        .work h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
+            padding: 2rem 0;
             margin-bottom: 3rem;
-            text-align: center;
-            width: 100%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .vault-hero-section h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .vault-hero-section > p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
         }
 
         .work-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            width: 100%;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
         .work-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             padding: 2rem;
             transition: all 0.3s;
             text-decoration: none;
-            color: var(--text);
-            display: block;
+            color: inherit;
         }
 
         .work-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+            border-color: var(--accent);
+            background: rgba(23, 133, 145, 0.05);
+            transform: translateY(-2px);
         }
 
         .work-card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary);
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
         }
 
         .work-card p {
             color: var(--text-dim);
             margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .work-tag {
             display: inline-block;
-            font-size: 0.85rem;
+            padding: 0.3rem 0.7rem;
+            background: rgba(23, 133, 145, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            font-size: 0.8rem;
             color: var(--accent);
-            margin-right: 0.5rem;
         }
 
-        /* Contact section */
-        .contact {
-            flex-direction: column;
-            text-align: center;
+        /* About section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
         }
 
-        .contact h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 1.5rem;
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
 
-        .contact p {
+        .skill-tag {
+            padding: 0.4rem 0.8rem;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            font-size: 0.85rem;
             color: var(--text-dim);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
+        }
+
+        .skill-tag:hover {
+            background: rgba(23, 133, 145, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         .social-links {
             display: flex;
-            gap: 1.5rem;
-            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
 
         .social-link {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: var(--text);
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-dim);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.2s;
             font-size: 1.2rem;
         }
 
         .social-link:hover {
-            border-color: var(--primary);
-            background: var(--primary);
-            color: var(--bg);
-            transform: translateY(-3px);
+            border-color: var(--accent);
+            background: rgba(23, 133, 145, 0.1);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
 
-        /* Footer */
-        footer {
+        /* Contact section */
+        .contact-section {
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-section p {
             color: var(--text-dim);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
+            margin-bottom: 1.5rem;
         }
 
-        /* Discrete admin button */
-        .admin-link {
-            position: fixed;
-            bottom: 1rem;
-            left: 1rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.15);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            z-index: 998;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        .admin-link:hover {
-            background: rgba(0, 217, 255, 0.1);
-            border-color: rgba(0, 217, 255, 0.3);
-            color: var(--primary);
-            transform: scale(1.05);
-        }
-
-        /* Floating contact button container for p5.js */
-        #feedback-button-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 999;
-            filter: drop-shadow(0 8px 24px rgba(0, 217, 255, 0.4));
-            transition: transform 0.3s ease;
-        }
-
-        #feedback-button-container:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 12px 32px rgba(0, 217, 255, 0.6));
-        }
-
-        #feedback-button-container canvas {
-            display: block;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            header {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo img {
-                height: 32px;
-                width: 32px;
-            }
-
-            .nav-links {
-                gap: 0.75rem;
-                font-size: 0.9rem;
-            }
-
-            .nav-links a {
-                padding: 0.5rem;
-            }
-
-            .about-content {
+            .about-grid {
                 grid-template-columns: 1fr;
-            }
-
-            section {
-                padding: 4rem 1.5rem 3rem;
-            }
-
-            .hero {
-                padding-bottom: 4rem;
-            }
-
-            .btn {
-                padding: 0.65rem 1.5rem;
-                font-size: 0.95rem;
-                min-width: 140px;
-            }
-
-            .work-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-link {
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
-            }
-
-            /* Ensure background video doesn't cause performance issues on mobile */
-            .background-video {
-                opacity: 0.4;
-            }
-
-            #feedback-button-container {
-                bottom: 1.5rem;
-                right: 1.5rem;
-                transform: scale(0.8);
-            }
-
-            #feedback-button-container:hover {
-                transform: scale(0.85);
-            }
-        }
-
-        /* Extra small screens */
-        @media (max-width: 480px) {
-            .cta-buttons {
-                flex-direction: column;
-                gap: 0.75rem;
-                width: 100%;
-                max-width: 280px;
-                margin: 0 auto;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-
-        /* Touch targets for mobile */
-        @media (hover: none) and (pointer: coarse) {
-            .btn, .social-link, .nav-links a, .work-card {
-                min-height: 44px;
-            }
-        }
-
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
-                transition: none !important;
+                gap: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Full-page background video -->
-    <video autoplay loop muted playsinline class="background-video" id="background-video" preload="auto" webkit-playsinline>
-        <source src="background-animation.mp4" type="video/mp4">
-    </video>
+    <div class="vault-layout">
+        <div id="vault-sidebar"></div>
 
-    <header>
-        <nav>
-            <a href="#" class="logo">
-                <img src="logo.png" alt="Hunter Beezley Logo">
-            </a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="visuals_1/index.html">Visuals</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </nav>
-    </header>
+        <main class="vault-content">
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="cta-buttons">
-                <a href="#work" class="btn">View My Work</a>
-                <a href="resume.html" class="btn btn-secondary">Resume</a>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Tech worker, creative coder, human [beep boop].
-                    </p>
-          
+            <!-- Hero Section -->
+            <section class="vault-hero-section">
+                <h1>Hunter Beezley</h1>
+                <p>Creative technologist, software engineer, and visual artist</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="/visuals/" class="btn">Visuals</a>
+                    <a href="/scripts/" class="btn btn-secondary">Scripts</a>
+                    <a href="/resume.html" class="btn btn-secondary">Resume</a>
                 </div>
-                <div>
-                    <h3 style="margin-bottom: 1rem;">Skills & Tools</h3>
-                    <div class="skills">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">IAM & Security</span>
-                        <span class="skill-tag">SSO/SCIM</span>
-                        <span class="skill-tag">APIs (REST & GraphQL)</span>
-                        <span class="skill-tag">Okta</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Bash/Shell</span>
-                        <span class="skill-tag">HTML/CSS</span>
-                        <span class="skill-tag">Automation</span>
-                        <span class="skill-tag">TouchDesigner</span>
-                        <span class="skill-tag">p5.js</span>
-                        <span class="skill-tag">Creative Coding</span>
-                        <span class="skill-tag">Generative Art</span>
+            </section>
+
+            <!-- About Section -->
+            <section id="about">
+                <h2>About</h2>
+                <div class="about-grid">
+                    <div>
+                        <p>Tech worker, creative coder, human [beep boop].</p>
+                    </div>
+                    <div>
+                        <h3>Skills & Tools</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">IAM & Security</span>
+                            <span class="skill-tag">SSO/SCIM</span>
+                            <span class="skill-tag">APIs (REST & GraphQL)</span>
+                            <span class="skill-tag">Okta</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Bash/Shell</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">Automation</span>
+                            <span class="skill-tag">TouchDesigner</span>
+                            <span class="skill-tag">p5.js</span>
+                            <span class="skill-tag">Creative Coding</span>
+                            <span class="skill-tag">Generative Art</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Work Section -->
-        <section id="work" class="work" style="flex-direction: column;">
-            <h2>Featured Work</h2>
-            <div class="work-grid">
-                <a href="visuals_1/index.html" class="work-card">
-                    <h3>Visuals</h3>
-                    <p>
-                        A collection of generative art experiments, audio-reactive visuals,
-                        and interactive sketches exploring motion, color, and algorithmic design.
-                    </p>
-                    <span class="work-tag">p5.js</span>
-                    <span class="work-tag">Hydra</span>
-                    <span class="work-tag">WebGL</span>
-                </a>
+            <!-- Work Section -->
+            <section id="work">
+                <h2>Featured Work</h2>
+                <div class="work-grid">
+                    <a href="/visuals/" class="work-card">
+                        <h3>Visuals</h3>
+                        <p>A collection of generative art experiments, audio-reactive visuals, and interactive sketches exploring motion, color, and algorithmic design.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">p5.js</span>
+                            <span class="work-tag">Hydra</span>
+                            <span class="work-tag">WebGL</span>
+                        </div>
+                    </a>
 
-                <a href="scripts-solutions/index.html" class="work-card">
-                    <h3>Scripts & Solutions</h3>
-                    <p>
-                        Automation scripts, API integrations, and technical solutions
-                        for workflow optimization and problem-solving.
-                    </p>
-                    <span class="work-tag">Python</span>
-                    <span class="work-tag">Automation</span>
-                    <span class="work-tag">APIs</span>
-                </a>
+                    <a href="/scripts/" class="work-card">
+                        <h3>Scripts & Solutions</h3>
+                        <p>Automation scripts, API integrations, and technical solutions for workflow optimization and problem-solving.</p>
+                        <div class="work-tags">
+                            <span class="work-tag">Python</span>
+                            <span class="work-tag">Automation</span>
+                            <span class="work-tag">APIs</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
 
-                <!-- Apps & Tools hidden until content is ready
-                <a href="apps/index.html" class="work-card">
-                    <h3>Apps & Tools</h3>
-                    ...
-                </a>
-                -->
-            </div>
-        </section>
+            <!-- Contact Section -->
+            <section class="contact-section">
+                <h2>Connect</h2>
+                <p>Find me on social media or get in touch</p>
+                <div class="social-links">
+                    <a href="https://github.com/hunterbeezley" class="social-link" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">GH</a>
+                    <a href="https://www.linkedin.com/in/hunterbeezley/" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">LI</a>
+                    <a href="https://www.instagram.com/h__nt3r_/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">IG</a>
+                    <a href="https://www.tiktok.com/@h_nt3r_" class="social-link" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok">TK</a>
+                </div>
+            </section>
 
-        <!-- Social Links Section -->
-        <section id="contact" class="contact">
-            <div class="social-links">
-                <a href="https://github.com/hunterbeezley" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">💻</a>
-                <a href="https://www.linkedin.com/in/hunterbeezley/" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">💼</a>
-                <a href="https://www.instagram.com/h__nt3r_/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
-                <a href="https://www.tiktok.com/@h_nt3r_" class="social-link" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
-            </div>
-        </section>
-    </main>
+            <footer class="vault-footer">
+                <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
+            </footer>
+        </main>
+    </div>
 
-    <!-- Floating Contact Button Container -->
-    <div id="feedback-button-container" aria-label="LinkedIn" role="button" tabindex="0"></div>
+    <!-- Resume Request Modal -->
+    <div id="resumeModal" class="resume-modal">
+        <div class="resume-modal-content">
+            <h2>Request Resume</h2>
+            <p>I'd like to know a bit more about you before sharing my resume. Please fill out the form below.</p>
+            <form class="resume-modal-form" id="resumeForm">
+                <input type="text" name="name" placeholder="Your name" required>
+                <input type="email" name="email" placeholder="Your email" required>
+                <textarea name="message" placeholder="What's your interest? (optional)"></textarea>
+                <div class="resume-modal-buttons">
+                    <button type="submit" class="submit-btn">Send Request</button>
+                    <button type="button" class="cancel-btn" onclick="document.getElementById('resumeModal').classList.remove('open')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 Hunter Beezley. Built with care and code.</p>
-    </footer>
+    <!-- Admin Link -->
+    <a href="admin.html" class="vault-admin-link" aria-label="Admin" title="Admin" style="font-weight: 600; font-size: 0.85rem;">ADM</a>
 
-    <!-- Discrete admin button -->
-    <a href="admin.html" class="admin-link" aria-label="Admin" title="Admin">⚙️</a>
-
-    <!-- PWA Service Worker Registration -->
+    <!-- Scripts -->
     <script src="/pwa-register.js"></script>
-
-    <!-- p5.js for animated contact button -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="/vault-sidebar.js"></script>
     <script>
-        if (typeof p5 === 'undefined') {
-            document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.min.js"><\/script>');
+        function openResumeModal() {
+            document.getElementById('resumeModal').classList.add('open');
         }
-    </script>
 
-    <script>
-        // Capture console errors
-        let consoleErrors = [];
-        const originalConsoleError = console.error;
-        console.error = function(...args) {
-            consoleErrors.push(args.join(' '));
-            originalConsoleError.apply(console, args);
-        };
+        document.getElementById('resumeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = this.elements.name.value;
+            const email = this.elements.email.value;
+            const message = this.elements.message.value;
 
-        // p5.js sketch for particle orbit button (LinkedIn Link)
-        let feedbackSketch = function(p) {
-            let particles = [];
-            let angle = 0;
+            const body = `Name: ${name}\nEmail: ${email}\n\n${message ? 'Message: ' + message : ''}`;
+            window.location.href = `mailto:nikkimargarita@proton.me?subject=Resume Request from ${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
 
-            p.setup = function() {
-                let canvas = p.createCanvas(120, 120);
-                canvas.parent('feedback-button-container');
-                canvas.style('cursor', 'pointer');
-
-                // Create particles with different orbits
-                let colors = [
-                    p.color(0, 217, 255),    // cyan
-                    p.color(255, 0, 110),    // pink
-                    p.color(255, 190, 11)    // yellow
-                ];
-
-                for (let i = 0; i < 8; i++) {
-                    particles.push({
-                        angle: p.random(p.TWO_PI),
-                        radius: p.random(45, 55),
-                        speed: p.random(0.01, 0.03),
-                        size: p.random(3, 6),
-                        color: colors[i % colors.length]
-                    });
-                }
-            };
-
-            p.draw = function() {
-                p.clear();
-                p.push();
-                p.translate(60, 60);
-
-                // Draw main button circle with gradient
-                let gradient = p.drawingContext.createRadialGradient(0, 0, 0, 0, 0, 30);
-                gradient.addColorStop(0, 'rgba(0, 217, 255, 0.8)');
-                gradient.addColorStop(1, 'rgba(255, 0, 110, 0.8)');
-                p.drawingContext.fillStyle = gradient;
-                p.noStroke();
-                p.circle(0, 0, 60);
-
-                // Draw orbiting particles
-                particles.forEach(particle => {
-                    let x = p.cos(particle.angle) * particle.radius;
-                    let y = p.sin(particle.angle) * particle.radius;
-
-                    // Particle glow
-                    p.fill(particle.color.levels[0], particle.color.levels[1], particle.color.levels[2], 100);
-                    p.circle(x, y, particle.size + 4);
-
-                    // Particle core
-                    p.fill(particle.color);
-                    p.circle(x, y, particle.size);
-
-                    // Update angle
-                    particle.angle += particle.speed;
-                });
-
-                // Draw emoji (LinkedIn indicator)
-                p.fill(10);
-                p.textAlign(p.CENTER, p.CENTER);
-                p.textSize(24);
-                p.text('💼', 0, 0);
-
-                p.pop();
-            };
-
-            p.mousePressed = function() {
-                let d = p.dist(p.mouseX, p.mouseY, 60, 60);
-                if (d < 30) {
-                    window.open('https://www.linkedin.com/in/hunterbeezley/', '_blank');
-                }
-            };
-        };
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+            document.getElementById('resumeModal').classList.remove('open');
+            this.reset();
         });
 
-        // Aggressive video autoplay for mobile
-        (function() {
-            const video = document.getElementById('background-video');
-
-            if (!video) return;
-
-            // Pause video on data saver mode
-            if ('connection' in navigator && navigator.connection && navigator.connection.saveData) {
-                video.pause();
-                return;
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('a[href="/resume.html"]')) {
+                e.preventDefault();
+                document.getElementById('resumeModal').classList.add('open');
             }
+        });
 
-            // Force play on multiple events
-            function forcePlay() {
-                if (video.paused) {
-                    video.play().catch(err => {
-                        console.log('Video play attempt:', err);
-                    });
-                }
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('resumeModal');
+            if (e.target === modal) {
+                modal.classList.remove('open');
             }
-
-            // Try to play immediately
-            forcePlay();
-
-            // Force play on various events
-            const events = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'];
-            events.forEach(event => {
-                video.addEventListener(event, forcePlay, { once: true });
-            });
-
-            // Try on DOMContentLoaded
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', forcePlay);
-            }
-
-            // Try on window load
-            window.addEventListener('load', forcePlay);
-
-            // Try when page becomes visible
-            document.addEventListener('visibilitychange', function() {
-                if (!document.hidden) {
-                    forcePlay();
-                }
-            });
-
-            // Try on any user interaction (for iOS strict autoplay policy)
-            const userInteractionEvents = ['touchstart', 'touchend', 'click', 'scroll'];
-            let interactionTriggered = false;
-
-            userInteractionEvents.forEach(eventType => {
-                document.addEventListener(eventType, function() {
-                    if (!interactionTriggered && video.paused) {
-                        interactionTriggered = true;
-                        forcePlay();
-                    }
-                }, { once: true, passive: true });
-            });
-
-            // Periodic check to ensure video is playing (stops after success)
-            let checkCount = 0;
-            const maxChecks = 20;
-            const checkInterval = setInterval(() => {
-                checkCount++;
-                if (checkCount >= maxChecks || !video.paused) {
-                    clearInterval(checkInterval);
-                    return;
-                }
-                forcePlay();
-            }, 500);
-        })();
-
-        // Initialize p5 contact button after page loads
-        window.addEventListener('load', function() {
-            new p5(feedbackSketch);
         });
     </script>
 </body>
