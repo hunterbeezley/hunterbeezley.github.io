@@ -179,11 +179,22 @@
         <div id="vault-sidebar"></div>
 
         <main class="vault-content">
-            <button class="vault-mobile-toggle" aria-label="Toggle sidebar">MENU</button>
+            <button class="vault-mobile-toggle" aria-label="Toggle sidebar"></button>
 
             <!-- Hero Section -->
             <section class="vault-hero-section">
-                <h1>Hunter Beezley</h1>
+                <pre class="ascii-hero" aria-hidden="true"><span class="ascii-stars">  .          *              .        *
+       *               .          *      </span>
+
+  █   █  █   █  █   █  █████  █████  ████
+  █   █  █   █  ██  █    █    █      █   █
+  █████  █   █  █ █ █    █    ████   ████
+  █   █  █   █  █  ██    █    █      █ █
+  █   █   ███   █   █    █    █████  █  █<span class="ascii-stars">
+
+  .         *         .              *
+       .          *          .          </span></pre>
+                <h1 class="ascii-hero-h1">Hunter Beezley</h1>
                 <p>Creative technologist, software engineer, and visual artist</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <a href="/visuals/" class="btn">Visuals</a>
@@ -289,6 +300,19 @@
     <!-- Scripts -->
     <script src="/pwa-register.js"></script>
     <script src="/vault-sidebar.js"></script>
+    <script>
+        (function() {
+            var art =
+                '  █   █  █   █  █   █  █████  █████  ████ \n' +
+                '  █   █  █   █  ██  █    █    █      █   █\n' +
+                '  █████  █   █  █ █ █    █    ████   ████ \n' +
+                '  █   █  █   █  █  ██    █    █      █ █  \n' +
+                '  █   █   ███   █   █    █    █████  █  █ ';
+            console.log('%c' + art, 'color:#cc2222;font-family:monospace;font-size:10px;line-height:1.4;');
+            console.log('%ccreative technologist & software engineer', 'color:#9a9a9a;font-family:monospace;');
+            console.log('%c→ hunterbeezley.github.io', 'color:#178591;font-family:monospace;');
+        })();
+    </script>
     <script>
         function openResumeModal() {
             document.getElementById('resumeModal').classList.add('open');

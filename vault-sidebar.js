@@ -76,8 +76,19 @@
     const sidebarContainer = document.getElementById('vault-sidebar');
     if (!sidebarContainer) return;
 
+    // Ensure the container has the correct class for styles to apply
+    sidebarContainer.classList.add('vault-sidebar');
+
     // Inject sidebar HTML
     sidebarContainer.innerHTML = SIDEBAR_HTML;
+
+    // Create and add overlay for mobile if it doesn't exist
+    let overlay = document.querySelector('.vault-sidebar-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'vault-sidebar-overlay';
+      document.body.appendChild(overlay);
+    }
 
     // Set up section toggles
     document.querySelectorAll('.vault-nav-section-header').forEach(header => {
@@ -118,22 +129,35 @@
     // Handle mobile sidebar toggle
     const mobileToggle = document.querySelector('.vault-mobile-toggle');
     if (mobileToggle) {
-      mobileToggle.addEventListener('click', function() {
-        sidebarContainer.classList.toggle('open');
+      // Set initial ARIA state
+      mobileToggle.setAttribute('aria-expanded', 'false');
+
+      const toggleSidebar = (forceState) => {
+        const isOpen = typeof forceState === 'boolean' ? forceState : !sidebarContainer.classList.contains('open');
+        
+        if (isOpen) {
+          sidebarContainer.classList.add('open');
+          overlay.classList.add('active');
+          mobileToggle.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+        } else {
+          sidebarContainer.classList.remove('open');
+          overlay.classList.remove('active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      };
+
+      mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSidebar();
       });
+
+      overlay.addEventListener('click', () => toggleSidebar(false));
 
       // Close sidebar when clicking a link
       document.querySelectorAll('.vault-nav-link').forEach(link => {
-        link.addEventListener('click', function() {
-          sidebarContainer.classList.remove('open');
-        });
-      });
-
-      // Close sidebar when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!sidebarContainer.contains(e.target) && !mobileToggle.contains(e.target)) {
-          sidebarContainer.classList.remove('open');
-        }
+        link.addEventListener('click', () => toggleSidebar(false));
       });
     }
   }
